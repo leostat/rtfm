@@ -31,7 +31,8 @@ Search for the tag 'intersting'
 
 
 Search for the command psexec.py
-```./rtfm.py -c psexec.py
+```
+./rtfm.py -c psexec.py
 
 ++++++++++++++++++++++++++++++
 Command ID : 0
@@ -60,7 +61,8 @@ Insert commands into the db
 On all of these, I have tried to add 'debug' calls '-d'
 
 There is also a copy and paste freindly flag '-p':
-```++++++++++++++++++++++++++++++
+```
+++++++++++++++++++++++++++++++
 RTFM
 
 helpception
