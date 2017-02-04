@@ -371,7 +371,7 @@ if __name__ == "__main__":
 	parser = optparse.OptionParser(
 		usage="Usage: %prog [OPTIONS]",
 		version="%s: v%s (%s)" % (__prog__, __version__, ', '.join(__authors__)),
-		description="For when you cant just remember the syntax, you should just RTFM",
+		description="For when you just cant remember the syntax, you should just RTFM",
 		epilog="Example:rtfm.py -t windows rtfm.py -d tags",
 	)
 

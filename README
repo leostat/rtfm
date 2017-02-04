@@ -1,13 +1,13 @@
 = what =
-RTFM is a great and useful book, BUT a bit pointless when you have to transcribe it, so this little program will aim to be the spriritual succsessor to it.
+RTFM is a great and useful book, BUT a bit pointless when you have to transcribe it, so this little program will aim to be the spiritual successor to it.
 
-I would recomend picking up a copy of the book from amazon, its pretty handy to have!
+I would recommend picking up a copy of the book from amazon, it is pretty handy to have!
 
 = Useage =
 ./rtfm.py -h 
 Usage: rtfm.py [OPTIONS]
 
-For when you just cant remember the syntax, you should just RTFM
+For when you just can't remember the syntax, you should just RTFM
 
 Options:
   --version             show program's version number and exit
@@ -27,24 +27,46 @@ Options:
 
 ./rtfm.py -t interesting
  : Search for the tag 'intersting'
+
 ./rtfm.py -c psexec.py
  : Search for the command psexec.py
+
+++++++++++++++++++++++++++++++
+Command ID : 0
+Command    : RTFM
+
+Comment    : helpception
+Tags       : Linux
+Date Added : 2017-01-30
+++++++++++++++++++++++++++++++
+
 ./rtfm.py -D tags
  : show us all the current tags
+
 ./rtfm.py -c "psexec'% or cmd like '%samrdump"
  : Sql inject to get more than one search . . .oops
+
 ./rtfm.py -i t
  : add a tag to the CMD
+
 ./rtfm.py -i c
  : insert commands into the db
 
-On all of these I have tried to add 'debug' calls '-d'
+On all of these, I have tried to add 'debug' calls '-d'
+
+There is also a copy and paste freindly flag '-p':
+++++++++++++++++++++++++++++++
+RTFM
+
+helpception
+++++++++++++++++++++++++++++++
+
 = TODO =
- * Lots, this is a alpha so far
- * The 'important' funcionality is present, but still lots of work to do
+ * Lots, this is an alpha so far
+ * The 'important' functionality is present, but still lots of work to do
 Fixes:
   * Indexes on comments
-  * Probabley should use prepared statements : local so dont care
+  * Probably should use prepared statements: local so don't care
   * Check for dupe tags
   * Warn on dupe tags
   * Working DB check
@@ -55,13 +77,13 @@ Pipeline:
      cmd|tagcontent|tagmap
   * Swap to more sophisticated SQL, quite innefficent at the moment
   * Populate referances table
-  * update 			      : u <db|program>
-  * insert line 		      : i <Referance>
+  * update                   : u <db|program>
+  * insert line               : i <Referance>
   * "dump" tags, commands, refances : D <all|referances>
   * Search - Case sensitve versions : T and C 
-  * Create a HTML page 	      : H
-  * create a WIKI format 	      : W
-  * Remark (comment)  Search	      : r
+  * Create a HTML page           : H
+  * create a WIKI format           : W
+  * Remark (comment)  Search          : r
   * Drop to SQL Shell               : s
   * Template engine(autofill [user] : A user=innes,pass=password,attacker=1.1.1.1,victim=2.2.2.2
   * Make code more sane and betterize the layout 
@@ -73,5 +95,6 @@ Pipeline:
   * Fix the typos
 
 = Credits =
-The people that deserve the credits will be in the referances table of the DB. They are the ones doing the work!
-This inital release does not have this yet, though it is planned!
+The people that deserve the credits will be in the reference table of the DB. They are the ones doing the work!
+This initial release does not have this yet, though it is planned!
+
