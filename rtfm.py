@@ -47,6 +47,7 @@ __authors__ =	["See Referances: They are the real writers!"]
 ##  * create a WIKI format 	      : W
 ##  * Remark (comment)  Search	      : r
 ##  * Drop to SQL Shell               : s
+##  * Pretty tables  teminaltables    : P
 ##  * Template engine(autofill [user] : A user=innes,pass=password,attacker=1.1.1.1,victim=2.2.2.2
 ##  * Make code more sane and betterize the layout 
 ##
@@ -97,7 +98,8 @@ def run():
 
 	# probabley should return a varible and then check how we are printing
 	if (options.cmd is not None) and (options.tag is not None):
-		err("Not yet implemented :( ")
+		SearchTagsnCmd(conn)
+		return 0
 	elif options.tag is not None:
 		SearchTags(conn)
 	elif options.cmd is not None:
@@ -281,6 +283,32 @@ def TagMapper(cur,tagids):
 	else:
 		return("xXx ! No tags for this ! xXx ")
 
+def SearchTagsnCmd(conn):
+	cur = conn.cursor()
+	debug("Running Comand : SELECT tagid FROM TblTagContent where Tags like '"+options.tag+"'")    
+	cur.execute("SELECT tagid FROM TblTagContent where Tag like '"+options.tag+"'")
+	rows = cur.fetchall()
+	debug("This Returned : "+str(rows))
+	for row in rows:
+		debug("Running : SELECT cmdid FROM TblTagMap where TagID = "+str(row[0])+" and cmd like")
+	        cur.execute("SELECT cmdid FROM TblTagMap where TagID = "+str(row[0]))
+		ret_tags = cur.fetchall()
+		debug("This Returned : "+str(ret_tags))
+		for ret_tag in ret_tags:
+	                debug("Running : SELECT * FROM Tblcommand where CmdID = "+str(ret_tag[0])+" and cmd like '%"+str(options.cmd)+"%'")
+	                cur.execute("SELECT * FROM Tblcommand where cmdid = "+str(ret_tag[0])+" and cmd like '%"+str(options.cmd)+"%'")
+        	        ret_cmds = cur.fetchall()
+			debug("R : "+str(ret_cmds))
+			for cmd in ret_cmds:
+				debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
+				cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
+				RetTagIds=cur.fetchall()
+				debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
+				Tags=TagMapper(cur,RetTagIds)
+				l=list(cmd)
+				l.append(Tags)
+				cmd=tuple(l)
+				PrintThing(cmd)
 def SearchTags(conn):
 	cur = conn.cursor()
 	debug("Running Comand : SELECT tagid FROM TblTagContent where Tags like '"+options.tag+"'")    
