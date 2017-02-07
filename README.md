@@ -32,7 +32,7 @@ Search for the tag 'intersting'
 
 Search for the command psexec.py
 ```
-./rtfm.py -c psexec.py
+./rtfm.py -c rtfm
 
 ++++++++++++++++++++++++++++++
 Command ID : 0
@@ -43,6 +43,8 @@ Tags       : Linux
 Date Added : 2017-01-30
 ++++++++++++++++++++++++++++++
 ```
+Show us all windows commands with the term psexec
+`./rtfm.py -t windows -c psexec`
 
 Show us all the current tags
 `./rtfm.py -D t`
