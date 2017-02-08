@@ -255,11 +255,28 @@ def PrintThing(ret_cmd):
 		print "Tags       : "+str(ret_cmd[4])
 		print "Date Added : "+str(ret_cmd[3])
 		print "++++++++++++++++++++++++++++++\n"
-	else:
+	elif options.printer is 'p':
 		print "++++++++++++++++++++++++++++++"
 		print str(ret_cmd[1])+'\n'
 		print str(ret_cmd[2])
 		print "++++++++++++++++++++++++++++++\n"
+	elif options.printer is 'w':
+		print "="+str(options.cmd)+"="
+	elif options.printer is 'P':
+		table_data = [
+			["Command ID ", str(ret_cmd[0])],
+			["Command ", str(ret_cmd[1])],
+			["Comment  ", str(ret_cmd[2])],
+			["Tags  ", str(ret_cmd[4])],
+			["Date added", str(ret_cmd[3])],
+			]
+		table = AsciiTable(table_data)
+		max_width = table.column_max_width(1)
+		wrapped_string = '\n'.join(wrap(ret_cmd[1], max_width))+"\n"
+		table.table_data[1][1] = wrapped_string
+		print table.table
+	else:
+		err("Look im getting fed up of telling you how to do things")
 
 def TagMapper(cur,tagids):
 	if len(tagids) == 1:
@@ -394,6 +411,11 @@ def err(msg, level="generic"):
 #########################################################################
 # XXX: Initialisation
 #########################################################################
+try:
+	from terminaltables import AsciiTable
+	from textwrap import wrap
+except:
+	warn("Unable to have pretty output, Please 'pip install terminaltables or remove these lines :) '")
 
 if __name__ == "__main__":
 	parser = optparse.OptionParser(
@@ -412,7 +434,7 @@ if __name__ == "__main__":
 	parser.add_option('-R', '--ref', action='store_true', dest="ref",
 		help="Show the referances for cmd ID (1)")
 
-        parser.add_option('-p', '--print', action='store_true', dest="printer",
+        parser.add_option('-p', '--print', action='store', dest="printer",
                 help="Copy and paste freindly")
 
         parser.add_option('-i', '--insert', action='store', dest="insert",
