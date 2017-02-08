@@ -11,6 +11,7 @@ import re
 import socket
 import sys
 import sqlite3
+import os.path
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL)
 
@@ -42,19 +43,19 @@ __authors__ =	["See Referances: They are the real writers!"]
 ##  * update 			      : u <db|program>
 ##  * insert line 		      : i <Referance>
 ##  * "dump" tags, commands, refances : D <all|referances>
-##  * Search - Case sensitve versions : T and C 
+##  * Search - Case sensitve versions : T and C
 ##  * Create a HTML page 	      : H
 ##  * create a WIKI format 	      : W
 ##  * Remark (comment)  Search	      : r
 ##  * Drop to SQL Shell               : s
 ##  * Pretty tables  teminaltables    : P
 ##  * Template engine(autofill [user] : A user=innes,pass=password,attacker=1.1.1.1,victim=2.2.2.2
-##  * Make code more sane and betterize the layout 
+##  * Make code more sane and betterize the layout
 ##
 ## Future:
 ##  * Cool Thing mode
 ##  * teach me mode
-##  * Quiz me mode? 
+##  * Quiz me mode?
 ##  * Fix the typos
 #########################################################################
 
@@ -88,12 +89,16 @@ ANSI = {
 
 def run():
 
-# This doesnt work :'(
-	try:
+	conn = None
+# try except removed conn = sqlite3.connect('snips.db') created an empty file if it didn't exist
+	db_exists = os.path.exists('snips.db')
+
+	if db_exists:
 		conn = sqlite3.connect('snips.db')
 		conn.text_factory=str
-	except:
-		err("Cant access the DB, your on your own")
+	else:
+		print "Cant access the DB, you're on your own."
+		sys.exit()
 
 
 	# probabley should return a varible and then check how we are printing
@@ -112,7 +117,7 @@ def run():
 		err("RTFM: rtfm -h")
 
 ####
-# Definitions 
+# Definitions
 ####
 def dbInsertTags(conn,tags,id):
 	cur = conn.cursor()
@@ -214,7 +219,7 @@ def Insert(conn):
 
 	else:
 		err("RTFM : rtfh.py -h")
-	
+
 def Dump(conn):
 	cur = conn.cursor()
 	if (options.dump is 'a'):
@@ -289,7 +294,7 @@ def TagMapper(cur,tagids):
 		# AKA Yeh deal with it will probabley be here until the end of time
 		sql="SELECT tag FROM tbltagcontent where tagid = -1 "
 		for tagid in tagids:
-			sql+=" OR tagid="+str(tagid[0])		
+			sql+=" OR tagid="+str(tagid[0])
 		debug("S : "+sql)
 		cur.execute(sql)
 		textlist=cur.fetchall()
@@ -302,7 +307,7 @@ def TagMapper(cur,tagids):
 
 def SearchTagsnCmd(conn):
 	cur = conn.cursor()
-	debug("Running Comand : SELECT tagid FROM TblTagContent where Tags like '"+options.tag+"'")    
+	debug("Running Comand : SELECT tagid FROM TblTagContent where Tags like '"+options.tag+"'")
 	cur.execute("SELECT tagid FROM TblTagContent where Tag like '"+options.tag+"'")
 	rows = cur.fetchall()
 	debug("This Returned : "+str(rows))
@@ -328,7 +333,7 @@ def SearchTagsnCmd(conn):
 				PrintThing(cmd)
 def SearchTags(conn):
 	cur = conn.cursor()
-	debug("Running Comand : SELECT tagid FROM TblTagContent where Tags like '"+options.tag+"'")    
+	debug("Running Comand : SELECT tagid FROM TblTagContent where Tags like '"+options.tag+"'")
 	cur.execute("SELECT tagid FROM TblTagContent where Tag like '"+options.tag+"'")
 	rows = cur.fetchall()
 	debug("This Returned : "+str(rows))
@@ -445,7 +450,7 @@ if __name__ == "__main__":
 
 	parser.add_option('-d', '--debug', action='store_true', dest="debug",
 		help='Display verbose processing details (default: False)')
-        
+
 	parser.add_option('-v', action='version',
 		help="Shows the current version number and the current DB hash and exits")
 
