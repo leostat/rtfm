@@ -97,8 +97,7 @@ def run():
 		conn = sqlite3.connect('snips.db')
 		conn.text_factory=str
 	else:
-		print "Cant access the DB, you're on your own."
-		sys.exit()
+		err("Cant access the DB, you're on your own.")
 
 
 	# probabley should return a varible and then check how we are printing
@@ -420,7 +419,7 @@ try:
 	from terminaltables import AsciiTable
 	from textwrap import wrap
 except:
-	warn("Unable to have pretty output, Please 'pip install terminaltables or remove these lines :) '")
+	warn("Unable to have pretty output, Please 'pip install terminaltables' or remove these lines :)")
 
 if __name__ == "__main__":
 	parser = optparse.OptionParser(
