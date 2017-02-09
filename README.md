@@ -107,3 +107,7 @@ helpception
 The people that deserve the credits will be in the reference table of the DB. They are the ones doing the work!
 This initial release does not have this yet, though it is planned!
 
+# Thanks
+Thanks in no particular order :) : 
+@VC
+@Rekzon
