@@ -423,6 +423,10 @@ INSERT INTO "TblCommand" VALUES(413,'hash lengths : MD5=16 | SHA1=20 | SHA256=32
 INSERT INTO "TblCommand" VALUES(414,'for i in *; do pdfinfo $i | egrep -i "Auth"; done  | sort','generate user list from PDF''s, you can get more info to such as pdf maker','2017-02-04');
 INSERT INTO "TblCommand" VALUES(415,'for i in `cat dets`; do echo "Sening Spam from $i"; mailx -s "Report Attached" -r "`echo $i | awk -F @ ''{print $1}''`<`echo $i | awk -F : ''{print $1}''`>" -a report.pdf -S smtp-auth=login -S smtp-auth-user="`echo $i | awk -F : ''{print $1}''`" -S smtp-auth-password="` echo $i | awk -F : ''{print $2}''`" -S ssl-verify=ignore -v -S smtp="10.11.1.229" [victim] < email;echo _________; done','Loop around ''dets'' (user:pass) and send an email through an authenticated mailserver with an attached file whos contents is stored in ''email''','2017-02-04');
 INSERT INTO "TblCommand" VALUES(416,'https://gchq.github.io/CyberChef/','Common operations on data','2017-02-04');
+INSERT INTO "TblCommand" VALUES(417,'schtasks /query /fo LIST /v','List windows scheduled tasks, older windows defender','2017-02-05');
+INSERT INTO "TblCommand" VALUES(418,'wmic qfe get Caption,Description,HotFixID,InstalledOn','list installed patches on windows','2017-02-05');
+INSERT INTO "TblCommand" VALUES(419,'reg query [HKCU|HKLM]\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated','Do MSI''s have admin rights?','2017-02-05');
+INSERT INTO "TblCommand" VALUES(420,'echo %path%','show the current path to see if we can subvert anything','2017-02-05');
 CREATE TABLE TblTagContent(
    TagID INTEGER PRIMARY KEY,
    Tag TEXT NOT NULL
@@ -489,6 +493,7 @@ INSERT INTO "TblTagContent" VALUES(58,'configuration');
 INSERT INTO "TblTagContent" VALUES(59,'java');
 INSERT INTO "TblTagContent" VALUES(60,'forensics');
 INSERT INTO "TblTagContent" VALUES(61,'solaris');
+INSERT INTO "TblTagContent" VALUES(62,'eumeration');
 CREATE TABLE TblTagMap(
    ID INTEGER PRIMARY KEY,
    TagID INT NOT NULL,
@@ -1685,6 +1690,15 @@ INSERT INTO "TblTagMap" VALUES(1187,54,242);
 INSERT INTO "TblTagMap" VALUES(1188,54,243);
 INSERT INTO "TblTagMap" VALUES(1189,54,244);
 INSERT INTO "TblTagMap" VALUES(1190,54,245);
+INSERT INTO "TblTagMap" VALUES(1191,1,417);
+INSERT INTO "TblTagMap" VALUES(1192,50,417);
+INSERT INTO "TblTagMap" VALUES(1193,1,418);
+INSERT INTO "TblTagMap" VALUES(1194,50,418);
+INSERT INTO "TblTagMap" VALUES(1195,62,418);
+INSERT INTO "TblTagMap" VALUES(1196,1,419);
+INSERT INTO "TblTagMap" VALUES(1197,50,419);
+INSERT INTO "TblTagMap" VALUES(1198,1,420);
+INSERT INTO "TblTagMap" VALUES(1199,50,420);
 CREATE TABLE TblRefMap(
    ID INTEGER PRIMARY KEY,
    RefID INT NOT NULL,
@@ -1698,7 +1712,10 @@ CREATE TABLE TblRefContent(
 );
 INSERT INTO "TblRefContent" VALUES(0,'http://linux.org');
 INSERT INTO "TblRefContent" VALUES(1,'http://Microsoft.com');
+CREATE TABLE TblUpdates(
+   UpdateID INTEGER PRIMARY KEY,
+   hash TEXT NOT NULL,
+   URL TEXT,
+   date DATE
+);
 COMMIT;
-SQLite version 3.8.7.1 2014-10-29 13:59:56
-Enter ".help" for usage hints.
-sqlite> 

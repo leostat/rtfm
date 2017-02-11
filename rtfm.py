@@ -12,6 +12,7 @@ import socket
 import sys
 import sqlite3
 import os.path
+import urllib
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL)
 
@@ -32,7 +33,6 @@ __authors__ =	["See Referances: They are the real writers!"]
 ##  * Probabley should use prepared statements : local so dont care
 ##  * Check for dupe tags
 ##  * Warn on dupe tags
-##  * Working DB check
 ##
 ## Pipeline:
 ##  * Output format to allow easy sync
@@ -40,7 +40,6 @@ __authors__ =	["See Referances: They are the real writers!"]
 ##     cmd|tagcontent|tagmap
 ##  * Swap to more sophisticated SQL, quite innefficent at the moment
 ##  * Populate referances table
-##  * update 			      : u <db|program>
 ##  * insert line 		      : i <Referance>
 ##  * "dump" tags, commands, refances : D <all|referances>
 ##  * Search - Case sensitve versions : T and C
@@ -88,22 +87,18 @@ ANSI = {
 #########################################################################
 
 def run():
-
 	conn = None
-# try except removed conn = sqlite3.connect('snips.db') created an empty file if it didn't exist
 	db_exists = os.path.exists('snips.db')
-
 	if db_exists:
 		conn = sqlite3.connect('snips.db')
 		conn.text_factory=str
 	else:
 		err("Cant access the DB, you're on your own.")
 
-
-	# probabley should return a varible and then check how we are printing
+	if options.update:
+		Updater(conn)
 	if (options.cmd is not None) and (options.tag is not None):
 		SearchTagsnCmd(conn)
-		return 0
 	elif options.tag is not None:
 		SearchTags(conn)
 	elif options.cmd is not None:
@@ -118,10 +113,65 @@ def run():
 ####
 # Definitions
 ####
+def Updater(conn):
+	ok("This may appear to hang. Its due to my bad SQL, sorry, run with debug to get more info")
+	icmd=[]
+	itags=[]
+	irefs=[]
+	cur = conn.cursor()
+	uplist = 'https://lg.lc/updates.txt'
+	req = urllib.urlopen(uplist)    
+	updates = req.read().splitlines()
+	for line in updates:
+		update = line.split(",")
+		debug("S : SELECT * from tblUpdates where hash like '"+update[1]+"'")
+		cur.execute("SELECT * from tblUpdates where hash like ?",(update[1],))
+		row=cur.fetchall()
+		if len(row) == 0:
+			download=urllib.urlopen(update[2])
+			downfile=download.read().splitlines()
+			skipc=skipt=0
+			for cmdline in downfile:
+				if (cmdline not in ('EOC','')) and skipc == 0:
+					icmd.append(cmdline)
+					continue
+				elif skipc ==0:
+					skipc=1
+					continue
+				if (cmdline not in ('EOT','')) and skipt == 0:
+					itags.append(cmdline)
+					continue
+				elif skipt == 0:
+					skipt=1
+					continue
+				if (cmdline not in ('EOR','')):
+					irefs.append(cmdline)
+				else:
+					skipc=skipt=0
+					debug("Command : "+str(icmd))
+					debug("Tags : "+str(itags))
+					debug("Referances : "+str(irefs))
+					newid=dbInsertCmdS(conn,icmd)
+					dbInsertTags(conn,itags,newid)
+					#dbInsertRefs(conn,irefs,newid)
+					icmd=[]
+					itags=[]
+					irefs=[]
+					continue
+			ok("Hopefully added lots of new commands")
+			debug("I: INSERT INTO tblupdates values (NULL,"+update[1]+","+update[2]+",date('now')")
+			cur.execute("INSERT INTO tblupdates values (NULL,?,?,date('now'))",(update[1],update[2]))
+			conn.commit()
+		else:
+			debug("XXX Skipping Update : "+update[1])
+		ok("Parsed Line")
+	ok("Update complete")
+	exit()
+
 def dbInsertTags(conn,tags,id):
 	cur = conn.cursor()
 	for tag in tags:
-		debug("Select : SELECT tagid from tbltagcontent where tag like '"+tag+"'")
+		debug("S : SELECT tagid from tbltagcontent where tag like '"+tag+"'")
 		cur.execute("SELECT Tagid FROM Tbltagcontent where tag like ?",(tag,))
 		count=cur.fetchall()
 		if len(count) > 1:
@@ -144,8 +194,14 @@ def dbInsertTags(conn,tags,id):
 		else:
 			err("I dont know how you even got here, https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
-def dbInsertRef(conn,ref):
-	print "nope"
+def dbInsertCmdS(conn,cmd):
+	cur = conn.cursor()
+	if (options.debug):
+		debug("I: INSERT INTO tblcommand VALUES (NULL,'"+str(cmd[0])+"','"+str(cmd[1])+"',"+"date('now'))")
+	cur.execute('INSERT INTO tblcommand VALUES (NULL,?,?,date("now"));',cmd)
+	conn.commit()
+	ok("Added Rows :"+str(cur.rowcount))
+	return cur.lastrowid
 
 def dbInsertCmd(conn,cmds):
 	cur = conn.cursor()
@@ -171,10 +227,10 @@ def Insert(conn):
 	elif options.insert is 'c':
 		cmds=[]
 		cmd='wget http://'
-		while  cmd != '':
+		while not (cmd == '' or cmd == 'EOC'):
 			cmd=raw_input("Enter your command    : ")
 			cmt=raw_input("Enter you comment     : ")
-			if cmd is not '':
+			if cmd not in ('','EOC'):
 				cmds.append((cmd,cmt))
 		dbInsertCmd(conn,cmds)
 	elif options.insert is 'r':
@@ -439,7 +495,7 @@ if __name__ == "__main__":
 		help="Show the referances for cmd ID (1)")
 
         parser.add_option('-p', '--print', action='store', dest="printer",
-                help="Copy and paste freindly")
+                help="Print Types : P(retty) p(astable) w(iki) h(tml)")
 
         parser.add_option('-i', '--insert', action='store', dest="insert",
                 help="Insert c(ommand) | t(ags) r(eferances)")
@@ -449,6 +505,9 @@ if __name__ == "__main__":
 
 	parser.add_option('-d', '--debug', action='store_true', dest="debug",
 		help='Display verbose processing details (default: False)')
+
+	parser.add_option('-u', '--update', action='store_true', dest="update",
+		help='Check for updates (default: false)')
 
 	parser.add_option('-v', action='version',
 		help="Shows the current version number and the current DB hash and exits")
