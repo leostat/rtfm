@@ -194,6 +194,32 @@ def dbInsertTags(conn,tags,id):
 		else:
 			err("I dont know how you even got here, https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
+def dbInsertRefs(conn,refs,id):
+	cur = conn.cursor()
+	for ref in refs:
+		debug("S : SELECT id from tblrefcontent where ref like '"+ref+"'")
+		cur.execute("SELECT id FROM Tblrefcontent where ref like ?",(ref,))
+		count=cur.fetchall()
+		if len(count) > 1:
+			err("More than one ref returned! "+str(count))
+		elif len(count) is 1:
+			debug("Ref found : "+str(count[0][0]))
+			debug("I: INSERT INTO tblrefmap values ("+str(count[0][0])+","+str(id)+")")
+			cur.execute("INSERT INTO tblrefmap values (NULL,?,?)",(str(count[0][0]),str(id)))
+			conn.commit()
+			ok("Added Refs")
+		elif len(count) is 0:
+			debug("ref not found in DB")
+			debug("I: INSERT INTO tblrefcontent VALUES (NULL,'"+ref+"')")
+			cur.execute("INSERT INTO tblrefcontent values (NULL,?)",(ref,))
+			debug("We have added Ref : "+str(cur.lastrowid))
+			debug("I: INSERT INTO tblrefmap values ("+str(cur.lastrowid)+","+str(id)+")")
+			cur.execute("INSERT INTO tblrefmap values (NULL,?,?)",(cur.lastrowid,id))
+			conn.commit()
+			ok("Added a new Ref and a refmap")
+		else:
+			err("I dont know how you even got here, https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
 def dbInsertCmdS(conn,cmd):
 	cur = conn.cursor()
 	if (options.debug):
@@ -234,7 +260,16 @@ def Insert(conn):
 				cmds.append((cmd,cmt))
 		dbInsertCmd(conn,cmds)
 	elif options.insert is 'r':
-		err("nope")
+		refs=[]
+		ref='http://necurity.co.uk'
+		id=raw_input("What CmdID are we adding refs to? : ")
+		while ref != '':
+			ref=raw_input("Enter a referance (blank for non) : ")
+			if ref is not '':
+				refs.append(ref)
+		if (refs is []) or (id is '') or (not id.isdigit()):
+			err("No, Just why  : "+str(id)+" : "+str(refs))
+		dbInsertRefs(conn,refs,id)
 	elif options.insert == "ta":
 		cur = conn.cursor()
 		ok("This tags everything without tags, mainly for DB init")
