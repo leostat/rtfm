@@ -443,13 +443,13 @@ def SearchTagsnCmd(conn):
 	debug("This Returned : "+str(rows))
 	for row in rows:
 		debug("Running : SELECT cmdid FROM TblTagMap where TagID = "+str(row[0])+" and cmd like")
-	        cur.execute("SELECT cmdid FROM TblTagMap where TagID = "+str(row[0]))
+		cur.execute("SELECT cmdid FROM TblTagMap where TagID = "+str(row[0]))
 		ret_tags = cur.fetchall()
 		debug("This Returned : "+str(ret_tags))
 		for ret_tag in ret_tags:
-	                debug("Running : SELECT * FROM Tblcommand where CmdID = "+str(ret_tag[0])+" and cmd like '%"+str(options.cmd)+"%'")
-	                cur.execute("SELECT * FROM Tblcommand where cmdid = "+str(ret_tag[0])+" and cmd like '%"+str(options.cmd)+"%'")
-        	        ret_cmds = cur.fetchall()
+			debug("Running : SELECT * FROM Tblcommand where CmdID = "+str(ret_tag[0])+" and cmd like '%"+str(options.cmd)+"%'")
+			cur.execute("SELECT * FROM Tblcommand where cmdid = "+str(ret_tag[0])+" and cmd like '%"+str(options.cmd)+"%'")
+			ret_cmds = cur.fetchall()
 			debug("R : "+str(ret_cmds))
 			for cmd in ret_cmds:
 				cmd=AsocTags(cur,cmd)
@@ -463,13 +463,13 @@ def SearchTags(conn):
 	debug("This Returned : "+str(rows))
 	for row in rows:
 		debug("Running : SELECT cmdid FROM TblTagMap where TagID = "+str(row[0]))
-	        cur.execute("SELECT cmdid FROM TblTagMap where TagID = "+str(row[0]))
+		cur.execute("SELECT cmdid FROM TblTagMap where TagID = "+str(row[0]))
 		ret_tags = cur.fetchall()
 		debug("This Returned : "+str(ret_tags))
 		for ret_tag in ret_tags:
-	                debug("Running : SELECT * FROM Tblcommand where CmdID = "+str(ret_tag[0]))
-	                cur.execute("SELECT * FROM Tblcommand where cmdid = "+str(ret_tag[0]))
-        	        ret_cmds = cur.fetchall()
+			debug("Running : SELECT * FROM Tblcommand where CmdID = "+str(ret_tag[0]))
+			cur.execute("SELECT * FROM Tblcommand where cmdid = "+str(ret_tag[0]))
+			ret_cmds = cur.fetchall()
 			for cmd in ret_cmds:
 				cmd=AsocTags(cur,cmd)
 				cmd=AsocRefs(cur,cmd)
@@ -477,10 +477,10 @@ def SearchTags(conn):
 
 def SearchCommand(conn):
 	cur = conn.cursor()
-        debug("Running Comand : SELECT * FROM Tblcommand where cmd like '%"+options.cmd+"%'")
-        cur.execute("SELECT * FROM Tblcommand where cmd like '%"+options.cmd+"%'")
-        rows = cur.fetchall()
-        debug("This Returned : "+str(rows))
+	debug("Running Comand : SELECT * FROM Tblcommand where cmd like '%"+options.cmd+"%'")
+	cur.execute("SELECT * FROM Tblcommand where cmd like '%"+options.cmd+"%'")
+	rows = cur.fetchall()
+	debug("This Returned : "+str(rows))
 	for cmd in rows:
 		cmd=AsocTags(cur,cmd)
 		cmd=AsocRefs(cur,cmd)
@@ -563,14 +563,14 @@ if __name__ == "__main__":
 	parser.add_option('-R', '--ref', action='store_true', dest="ref",
 		help="Show the referances for cmd ID (1)")
 
-        parser.add_option('-p', '--print', action='store', dest="printer",
-                help="Print Types : P(retty) p(astable) w(iki) h(tml)")
+	parser.add_option('-p', '--print', action='store', dest="printer",
+		help="Print Types : P(retty) p(astable) w(iki) h(tml)")
 
-        parser.add_option('-i', '--insert', action='store', dest="insert",
-                help="Insert c(ommand) | t(ags) r(eferances)")
+	parser.add_option('-i', '--insert', action='store', dest="insert",
+		help="Insert c(ommand) | t(ags) r(eferances)")
 
-        parser.add_option('-D', '--dump', action='store', dest="dump",
-                help="Just Dump infomration about t(ags)|c(commands)|r(eferances)a(ll)")
+	parser.add_option('-D', '--dump', action='store', dest="dump",
+		help="Just Dump infomration about t(ags)|c(commands)|r(eferances)a(ll)")
 
 	parser.add_option('-d', '--debug', action='store_true', dest="debug",
 		help='Display verbose processing details (default: False)')
