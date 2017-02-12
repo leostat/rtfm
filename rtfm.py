@@ -22,7 +22,7 @@ signal(SIGPIPE,SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ =	"0.3.0"
+__version__ =	"0.4.0"
 __prog__ =	"rtfm"
 __authors__ =	["See Referances: They are the real writers!"]
 
@@ -35,17 +35,13 @@ __authors__ =	["See Referances: They are the real writers!"]
 ##  * Warn on dupe tags
 ##
 ## Pipeline:
-##  * Output format to allow easy sync
-##     Dump cmd, then null ids, tags and tag contetns, inefficent but maybe the only way?
-##     cmd|tagcontent|tagmap
 ##  * Swap to more sophisticated SQL, quite innefficent at the moment
 ##  * Populate referances table
-##  * insert line 		      : i <Referance>
-##  * "dump" tags, commands, refances : D <all|referances>
 ##  * Search - Case sensitve versions : T and C
 ##  * Create a HTML page 	      : H
 ##  * create a WIKI format 	      : W
 ##  * Remark (comment)  Search	      : r
+##  * Referance Search		      : R
 ##  * Drop to SQL Shell               : s
 ##  * Template engine(autofill [user] : A user=innes,pass=password,attacker=1.1.1.1,victim=2.2.2.2
 ##  * Make code more sane and betterize the layout
@@ -313,21 +309,34 @@ def Insert(conn):
 def Dump(conn):
 	cur = conn.cursor()
 	if (options.dump is 'a'):
-		err('Not implemented')
+		debug("Running Comand : SELECT * FROM Tblcommand")
+		cur.execute("SELECT * FROM Tblcommand")
+		rows=cur.fetchall()
+		for cmd in rows:
+			print cmd[1]
+			print cmd[2]
+			print 'EOC'
+			tags=AsocTags(cur,str(cmd[0]))
+			ltags = tags[-1].split("| ")
+			for tag in ltags:
+				if tag!='':
+					print tag
+			print 'EOT'
+			refs=AsocRefs(cur,str(cmd[0]))
+			lrefs = refs[-1].split("| ")
+			for ref in lrefs:
+				if ref!='':
+					print ref
+			print 'EOR'
+		ok('Dumped all in update format. Why, you stealing things?')
 	elif (options.dump is 'c'):
 		debug("Running Comand : SELECT * FROM Tblcommand")
 		cur.execute("SELECT * FROM Tblcommand")
 		rows=cur.fetchall()
 		for cmd in rows:
-			debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-			cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-			RetTagIds=cur.fetchall()
-			debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
-			Tags=TagMapper(cur,RetTagIds)
-			l=list(cmd)
-			l.append(Tags)
-			cmd=tuple(l)
-			PrintThing(cmd)
+			print cmd[1]
+			print cmd[2]
+			print 'EOC'
 	elif (options.dump is 't'):
 		debug("Running Comand : SELECT tag FROM Tbltagcontent")
 		cur.execute("SELECT Tag FROM Tbltagcontent")
@@ -337,7 +346,12 @@ def Dump(conn):
 		sys.stdout.flush()
 		print
 	elif (options.dump is 'r'):
-		err("Nope")
+		debug("Running Comand : SELECT ref FROM Tblrefcontent")
+		cur.execute("SELECT ref FROM Tblrefcontent")
+		rows=cur.fetchall()
+		for row in rows:
+			print row[0]
+		print 'EOR'
 	else:
 		err("RTFM: rtfm -h")
 
@@ -379,7 +393,7 @@ def PrintThing(ret_cmd):
 def RefMapper(cur,refids):
 	# XXX probabley shoud just change based on if ref or tag 
 	if len(refids) == 1:
-		debug("S : SELECT Ref from tblrefcontent where trefid ="+str(refids[0][0]))
+		debug("S : SELECT Ref from tblrefcontent where id ="+str(refids[0][0]))
 		cur.execute("SELECT Ref from tblrefcontent where id = ?",refids[0])
 		text=cur.fetchall()
 		return(text[0][0])
