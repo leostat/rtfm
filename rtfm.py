@@ -314,6 +314,7 @@ def PrintThing(ret_cmd):
 		print "Comment    : "+str(ret_cmd[2])
 		print "Tags       : "+str(ret_cmd[4])
 		print "Date Added : "+str(ret_cmd[3])
+		print "References\n__________\n"+str(ret_cmd[5])
 		print "++++++++++++++++++++++++++++++\n"
 	elif options.printer is 'p':
 		print "++++++++++++++++++++++++++++++"
@@ -329,6 +330,7 @@ def PrintThing(ret_cmd):
 			["Comment  ", str(ret_cmd[2])],
 			["Tags  ", str(ret_cmd[4])],
 			["Date added", str(ret_cmd[3])],
+			["Referances",str(ret_cmd[5])]
 			]
 		table = AsciiTable(table_data)
 		max_width = table.column_max_width(1)
@@ -351,7 +353,7 @@ def RefMapper(cur,refids):
 		# AKA Yeh deal with it will probabley be here until the end of time
 		sql="SELECT ref FROM tblrefcontent where id = -1 "
 		for refid in refids:
-			sql+=" OR refid="+str(refid[0])
+			sql+=" OR id="+str(refid[0])
 		debug("S : "+sql)
 		cur.execute(sql)
 		textlist=cur.fetchall()
@@ -402,6 +404,7 @@ def SearchTagsnCmd(conn):
 			debug("R : "+str(ret_cmds))
 			for cmd in ret_cmds:
 				cmd=AsocTags(cur,cmd)
+				cmd=AsocRefs(cur,cmd)
 				PrintThing(cmd)
 def SearchTags(conn):
 	cur = conn.cursor()
@@ -420,6 +423,7 @@ def SearchTags(conn):
         	        ret_cmds = cur.fetchall()
 			for cmd in ret_cmds:
 				cmd=AsocTags(cur,cmd)
+				cmd=AsocRefs(cur,cmd)
 				PrintThing(cmd)
 
 def SearchCommand(conn):
@@ -430,6 +434,7 @@ def SearchCommand(conn):
         debug("This Returned : "+str(rows))
 	for cmd in rows:
 		cmd=AsocTags(cur,cmd)
+		cmd=AsocRefs(cur,cmd)
 		PrintThing(cmd)
 
 def AsocTags(cur,cmd):
@@ -443,9 +448,16 @@ def AsocTags(cur,cmd):
 	cmd=tuple(l)
 	return cmd
 
-def AsocRefs(conn,cmd):
-	warn("2")
-
+def AsocRefs(cur,cmd):
+	debug("S : SELECT RefID FROM TblRefMap WHERE cmdid = "+str(cmd[0]))
+	cur.execute("SELECT RefID FROM tblrefmap WHERE cmdid = "+str(cmd[0]))
+	RetRefIds=cur.fetchall()
+	debug("This returned : "+str(RetRefIds)+" Len : "+str(len(RetRefIds)))
+	Tags=RefMapper(cur,RetRefIds)
+	l=list(cmd)
+	l.append(Tags)
+	cmd=tuple(l)
+	return cmd
 
 
 #########################################################################
