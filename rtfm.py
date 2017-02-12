@@ -22,7 +22,7 @@ signal(SIGPIPE,SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ =	"0.1.0"
+__version__ =	"0.3.0"
 __prog__ =	"rtfm"
 __authors__ =	["See Referances: They are the real writers!"]
 
@@ -47,7 +47,6 @@ __authors__ =	["See Referances: They are the real writers!"]
 ##  * create a WIKI format 	      : W
 ##  * Remark (comment)  Search	      : r
 ##  * Drop to SQL Shell               : s
-##  * Pretty tables  teminaltables    : P
 ##  * Template engine(autofill [user] : A user=innes,pass=password,attacker=1.1.1.1,victim=2.2.2.2
 ##  * Make code more sane and betterize the layout
 ##
@@ -130,6 +129,7 @@ def Updater(conn):
 		if len(row) == 0:
 			download=urllib.urlopen(update[2])
 			downfile=download.read().splitlines()
+			# TODO : DOWNLOAD VERIFICATION
 			skipc=skipt=0
 			for cmdline in downfile:
 				if (cmdline not in ('EOC','')) and skipc == 0:
@@ -338,6 +338,30 @@ def PrintThing(ret_cmd):
 	else:
 		err("Look im getting fed up of telling you how to do things")
 
+
+def RefMapper(cur,refids):
+	# XXX probabley shoud just change based on if ref or tag 
+	if len(refids) == 1:
+		debug("S : SELECT Ref from tblrefcontent where trefid ="+str(refids[0][0]))
+		cur.execute("SELECT Ref from tblrefcontent where id = ?",refids[0])
+		text=cur.fetchall()
+		return(text[0][0])
+	elif len(refids) > 1:
+		# TODO : Yeh i know this is bad, but I will get round making it better at some point
+		# AKA Yeh deal with it will probabley be here until the end of time
+		sql="SELECT ref FROM tblrefcontent where id = -1 "
+		for refid in refids:
+			sql+=" OR refid="+str(refid[0])
+		debug("S : "+sql)
+		cur.execute(sql)
+		textlist=cur.fetchall()
+		text=''
+		for item in textlist:
+			text+=item[0]+"\n"
+		return(text)
+	else:
+		return("xXx ! No Refs for this ! xXx ")
+
 def TagMapper(cur,tagids):
 	if len(tagids) == 1:
 		debug("S : SELECT tag from tbltagcontent where tagid ="+str(tagids[0][0]))
@@ -377,14 +401,7 @@ def SearchTagsnCmd(conn):
         	        ret_cmds = cur.fetchall()
 			debug("R : "+str(ret_cmds))
 			for cmd in ret_cmds:
-				debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-				cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-				RetTagIds=cur.fetchall()
-				debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
-				Tags=TagMapper(cur,RetTagIds)
-				l=list(cmd)
-				l.append(Tags)
-				cmd=tuple(l)
+				cmd=AsocTags(cur,cmd)
 				PrintThing(cmd)
 def SearchTags(conn):
 	cur = conn.cursor()
@@ -402,14 +419,7 @@ def SearchTags(conn):
 	                cur.execute("SELECT * FROM Tblcommand where cmdid = "+str(ret_tag[0]))
         	        ret_cmds = cur.fetchall()
 			for cmd in ret_cmds:
-				debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-				cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-				RetTagIds=cur.fetchall()
-				debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
-				Tags=TagMapper(cur,RetTagIds)
-				l=list(cmd)
-				l.append(Tags)
-				cmd=tuple(l)
+				cmd=AsocTags(cur,cmd)
 				PrintThing(cmd)
 
 def SearchCommand(conn):
@@ -419,21 +429,22 @@ def SearchCommand(conn):
         rows = cur.fetchall()
         debug("This Returned : "+str(rows))
 	for cmd in rows:
-		debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-		cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-		RetTagIds=cur.fetchall()
-		debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
-		Tags=TagMapper(cur,RetTagIds)
-		l=list(cmd)
-		l.append(Tags)
-		cmd=tuple(l)
+		cmd=AsocTags(cur,cmd)
 		PrintThing(cmd)
 
-def SearchTagCommand(tag,command):
-	warn('Not Implemented')
+def AsocTags(cur,cmd):
+	debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
+	cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
+	RetTagIds=cur.fetchall()
+	debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
+	Tags=TagMapper(cur,RetTagIds)
+	l=list(cmd)
+	l.append(Tags)
+	cmd=tuple(l)
+	return cmd
 
-def TeachMe():
-	warn("Nope")
+def AsocRefs(conn,cmd):
+	warn("2")
 
 
 
@@ -443,10 +454,7 @@ def TeachMe():
 
 def debug(msg, override=False):
 	if options.debug or override:
-		print "====================="
-		print msg
-		print "====================="
-		print "\n"
+		print ANSI["purple"] + ANSI["bold"] + "[DEBUG]: " + ANSI["reset"] + msg
 
 def ok(msg):
 	print ANSI["green"] + ANSI["bold"] + "[OK]: " + ANSI["reset"] + msg
