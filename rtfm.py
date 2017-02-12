@@ -153,7 +153,7 @@ def Updater(conn):
 					debug("Referances : "+str(irefs))
 					newid=dbInsertCmdS(conn,icmd)
 					dbInsertTags(conn,itags,newid)
-					#dbInsertRefs(conn,irefs,newid)
+					dbInsertRefs(conn,irefs,newid)
 					icmd=[]
 					itags=[]
 					irefs=[]
