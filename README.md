@@ -5,16 +5,19 @@ I would recommend picking up a copy of the book from amazon, it is pretty handy 
 
 # Usage 
 ```
-e: rtfm.py [OPTIONS]
+Usage: rtfm.py [OPTIONS]
 
-For when you just cant remember the syntax, you should just RTFM
+For when you just cant remember the syntax,  you should just RTFM
 
 Options:
   --version             show program's version number and exit
   -h, --help            show this help message and exit
-  -t TAG, --tag=TAG     Specify one or more tags to look for (a,b,c)
+  -t TAG, --tag=TAG     Specify one or more tags to look for (a, b, c)
   -c CMD, --cmd=CMD     Specify a command to search (ls)
-  -R, --ref             Show the referances for cmd ID (1)
+  -R REMARK, --remark=REMARK
+                        Search the comments feilds
+  -r REFER, --referance=REFER
+                        Search for the referance [referance]
   -p PRINTER, --print=PRINTER
                         Print Types : P(retty) p(astable) w(iki) h(tml)
   -i INSERT, --insert=INSERT
@@ -24,12 +27,11 @@ Options:
   -d, --debug           Display verbose processing details (default: False)
   -u, --update          Check for updates (default: false)
   -v                    Shows the current version number and the current DB
-                        hash and exits
+                        hash and exits (lies, it will do though)
+
+Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d
 ```
-
-Search for the tag 'intersting'
-`./rtfm.py -t interesting`
-
+Its pretty much a simple search program, nothing to fancy, examples include:
 
 Search for the command psexec.py
 ```
@@ -50,11 +52,9 @@ Show us all windows commands with the term psexec
 Show us all the current tags
 `./rtfm.py -D t`
 
-Sql inject to get more than one search . . .oops
-`./rtfm.py -c "psexec'% or cmd like '%samrdump"`
-
 Pull Updates to the DB
 `./rtfm.py -u`
+ * Note: Seems to be buggy on NFS shares 
 
 The updates are 'safe' in the form they wont write over your DB, git pull is not a safe update
 
@@ -88,43 +88,31 @@ helpception
 +-------------+-------------+
 
 ```
-# TODO 
+# The TODO  list
  * Lots, this is an alpha so far
  * The 'important' functionality is present, but still lots of work to do
 
-##Fixes:
-  * Indexes on comments
-  * Probably should use prepared statements: local so don't care
-  * Check for dupe tags
-  * Warn on dupe tags
-  * Working DB check
+## Fixes:
+ * Probabley should use prepared statements : local so dont care
+ * Check for dupe tags
+ * Warn on dupe tags
+ * Re-jig the updater and the inserter
 
-##Pipeline:
-  * Output format to allow easy sync
-     Dump cmd, then null ids, tags and tag contetns, inefficent but maybe the only way?
-     cmd|tagcontent|tagmap
-  * Swap to more sophisticated SQL, quite innefficent at the moment
-  * Populate referances table
-  * update                   : u <db|program>
-  * insert line               : i <Referance>
-  * "dump" tags, commands, refances : D <all|referances>
-  * Search - Case sensitve versions : T and C 
-  * Create a HTML page           : H
-  * create a WIKI format           : W
-  * Remark (comment)  Search          : r
-  * Drop to SQL Shell               : s
-  * Template engine(autofill [user] : A user=innes,pass=password,attacker=1.1.1.1,victim=2.2.2.2
-  * Make code more sane and betterize the layout 
+## Pipeline:
+ * Populate referances table
+ * Create a HTML page 	      : H
+ * create a WIKI format 	      : W
+ * Drop to SQL Shell               : s
+ * Template engine(autofill [user] : A user = innes, pass = password, attacker = 1.1.1.1, victim = 2.2.2.2
+ * Make code more sane and betterize the layout
 
-##Future:
-  * Cool Thing mode
-  * teach me mode
-  * Quiz me mode? 
-  * Fix the typos
+## Future:
+ * Cool Thing mode
+ * Fix the typos
+
 
 # Credits 
 The people that deserve the credits will be in the reference table of the DB. They are the ones doing the work!
-This initial release does not have this yet, though it is planned!
 
 # Thanks
 Thanks in no particular order :) : 
