@@ -79,39 +79,38 @@ def run():
 	else:
 		err("Cant access the DB,  you're on your own.")
 	sqlcmd = []
-	sqltrs = []
 	sqltpl = []
 	sqllst = []
-	ok = ''
+	iok = ''
 	if options.update:
 		Updater(conn)
-		ok = 1
+		iok = 1
 	if options.insert is not None:
 		Insert(conn)
-		ok = 1
+		iok = 1
 	if options.cmd is not None:
 		sqlcmd.append(" WHERE c.cmd LIKE ?")
 		sqltpl.append("%"+options.cmd+"%")
-		ok = 1
+		iok = 1
 	if options.remark is not None:
 		sqlcmd.append(" AND c.cmnt LIKE ?")
 		sqltpl.append("%"+options.remark+"%")
-		ok = 1
+		iok = 1
 	if options.refer is not None:
-		for r in options.refer.split(', '):
+		for REF in options.refer.split(','):
 			sqllst.append(' group_concat(rc.ref) like ? ')
-			sqltpl.append("%"+r+"%")
-		ok = 1
+			sqltpl.append("%"+REF+"%")
+		iok = 1
 	if options.tag is not None:
-		for t in options.tag.split(', '):
+		for TAG in options.tag.split(','):
 			sqllst.append(' group_concat(tc.tag) like ? ')
-			sqltpl.append("%"+t+"%")
-		ok = 1
-	if (options.dump):
+			sqltpl.append("%"+TAG+"%")
+		iok = 1
+	if options.dump:
 		Dump(conn)
-		ok = 1
+		iok = 1
 		sys.exit()
-	if not ok:
+	if not iok:
 		debug("https://www.youtube.com/watch?v = qRFhNZNu_xw")
 		err("RTFM: rtfm -h OR rtfm.py -c ''")
 	else:
@@ -123,7 +122,9 @@ def run():
 def Search(conn, sqlcmd, sqltpl, sqllst):
 	cur = conn.cursor()
 	sql = "SELECT c.cmdid, c.cmd, c.cmnt, c.date, group_concat(DISTINCT  tc.tag), group_concat(DISTINCT ref) "
-	sql += " FROM tblcommand c join tbltagmap tm on tm.cmdid = c.cmdid join tbltagcontent tc on tc.tagid = tm.tagid join tblrefmap rm on rm.cmdid = c.cmdid join tblrefcontent rc on rc.id = rm.refid"
+	sql += " FROM tblcommand c JOIN tbltagmap tm ON tm.cmdid = c.cmdid JOIN tbltagcontent tc ON "
+	sql += " tc.tagid = tm.tagid JOIN tblrefmap rm ON rm.cmdid = c.cmdid"
+	sql += " JOIN tblrefcontent rc on rc.id = rm.refid"
 	sql += " ".join(sqlcmd)
 	sql += " GROUP BY c.cmdid "
 	if options.refer is not None or options.tag is not None:
@@ -145,7 +146,7 @@ def Updater(conn):
 	irefs = []
 	cur = conn.cursor()
 	uplist = 'https://lg.lc/updates.txt'
-	req = urllib.urlopen(uplist)    
+	req = urllib.urlopen(uplist)
 	updates = req.read().splitlines()
 	for line in updates:
 		update = line.split(",")
@@ -161,7 +162,7 @@ def Updater(conn):
 				if (cmdline not in ('EOC', '')) and skipc == 0:
 					icmd.append(cmdline)
 					continue
-				elif skipc  == 0:
+				elif skipc == 0:
 					skipc = 1
 					continue
 				if (cmdline not in ('EOT', '')) and skipt == 0:
@@ -170,7 +171,7 @@ def Updater(conn):
 				elif skipt == 0:
 					skipt = 1
 					continue
-				if (cmdline not in ('EOR', '')):
+				if cmdline not in ('EOR', ''):
 					irefs.append(cmdline)
 				else:
 					skipc = skipt = 0
@@ -194,7 +195,7 @@ def Updater(conn):
 	ok("Update complete")
 	exit()
 
-def dbInsertTags(conn, tags, id):
+def dbInsertTags(conn, tags, cmdid):
 	cur = conn.cursor()
 	for tag in tags:
 		debug("S : SELECT tagid from tbltagcontent where tag like '"+tag+"'")
@@ -204,8 +205,8 @@ def dbInsertTags(conn, tags, id):
 			err("More than one tag returned! "+str(count))
 		elif len(count) is 1:
 			debug("Tag found : "+str(count[0][0]))
-			debug("I: INSERT INTO tbltagmap values ("+str(count[0][0])+", "+str(id)+")")
-			cur.execute("INSERT INTO tbltagmap values (NULL, ?, ?)", (str(count[0][0]), str(id)))
+			debug("I: INSERT INTO tbltagmap values ("+str(count[0][0])+", "+str(cmdid)+")")
+			cur.execute("INSERT INTO tbltagmap values (NULL, ?, ?)", (str(count[0][0]), str(cmdid)))
 			conn.commit()
 			ok("Added tags")
 		elif len(count) is 0:
@@ -213,14 +214,14 @@ def dbInsertTags(conn, tags, id):
 			debug("I: INSERT INTO tbltagcontent VALUES (NULL, '"+tag+"')")
 			cur.execute("INSERT INTO tbltagcontent values (NULL, ?)", (tag, ))
 			debug("We have added Tag : "+str(cur.lastrowid))
-			debug("I: INSERT INTO tbltagmap values ("+str(cur.lastrowid)+", "+str(id)+")")
-			cur.execute("INSERT INTO tbltagmap values (NULL, ?, ?)", (cur.lastrowid, id))
+			debug("I: INSERT INTO tbltagmap values ("+str(cur.lastrowid)+", "+str(cmdid)+")")
+			cur.execute("INSERT INTO tbltagmap values (NULL, ?, ?)", (cur.lastrowid, cmdid))
 			conn.commit()
 			ok("Added a new tag and a tagmap")
 		else:
 			err("I dont know how you even got here,  https://www.youtube.com/watch?v = dQw4w9WgXcQ")
 
-def dbInsertRefs(conn, refs, id):
+def dbInsertRefs(conn, refs, cmdid):
 	cur = conn.cursor()
 	for ref in refs:
 		debug("S : SELECT id from tblrefcontent where ref like '"+ref+"'")
@@ -230,8 +231,8 @@ def dbInsertRefs(conn, refs, id):
 			err("More than one ref returned! "+str(count))
 		elif len(count) is 1:
 			debug("Ref found : "+str(count[0][0]))
-			debug("I: INSERT INTO tblrefmap values ("+str(count[0][0])+", "+str(id)+")")
-			cur.execute("INSERT INTO tblrefmap values (NULL, ?, ?)", (str(count[0][0]), str(id)))
+			debug("I: INSERT INTO tblrefmap values ("+str(count[0][0])+", "+str(cmdid)+")")
+			cur.execute("INSERT INTO tblrefmap values (NULL, ?, ?)", (str(count[0][0]), str(cmdid)))
 			conn.commit()
 			ok("Added Refs")
 		elif len(count) is 0:
@@ -239,8 +240,8 @@ def dbInsertRefs(conn, refs, id):
 			debug("I: INSERT INTO tblrefcontent VALUES (NULL, '"+ref+"')")
 			cur.execute("INSERT INTO tblrefcontent values (NULL, ?)", (ref, ))
 			debug("We have added Ref : "+str(cur.lastrowid))
-			debug("I: INSERT INTO tblrefmap values ("+str(cur.lastrowid)+", "+str(id)+")")
-			cur.execute("INSERT INTO tblrefmap values (NULL, ?, ?)", (cur.lastrowid, id))
+			debug("I: INSERT INTO tblrefmap values ("+str(cur.lastrowid)+", "+str(cmdid)+")")
+			cur.execute("INSERT INTO tblrefmap values (NULL, ?, ?)", (cur.lastrowid, cmdid))
 			conn.commit()
 			ok("Added a new Ref and a refmap")
 		else:
@@ -248,7 +249,7 @@ def dbInsertRefs(conn, refs, id):
 
 def dbInsertCmdS(conn, cmd):
 	cur = conn.cursor()
-	if (options.debug):
+	if options.debug:
 		debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"date('now'))")
 	cur.execute("""INSERT INTO tblcommand VALUES (NULL, ?, ?, date("now"));""", cmd)
 	conn.commit()
@@ -257,25 +258,25 @@ def dbInsertCmdS(conn, cmd):
 
 def dbInsertCmd(conn, cmds):
 	cur = conn.cursor()
-	if (options.debug):
+	if options.debug:
 		for cmd in cmds:
 			debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"date('now'))")
 	cur.executemany('INSERT INTO tblcommand VALUES (NULL, ?, ?, date("now"));', cmds)
 	conn.commit()
-	ok("Added Rows :"+str(cur.rowcount))
+	ok("Added Rows :" + str(cur.rowcount))
 
 def Insert(conn):
 	if options.insert is 't':
 		tags = []
 		tag = 'EasterEgg'
-		id = raw_input("What CMD are we adding tags to? : ")
-		while tag !=  '':
+		cmdid = raw_input("What CMD are we adding tags to? : ")
+		while tag != '':
 			tag = raw_input("Enter a tag (blank for non) : ")
 			if tag is not '':
 				tags.append(tag)
-		if (tags is []) or (id is '') or (not id.isdigit()):
-			err("No,  Just why  : "+str(id)+" : "+str(tags))
-		dbInsertTags(conn, tags, id)
+		if (tags is []) or (cmdid is '') or (not cmdid.isdigit()):
+			err("No,  Just why  : "+str(cmdid)+" : "+str(tags))
+		dbInsertTags(conn, tags, cmdid)
 	elif options.insert is 'c':
 		cmds = []
 		cmd = 'wget http://'
@@ -288,14 +289,14 @@ def Insert(conn):
 	elif options.insert is 'r':
 		refs = []
 		ref = 'http://necurity.co.uk'
-		id = raw_input("What CmdID are we adding refs to? : ")
-		while ref !=  '':
+		cmdid = raw_input("What CmdID are we adding refs to? : ")
+		while ref != '':
 			ref = raw_input("Enter a referance (blank for non) : ")
 			if ref is not '':
 				refs.append(ref)
-		if (refs is []) or (id is '') or (not id.isdigit()):
-			err("No,  Just why  : "+str(id)+" : "+str(refs))
-		dbInsertRefs(conn, refs, id)
+		if (refs is []) or (cmdid is '') or (not cmdid.isdigit()):
+			err("No,  Just why  : "+str(cmdid)+" : "+str(refs))
+		dbInsertRefs(conn, refs, cmdid)
 	elif options.insert == "ta":
 		cur = conn.cursor()
 		ok("This tags everything without tags,  mainly for DB init")
@@ -309,23 +310,23 @@ def Insert(conn):
 			debug("S : SELECT tagid FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
 			cur.execute("SELECT tagid FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
 			TagCount = cur.fetchall()
-			if (TagCount == []):
+			if TagCount == []:
 				toTag.append(cmd)
-		debug ("Count : "+str(len(toTag))+"\nTagging : "+str(toTag))
+		debug("Count : "+str(len(toTag))+"\nTagging : "+str(toTag))
 		counter = len(toTag)
 		for cmd in toTag:
 			counter = counter-1
 			tag = 'Easter Egg'
 			tags = []
 			warn("Number left :"+str(counter))
-			ok  ("Command ID : "+str(cmd[0]))
-			ok  ("		Command    : "+str(cmd[1]))
-			ok  ("		Comment    : "+str(cmd[2]))
-			ok  ("v These are known tags")
+			ok("Command ID : "+str(cmd[0]))
+			ok("		Command    : "+str(cmd[1]))
+			ok("		Comment    : "+str(cmd[2]))
+			ok("v These are known tags")
 			options.dump = 't'
 			Dump(conn)
 			print " == == ONE TAG A LINE == == \n"
-			while tag !=  '':
+			while tag != '':
 				tag = raw_input("Enter a tag (blank for non) : ")
 				if tag is not '':
 					tags.append(tag)
@@ -338,7 +339,7 @@ def Insert(conn):
 
 def Dump(conn):
 	cur = conn.cursor()
-	if (options.dump is 'a'):
+	if options.dump is 'a':
 		debug("S : SELECT * FROM Tblcommand")
 		cur.execute("SELECT * FROM Tblcommand")
 		rows = cur.fetchall()
@@ -350,17 +351,17 @@ def Dump(conn):
 			tags = AsocTags(cur, cmd)
 			ltags = tags[-1].split("| ")
 			for tag in ltags:
-				if tag!= '':
+				if tag != '':
 					print tag
 			print 'EOT'
 			refs = AsocRefs(cur, cmd)
 			lrefs = refs[-1].split("| ")
 			for ref in lrefs:
-				if ref!= '':
+				if ref != '':
 					print ref
 			print 'EOR'
 		ok('Dumped all in update format. Why,  you stealing things?')
-	elif (options.dump is 'c'):
+	elif options.dump is 'c':
 		debug("Running Comand : SELECT * FROM Tblcommand")
 		cur.execute("SELECT * FROM Tblcommand")
 		rows = cur.fetchall()
@@ -368,7 +369,7 @@ def Dump(conn):
 			print cmd[1]
 			print cmd[2]
 			print 'EOC'
-	elif (options.dump is 't'):
+	elif options.dump is 't':
 		debug("Running Comand : SELECT tag FROM Tbltagcontent")
 		cur.execute("SELECT Tag FROM Tbltagcontent")
 		rows = cur.fetchall()
@@ -376,7 +377,7 @@ def Dump(conn):
 			sys.stdout.write(str(" | "+row[0])+" | ")
 		sys.stdout.flush()
 		print
-	elif (options.dump is 'r'):
+	elif options.dump is 'r':
 		debug("Running Comand : SELECT ref FROM Tblrefcontent")
 		cur.execute("SELECT ref FROM Tblrefcontent")
 		rows = cur.fetchall()
@@ -387,7 +388,7 @@ def Dump(conn):
 		err("RTFM: rtfm -h")
 
 def PrintThing(ret_cmd):
-	if (not options.printer):
+	if not options.printer:
 		print "++++++++++++++++++++++++++++++"
 		print "Command ID : "+str(ret_cmd[0])
 		print "Command    : "+str(ret_cmd[1])+'\n'
@@ -404,17 +405,17 @@ def PrintThing(ret_cmd):
 	elif options.printer is 'w':
 		print " = "+str(options.cmd)+" = "
 	elif options.printer is 'P':
-		table_data = [
-			["Command ID ",  str(ret_cmd[0])], 
-			["Command ",  str(ret_cmd[1])], 
-			["Comment  ",  str(ret_cmd[2])], 
-			["Tags  ",  str(ret_cmd[4]).replace(', ', '\n')], 
-			["Date added",  str(ret_cmd[3])], 
-			["Referances", str(ret_cmd[5]).replace(', ', '\n')]
+		table_data = [\
+			["Command ID ", str(ret_cmd[0])],
+			["Command ", str(ret_cmd[1])],
+			["Comment  ", str(ret_cmd[2])],
+			["Tags  ", str(ret_cmd[4]).replace(',', '\n')],
+			["Date added", str(ret_cmd[3])],
+			["Referances", str(ret_cmd[5]).replace(',', '\n')]\
 			]
 		table = AsciiTable(table_data)
 		max_width = table.column_max_width(1)
-		wrapped_string = '\n'.join(wrap(ret_cmd[1],  max_width))+"\n"
+		wrapped_string = '\n'.join(wrap(ret_cmd[1], max_width))+"\n"
 		table.table_data[1][1] = wrapped_string
 		print table.table
 	else:
@@ -422,55 +423,55 @@ def PrintThing(ret_cmd):
 
 
 def RefMapper(cur, refids):
-	# XXX probabley shoud just change based on if ref or tag 
+	# XXX probabley shoud just be an if for ref or tag
 	if len(refids) == 1:
 		debug("S : SELECT Ref from tblrefcontent where id  = "+str(refids[0][0]))
 		cur.execute("SELECT Ref from tblrefcontent where id = ?", refids[0])
 		text = cur.fetchall()
-		return(text[0][0])
+		return text[0][0]
 	elif len(refids) > 1:
 		# TODO : Yeh i know this is bad,  but I will get round making it better at some point
 		# AKA Yeh deal with it will probabley be here until the end of time
 		sql = "SELECT ref FROM tblrefcontent where id = -1 "
 		for refid in refids:
-			sql+= " OR id = "+str(refid[0])
+			sql += " OR id = "+str(refid[0])
 		debug("S : "+sql)
 		cur.execute(sql)
 		textlist = cur.fetchall()
 		text = ''
 		for item in textlist:
-			text+= item[0]+"\n"
-		return(text)
+			text += item[0]+"\n"
+		return text
 	else:
-		return("xXx ! No Refs for this ! xXx ")
+		return "xXx ! No Refs for this ! xXx "
 
 def TagMapper(cur, tagids):
 	if len(tagids) == 1:
 		debug("S : SELECT tag from tbltagcontent where tagid  = "+str(tagids[0][0]))
 		cur.execute("SELECT tag from tbltagcontent where tagid = ?", tagids[0])
 		text = cur.fetchall()
-		return(text[0][0])
+		return text[0][0]
 	elif len(tagids) > 1:
 		# TODO : Yeh i know this is bad,  but I will get round making it better at some point
 		# AKA Yeh deal with it will probabley be here until the end of time
 		sql = "SELECT tag FROM tbltagcontent where tagid = -1 "
 		for tagid in tagids:
-			sql+= " OR tagid = "+str(tagid[0])
+			sql += " OR tagid = "+str(tagid[0])
 		debug("S : "+sql)
 		cur.execute(sql)
 		textlist = cur.fetchall()
 		text = ''
 		for item in textlist:
-			text+= "| "+item[0]+" "
-		return(text)
+			text += "| "+item[0]+" "
+		return text
 	else:
-		return("xXx ! No tags for this ! xXx ")
+		return "xXx ! No tags for this ! xXx "
 
 def AsocTags(cur, cmd):
-	debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
-	cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = "+str(cmd[0]))
+	debug("S : SELECT TagID FROM tbltagmap WHERE cmdid = " + str(cmd[0]))
+	cur.execute("SELECT TagID FROM tbltagmap WHERE cmdid = " + str(cmd[0]))
 	RetTagIds = cur.fetchall()
-	debug("This returned : "+str(RetTagIds)+" Len : "+str(len(RetTagIds)))
+	debug("This returned : " + str(RetTagIds) + " Len : " + str(len(RetTagIds)))
 	Tags = TagMapper(cur, RetTagIds)
 	l = list(cmd)
 	l.append(Tags)
@@ -490,10 +491,10 @@ def AsocRefs(cur, cmd):
 
 
 #########################################################################
-# Helper Functions 
+# Helper Functions
 #########################################################################
 
-def debug(msg,  override = False):
+def debug(msg, override=False):
 	if options.debug or override:
 		print ANSI["purple"] + ANSI["bold"] + "[DEBUG]: " + ANSI["reset"] + msg
 
@@ -501,14 +502,13 @@ def ok(msg):
 	print ANSI["green"] + ANSI["bold"] + "[OK]: " + ANSI["reset"] + msg
 
 def warn(msg):
-	msg =  ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + \
-		ANSI["reset"] + msg + "\n"
+	msg = ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + msg + "\n"
 	sys.stderr.write(msg)
 
-def err(msg,  level = "generic"):
+def err(msg, level="generic"):
 	if level.lower() not in EXIT_CODES:
 		level = "generic"
-	msg =  ANSI["red"] + ANSI["bold"] + "[ERROR]: " + \
+	msg = ANSI["red"] + ANSI["bold"] + "[ERROR]: " + \
 		ANSI["reset"] + msg + "\n"
 	sys.stderr.write(msg)
 	sys.exit(EXIT_CODES[level])
@@ -524,45 +524,44 @@ except:
 	warn("Unable to have pretty output,  Please 'pip install terminaltables' or remove these lines :)")
 
 if __name__ == "__main__":
-	parser = optparse.OptionParser(
-		usage = "Usage: %prog [OPTIONS]", 
-		version = "%s: v%s (%s)" % (__prog__,  __version__,  ',  '.join(__authors__)), 
-		description = "For when you just cant remember the syntax,  you should just RTFM", 
-		epilog = "Example:rtfm.py -t windows rtfm.py -d tags", 
-	)
+	parser = optparse.OptionParser(\
+		usage="Usage: %prog [OPTIONS]",
+		version="%s: v%s (%s)" % (__prog__, __version__, ','.join(__authors__)),
+		description="For when you just cant remember the syntax,  you should just RTFM",
+		epilog="Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d",
+		)
 
-	parser.add_option("-t",  "--tag",  action = "store",  dest = "tag", 
-		help = "Specify one or more tags to look for (a, b, c)")
+	parser.add_option("-t", "--tag", action="store", dest="tag",\
+		help="Specify one or more tags to look for (a, b, c)")
 
-	parser.add_option("-c",  "--cmd",  action = "store",  dest = "cmd", 
-		help = "Specify a command to search (ls)")
+	parser.add_option("-c", "--cmd", action="store", dest="cmd",\
+		help="Specify a command to search (ls)")
 
-	parser.add_option('-R',  '--remark',  action = 'store',  dest = "remark", 
-		help = "Search the comments feilds")
+	parser.add_option('-R', '--remark', action='store', dest="remark",\
+		help="Search the comments feilds")
 
-	parser.add_option('-r',  '--referance',  action = 'store',  dest = "refer", 
-		help = "Search for the referance [referance]")
+	parser.add_option('-r', '--referance', action='store', dest="refer",\
+		help="Search for the referance [referance]")
 
-	parser.add_option('-p',  '--print',  action = 'store',  dest = "printer", 
-		help = "Print Types : P(retty) p(astable) w(iki) h(tml)")
+	parser.add_option('-p', '--print', action='store', dest="printer",\
+		help="Print Types : P(retty) p(astable) w(iki) h(tml)")
 
-	parser.add_option('-i',  '--insert',  action = 'store',  dest = "insert", 
-		help = "Insert c(ommand) | t(ags) r(eferances)")
+	parser.add_option('-i', '--insert', action='store', dest="insert",\
+		help="Insert c(ommand) | t(ags) r(eferances)")
 
-	parser.add_option('-D',  '--dump',  action = 'store',  dest = "dump", 
-		help = "Just Dump infomration about t(ags)|c(commands)|r(eferances)a(ll)")
+	parser.add_option('-D', '--dump', action='store', dest="dump",\
+		help="Just Dump infomration about t(ags)|c(commands)|r(eferances)a(ll)")
 
-	parser.add_option('-d',  '--debug',  action = 'store_true',  dest = "debug", 
-		help = 'Display verbose processing details (default: False)')
+	parser.add_option('-d', '--debug', action='store_true', dest="debug",\
+		help='Display verbose processing details (default: False)')
 
-	parser.add_option('-u',  '--update',  action = 'store_true',  dest = "update", 
-		help = 'Check for updates (default: false)')
+	parser.add_option('-u', '--update', action='store_true', dest="update",\
+		help='Check for updates (default: false)')
 
-	parser.add_option('-v',  action = 'version', 
-		help = "Shows the current version number and the current DB hash and exits")
+	parser.add_option('-v', action='version',\
+		help="Shows the current version number and the current DB hash and exits")
 
-
-	(options,  args) = parser.parse_args()
+	(options, args) = parser.parse_args()
 
 	try:
 		debug("Options Set: "+str(options))
