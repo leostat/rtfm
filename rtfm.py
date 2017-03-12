@@ -7,6 +7,7 @@
 ##
 
 import optparse
+import hashlib
 import sys
 import sqlite3
 import os.path
@@ -22,7 +23,7 @@ signal(SIGPIPE, SIG_DFL)
 #########################################################################
 __version__ = "0.9.2"
 __prog__ = "rtfm"
-__authors__ = ["See Referances: They are the real writers!"]
+__authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017"]
 
 #########################################################################
 ## Fixes:
@@ -159,36 +160,41 @@ def Updater(conn):
 		row = cur.fetchall()
 		if len(row) == 0:
 			download = urllib.urlopen(update[2])
-			downfile = download.read().splitlines()
-			# TODO : DOWNLOAD VERIFICATION
-			skipc = skipt = 0
-			for cmdline in downfile:
-				if (cmdline not in ('EOC', '')) and skipc == 0:
-					icmd.append(cmdline)
-					continue
-				elif skipc == 0:
-					skipc = 1
-					continue
-				if (cmdline not in ('EOT', '')) and skipt == 0:
-					itags.append(cmdline)
-					continue
-				elif skipt == 0:
-					skipt = 1
-					continue
-				if cmdline not in ('EOR', ''):
-					irefs.append(cmdline)
-				else:
-					skipc = skipt = 0
-					debug("Command : "+str(icmd))
-					debug("Tags : "+str(itags))
-					debug("Referances : "+str(irefs))
-					newid = dbInsertCmdS(conn, icmd)
-					dbInsertTags(conn, itags, newid)
-					dbInsertRefs(conn, irefs, newid)
-					icmd = []
-					itags = []
-					irefs = []
-					continue
+			downfile = download.read()
+			hash = hashlib.sha1()	
+			hash.update(downfile)
+			if update[1] == hash.hexdigest():
+				skipc = skipt = 0
+				for cmdline in downfile.splitlines():
+					if (cmdline not in ('EOC', '')) and skipc == 0:
+						icmd.append(cmdline)
+						continue
+					elif skipc == 0:
+						skipc = 1
+						continue
+					if (cmdline not in ('EOT', '')) and skipt == 0:
+						itags.append(cmdline)
+						continue
+					elif skipt == 0:
+						skipt = 1
+						continue
+					if cmdline not in ('EOR', ''):
+						irefs.append(cmdline)
+					else:
+						skipc = skipt = 0
+						debug("Command : "+str(icmd))
+						debug("Tags : "+str(itags))
+						debug("Referances : "+str(irefs))
+						newid = dbInsertCmdS(conn, icmd)
+						dbInsertTags(conn, itags, newid)
+						dbInsertRefs(conn, irefs, newid)
+						icmd = []
+						itags = []
+						irefs = []
+						continue
+			else:
+				warn("Warning SHA1 mis-match : Ignoring this one for now")
+				continue
 			ok("Hopefully added lots of new commands")
 			debug("I: INSERT INTO tblupdates values (NULL, "+update[1]+", "+update[2]+", date('now')")
 			cur.execute("INSERT INTO tblupdates values (NULL, ?, ?, date('now'))", (update[1], update[2]))
