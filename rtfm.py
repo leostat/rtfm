@@ -21,7 +21,7 @@ signal(SIGPIPE, SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ = "0.9.2"
+__version__ = "0.9.4"
 __prog__ = "rtfm"
 __authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017"]
 
@@ -33,7 +33,6 @@ __authors__ = ["See References: They are the real writers! Program by Alex Innes
 ##
 ## Pipeline:
 ##  * Swap to more sophisticated SQL,  quite innefficent at the moment
-##  * Populate referances table
 ##  * Create a HTML page 	      : H
 ##  * create a WIKI format 	      : W
 ##  * Drop to SQL Shell               : s
@@ -150,7 +149,7 @@ def Updater(conn):
 	itags = []
 	irefs = []
 	cur = conn.cursor()
-	uplist = 'http://127.0.0.1/updates.txt'
+	uplist = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/updates.txt'
 	req = urllib.urlopen(uplist)
 	updates = req.read().splitlines()
 	for line in updates:
@@ -184,7 +183,7 @@ def Updater(conn):
 						skipc = skipt = 0
 						debug("Command : "+str(icmd))
 						debug("Tags : "+str(itags))
-						debug("Referances : "+str(irefs))
+						debug("References : "+str(irefs))
 						newid = dbInsertCmdS(conn, icmd)
 						dbInsertTags(conn, itags, newid)
 						dbInsertRefs(conn, irefs, newid)
@@ -301,7 +300,7 @@ def Insert(conn):
 		ref = 'http://necurity.co.uk'
 		cmdid = raw_input("What CmdID are we adding refs to? : ")
 		while ref != '':
-			ref = raw_input("Enter a referance (blank for non) : ")
+			ref = raw_input("Enter a reference (blank for non) : ")
 			if ref is not '':
 				refs.append(ref)
 		if (refs is []) or (cmdid is '') or (not cmdid.isdigit()):
@@ -421,7 +420,7 @@ def PrintThing(ret_cmd):
 			["Comment  ", str(ret_cmd[2])],
 			["Tags  ", str(ret_cmd[4]).replace(',', '\n')],
 			["Date added", str(ret_cmd[3])],
-			["Referances", str(ret_cmd[5]).replace(',', '\n')]\
+			["References", str(ret_cmd[5]).replace(',', '\n')]\
 			]
 		table = AsciiTable(table_data)
 		max_width = table.column_max_width(1)
@@ -562,8 +561,8 @@ if __name__ == "__main__":
 	parser.add_option('-R', '--remark', action='store', dest="remark",\
 		help="Search the comments feilds")
 
-	parser.add_option('-r', '--referance', action='store', dest="refer",\
-		help="Search for the referance [referance]")
+	parser.add_option('-r', '--reference', action='store', dest="refer",\
+		help="Search for the reference [reference]")
 
 	parser.add_option('-p', '--print', action='store', dest="printer",\
 		help="Print Types : P(retty) p(astable) w(iki) h(tml)")

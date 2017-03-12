@@ -16,8 +16,8 @@ Options:
   -c CMD, --cmd=CMD     Specify a command to search (ls)
   -R REMARK, --remark=REMARK
                         Search the comments feilds
-  -r REFER, --referance=REFER
-                        Search for the referance [referance]
+  -r REFER, --reference=REFER
+                        Search for the reference [reference]
   -p PRINTER, --print=PRINTER
                         Print Types : P(retty) p(astable) w(iki) h(tml)
   -i INSERT, --insert=INSERT
@@ -28,6 +28,7 @@ Options:
   -u, --update          Check for updates (default: false)
   -v                    Shows the current version number and the current DB
                         hash and exits (lies, it will do though)
+  --delete				Delete a ID from the DB
 
 Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d
 ```
@@ -99,7 +100,6 @@ helpception
  * Re-jig the updater and the inserter
 
 ## Pipeline:
- * Populate referances table
  * Create a HTML page 	      : H
  * create a WIKI format 	      : W
  * Drop to SQL Shell               : s
