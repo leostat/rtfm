@@ -116,7 +116,7 @@ def run():
 		iok = 1
 		sys.exit()
 	if not iok:
-		debug("https://www.youtube.com/watch?v = qRFhNZNu_xw")
+		debug("http://www.youtube.com/watch?v = qRFhNZNu_xw")
 		err("RTFM: rtfm -h OR rtfm.py -c ''")
 	else:
 		Search(conn, sqlcmd, sqltpl, sqllst)
@@ -150,7 +150,7 @@ def Updater(conn):
 	itags = []
 	irefs = []
 	cur = conn.cursor()
-	uplist = 'https://lg.lc/updates.txt'
+	uplist = 'http://127.0.0.1/updates.txt'
 	req = urllib.urlopen(uplist)
 	updates = req.read().splitlines()
 	for line in updates:
@@ -405,7 +405,7 @@ def PrintThing(ret_cmd):
 		print "Comment    : "+str(ret_cmd[2])
 		print "Tags       : "+str(ret_cmd[4])
 		print "Date Added : "+str(ret_cmd[3])
-		print "References\n__________\n"+str(ret_cmd[5].replace(', ', '\n'))
+		print "References\n__________\n"+str(ret_cmd[5].replace(',', '\n'))
 		print "++++++++++++++++++++++++++++++\n"
 	elif options.printer is 'p':
 		print "++++++++++++++++++++++++++++++"
@@ -545,7 +545,7 @@ if __name__ == "__main__":
 	dbsversion = cur.fetchall() 
 	parser = optparse.OptionParser(\
 		usage="Usage: %prog [OPTIONS]",
-		version="%s: v%s (%s) \nDB updates installed :\n %s" % (__prog__, __version__, ','.join(__authors__), '\n '.join(map(str,dbsversion))),
+		version="%s: v%s (%s) \nDB updates installed (Hash:URL) :\n %s" % (__prog__, __version__, ','.join(__authors__), '\n '.join(map(str,dbsversion))),
 		description="For when you just cant remember the syntax,  you should just RTFM",
 		epilog="Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d",
 		)
