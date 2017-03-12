@@ -20,7 +20,7 @@ signal(SIGPIPE, SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ = "0.8.0"
+__version__ = "0.9.2"
 __prog__ = "rtfm"
 __authors__ = ["See Referances: They are the real writers!"]
 
@@ -73,11 +73,6 @@ ANSI = {
 #########################################################################
 
 def run():
-	if os.path.dirname(sys.argv[0])+'/snips.db':
-		conn = sqlite3.connect(os.path.dirname(sys.argv[0])+'/snips.db')
-		conn.text_factory = str
-	else:
-		err("Cant access the DB,  you're on your own.")
 	sqlcmd = []
 	sqltpl = []
 	sqllst = []
@@ -106,6 +101,15 @@ def run():
 			sqllst.append(' group_concat(tc.tag) like ? ')
 			sqltpl.append("%"+TAG+"%")
 		iok = 1
+	if options.delete is not None and options.delete.isdigit():
+		cur = conn.cursor()
+		sql = "DELETE FROM tblcommand WHERE cmdid = ?"
+		debug(sql)
+		cur.execute(sql, options.delete)
+		ok("Deleted CMD "+str(options.delete))
+		iok = 1 
+		conn.commit()
+		sys.exit()
 	if options.dump:
 		Dump(conn)
 		iok = 1
@@ -524,12 +528,24 @@ except:
 	warn("Unable to have pretty output,  Please 'pip install terminaltables' or remove these lines :)")
 
 if __name__ == "__main__":
+	if os.path.dirname(sys.argv[0])+'/snips.db':
+		conn = sqlite3.connect(os.path.dirname(sys.argv[0])+'/snips.db')
+		conn.text_factory = str
+	else:
+		err("Cant access the DB,  you're on your own.")
+	cur = conn.cursor()
+	sql = "SELECT hash,URL FROM TblUpdates"
+	cur.execute(sql)
+	dbsversion = cur.fetchall() 
 	parser = optparse.OptionParser(\
 		usage="Usage: %prog [OPTIONS]",
-		version="%s: v%s (%s)" % (__prog__, __version__, ','.join(__authors__)),
+		version="%s: v%s (%s) \nDB updates installed :\n %s" % (__prog__, __version__, ','.join(__authors__), '\n '.join(map(str,dbsversion))),
 		description="For when you just cant remember the syntax,  you should just RTFM",
 		epilog="Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d",
 		)
+
+	parser.add_option("--delete", action="store", dest="delete",\
+		help="Delete specified ID")
 
 	parser.add_option("-t", "--tag", action="store", dest="tag",\
 		help="Specify one or more tags to look for (a, b, c)")
