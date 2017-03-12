@@ -1708,7 +1708,8 @@ linux
 networking
 dns
 EOT
-http://www.thegeekstuff.com/2012/02/dig-command-examplesEOR
+http://www.thegeekstuff.com/2012/02/dig-command-examples
+EOR
 nbtscan -v -s : 192.168.0.0/24 >> nbtscan-[SUBNET].txt
 NBTScan
 EOC
