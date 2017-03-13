@@ -1,1 +1,1 @@
-0,9b5e1366a565711fec72c484cf94089051889dc2,http://127.0.0.1/1.txt
+0,a0679309e87c06f064798ebc6d93f5467c73059c,https://raw.githubusercontent.com/leostat/rtfm/master/updates/1.txt
