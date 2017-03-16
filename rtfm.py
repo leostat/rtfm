@@ -35,7 +35,6 @@ __authors__ = ["See References: They are the real writers! Program by Alex Innes
 ##  * Swap to more sophisticated SQL,  quite innefficent at the moment
 ##  * Create a HTML page 	      : H
 ##  * create a WIKI format 	      : W
-##  * Drop to SQL Shell               : s
 ##  * Template engine(autofill [user] : A user = innes, pass = password, attacker = 1.1.1.1, victim = 2.2.2.2
 ##  * Make code more sane and betterize the layout
 ##
@@ -412,7 +411,10 @@ def PrintThing(ret_cmd):
 		print str(ret_cmd[2])
 		print "++++++++++++++++++++++++++++++\n"
 	elif options.printer is 'w':
-		print " = "+str(options.cmd)+" = "
+		print "= "+str(ret_cmd[2])+" = "
+		print " "+str(ret_cmd[1])
+		print str(ret_cmd[4].replace(',',', '))
+		print str(ret_cmd[5].replace(',', '\n'))
 	elif options.printer is 'P':
 		table_data = [\
 			["Command ID ", str(ret_cmd[0])],

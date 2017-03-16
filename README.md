@@ -34,7 +34,7 @@ Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d
 ```
 Its pretty much a simple search program, nothing to fancy, examples include:
 
-Search for the command psexec.py
+Search for the command rtfm
 ```
 ./rtfm.py -c rtfm
 
