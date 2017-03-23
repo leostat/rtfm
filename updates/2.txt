@@ -127,7 +127,7 @@ EOT
 https://github.com/frohoff/ysoserial
 http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/
 EOR
-grep -ir "wpdb"  | egrep "_POST|_GET|_REQUEST" | grep -v prep
+grep -ir wpdb . | egrep -i "get_r|insert|escape|query" | egrep "_GET|_POST|_REQUEST|\$" | grep --color wpdb.
 Very Basic SQLI test in wp plugin
 EOC
 web application

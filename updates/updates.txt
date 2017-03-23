@@ -1,2 +1,2 @@
-0,a4b9a0938cd3869172509aa02bb1ee13d133c346,https://raw.githubusercontent.com/leostat/rtfm/master/updates/1.txt
-1,f4baace82b9a6536e7ff656313294bdc3ca9bbc2,https://raw.githubusercontent.com/leostat/rtfm/master/updates/2.txt
+0,d3a8bbc723b4b83d79cb5fa9b8a0b9ac4c6ecb4b,https://raw.githubusercontent.com/leostat/rtfm/master/updates/1.txt
+1,2987bbc40e745939a61491b47f0ef8469cf348f9,https://raw.githubusercontent.com/leostat/rtfm/master/updates/2.txt
