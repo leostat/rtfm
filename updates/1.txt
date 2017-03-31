@@ -715,7 +715,7 @@ EOR
 .net xss filter evasion
 EOC
 XSS
-web appplication
+web application
 EOT
 https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
 EOR
@@ -3406,6 +3406,7 @@ socat TCP-LISTEN:8080,reuseaddr,fork TCP6:[RHOST]:[RPORT] ./[tool] 127.00.0.1:80
 Route IPV6 through ipv4 for things that don't support it
 EOC
 Linux
+pivoting
 networking
 EOT
 https://www.cyberciti.biz/faq/linux-unix-tcp-port-forwarding/
@@ -3478,7 +3479,7 @@ Bypass auth on ios 11.2-12.2
 EOC
 cisco
 interesting
-web appplication
+web application
 remote command shell
 EOT
 https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
@@ -3573,6 +3574,7 @@ socat TCP4:LISTEN:[lport] TCP4:[rip]:[rport]
 forward local traffic htting lport to [rip]:[rport]
 EOC
 Linux
+pivoting
 networking
 EOT
 https://www.cyberciti.biz/faq/linux-unix-tcp-port-forwarding/
@@ -3702,8 +3704,8 @@ privilege escalation
 EOT
 http://www.fuzzysecurity.com/tutorials/16.html
 EOR
-sc sdshow  winmgmt
-Show service permissions, look for AU|AN|DU|LG|
+sc sdshow [service]
+Show service permissions, look for AU|AN|DU|LG, manual AccessChk, may help with bob ;)
 EOC
 Windows
 privilege escalation
