@@ -55,7 +55,6 @@ Show us all the current tags
 
 Pull Updates to the DB
 `./rtfm.py -u`
- * Note: Seems to be buggy on NFS shares 
 
 The updates are 'safe' in the form they wont write over your DB, git pull is not a safe update
 
@@ -87,6 +86,11 @@ helpception
 | Tags        | Linux       |
 | Date added  | 2017-01-30  |
 +-------------+-------------+
+
+= Helpception, search for a command with two tags and a comment = 
+ rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
+linux
+https://github.com/leostat/rtfm
 
 ```
 # The TODO  list
