@@ -7,6 +7,7 @@
 ##
 
 import optparse
+import time
 import hashlib
 import sys
 import sqlite3
@@ -148,6 +149,7 @@ def Updater(conn):
 	itags = []
 	irefs = []
 	cur = conn.cursor()
+	cur.execute("PRAGMA journal_mode = MEMORY")
 	uplist = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/updates.txt'
 	req = urllib.urlopen(uplist)
 	updates = req.read().splitlines()
@@ -543,7 +545,9 @@ if __name__ == "__main__":
 	cur = conn.cursor()
 	sql = "SELECT hash,URL FROM TblUpdates"
 	cur.execute(sql)
-	dbsversion = cur.fetchall() 
+	dbsversion = cur.fetchall()
+	if dbsversion is not None:
+		print ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + "No DB, please run rtfm -u"
 	parser = optparse.OptionParser(\
 		usage="Usage: %prog [OPTIONS]",
 		version="%s: v%s (%s) \nDB updates installed (Hash:URL) :\n %s" % (__prog__, __version__, ','.join(__authors__), '\n '.join(map(str,dbsversion))),
