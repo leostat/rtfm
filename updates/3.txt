@@ -60,12 +60,12 @@ http://seclist.us/hadoop-attack-library-is-a-collection-of-pentest-tools-and-res
 EOR
 for i in $(ls -alh /data/shares/opt/ | grep "^drw" | awk '{print $9}'); do cd /data/shares/opt/$i; git pull; echo $i;done | grep -v fatal
 GitUp : Update all the opt gits
-https://yg.ht
 EOC
 GIT
 linux
 interesting
 EOT
+https://yg.ht
 EOR
 hping -S -y -m 1300 -p 445 shared
 TCP ping : Check MTU
