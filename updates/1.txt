@@ -4,6 +4,7 @@ EOC
 linux
 EOT
 https://github.com/leostat/rtfm
+https://necurity.co.uk/osprog/2017-02-27-RTFM-Pythonized/index.html
 EOR
 awk /^[TERM]/ '{print "See the",$1,"at the",$3}' words.txt
 Use only the lines that match a given RegEX [TERM]
@@ -1224,7 +1225,7 @@ wifi
 EOT
 http://Microsoft.com
 EOR
-Netsh wlan show profile name="[SSID]" key=clear
+netsh wlan show profile name="[SSID]" key=clear
 Windows Wireless
 EOC
 Windows
@@ -3610,7 +3611,7 @@ EOT
 http://the.earth.li/~sgtatham/putty/0.53b/htmldoc/Chapter7.html
 EOR
 ssh -D [port] [user]@[ip]
-set up a socks proxy
+set up a socks proxy, proxycahins may help also
 EOC
 Linux
 networking

@@ -546,7 +546,7 @@ if __name__ == "__main__":
 	sql = "SELECT hash,URL FROM TblUpdates"
 	cur.execute(sql)
 	dbsversion = cur.fetchall()
-	if dbsversion is not None:
+	if dbsversion is None:
 		print ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + "No DB, please run rtfm -u"
 	parser = optparse.OptionParser(\
 		usage="Usage: %prog [OPTIONS]",

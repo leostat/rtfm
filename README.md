@@ -87,6 +87,7 @@ helpception
 | Date added  | 2017-01-30  |
 +-------------+-------------+
 
+23:15:root:snips: ./rtfm.py -c rtfm -p w
 = Helpception, search for a command with two tags and a comment = 
  rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
 linux
@@ -104,9 +105,6 @@ https://github.com/leostat/rtfm
  * Re-jig the updater and the inserter
 
 ## Pipeline:
- * Create a HTML page 	      : H
- * create a WIKI format 	      : W
- * Drop to SQL Shell               : s
  * Template engine(autofill [user] : A user = innes, pass = password, attacker = 1.1.1.1, victim = 2.2.2.2
  * Make code more sane and betterize the layout
 
