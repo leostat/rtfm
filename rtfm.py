@@ -1,13 +1,12 @@
 #!/usr/bin/python2.7
-# Allright I know it should be python3
+"""# Allright I know it should be python3
 ##
 # Inspired by : https://xkcd.com/293/
 # https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 # Thanks for the Scaffolding Max!
-##
+##"""
 
 import optparse
-import time
 import hashlib
 import sys
 import sqlite3
@@ -22,7 +21,7 @@ signal(SIGPIPE, SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ = "0.9.4"
+__version__ = "0.9.6"
 __prog__ = "rtfm"
 __authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017"]
 
@@ -111,7 +110,7 @@ def run():
 		debug(sql)
 		cur.execute(sql, options.delete)
 		ok("Deleted CMD "+str(options.delete))
-		iok = 1 
+		iok = 1
 		conn.commit()
 		sys.exit()
 	if options.dump:
@@ -165,7 +164,7 @@ def Updater(conn):
 		if len(row) == 0:
 			download = urllib.urlopen(update[2])
 			downfile = download.read()
-			hash = hashlib.sha1()	
+			hash = hashlib.sha1()
 			hash.update(downfile)
 			if update[1] == hash.hexdigest():
 				skipc = skipt = 0
@@ -264,7 +263,9 @@ def dbInsertRefs(conn, refs, cmdid):
 def dbInsertCmdS(conn, cmd):
 	cur = conn.cursor()
 	if options.debug:
-		debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"', '"+str(cmd[2])+"', "+"date('now'))")
+		debug("CMD : "+str(cmd))
+		debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+ \
+			 "', " +str(cmd[2])+"', "+"date('now'))")
 	cur.execute("""INSERT INTO tblcommand VALUES (NULL, ?, ?, ?, date("now"));""", cmd)
 	conn.commit()
 	ok("Added Rows :"+str(cur.rowcount))
@@ -272,20 +273,28 @@ def dbInsertCmdS(conn, cmd):
 
 def dbInsertCmd(conn, cmds):
 	cur = conn.cursor()
+	cur.execute("SELECT max(cmdid) from tblcommand")
+	max_id = cur.fetchall()
 	if options.debug:
 		for cmd in cmds:
-			debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"', '"+str(cmd[2])+"', "+"date('now'))")
+			debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1]) \
+				+"', '"+str(cmd[2])+"', "+"date('now'))")
 	cur.executemany('INSERT INTO tblcommand VALUES (NULL, ?, ?, ?, date("now"));', cmds)
 	conn.commit()
-	ok("Added Rows :" + str(cur.rowcount))
+	ok("Added Rows : " + str(cur.rowcount))
+	cur.execute("SELECT max(cmdid) FROM tblcommand")
+	new_max_id = cur.fetchall()
+	ok("New Top ID : " + str(new_max_id[0][0]) + " | Number of CMD's Added : " \
+		+ str(new_max_id[0][0]-max_id[0][0]))
+
 
 def Insert(conn):
 	if options.insert is 't':
 		tags = []
 		tag = 'EasterEgg'
-		cmdid = raw_input("What CMD are we adding tags to? : ")
+		cmdid = raw_input("What CMD are we adding tags too? : ")
 		while tag != '':
-			tag = raw_input("Enter a tag (blank for non) : ")
+			tag = raw_input("Enter a tag (blank for none) : ")
 			if tag is not '':
 				tags.append(tag)
 		if (tags is []) or (cmdid is '') or (not cmdid.isdigit()):
@@ -297,16 +306,17 @@ def Insert(conn):
 		while not (cmd == '' or cmd == 'EOC'):
 			cmd = raw_input("Enter your command    : ")
 			cmt = raw_input("Enter you comment     : ")
-			author = raw_input("Enter Author     : ")
+			author = raw_input("Enter Author          : ")
 			if cmd not in ('', 'EOC'):
 				cmds.append((cmd, cmt, author))
 		dbInsertCmd(conn, cmds)
+		exit()
 	elif options.insert is 'r':
 		refs = []
 		ref = 'http://necurity.co.uk'
 		cmdid = raw_input("What CmdID are we adding refs to? : ")
 		while ref != '':
-			ref = raw_input("Enter a reference (blank for non) : ")
+			ref = raw_input("Enter a reference (blank for none) : ")
 			if ref is not '':
 				refs.append(ref)
 		if (refs is []) or (cmdid is '') or (not cmdid.isdigit()):
@@ -342,15 +352,46 @@ def Insert(conn):
 			Dump(conn)
 			print " == == ONE TAG A LINE == == \n"
 			while tag != '':
-				tag = raw_input("Enter a tag (blank for non) : ")
+				tag = raw_input("Enter a tag (blank for none) : ")
 				if tag is not '':
 					tags.append(tag)
 				if (tags is []) or (cmd is ''):
 					err("No,  Just why  : "+str(cmd)+" : "+str(tags))
 			dbInsertTags(conn, tags, cmd[0])
-
+	elif options.insert == 'E':
+		cmd = 'while true; do sl; done'
+		while cmd != '':
+			icmd = []
+			itags = []
+			irefs = []
+			cmd = raw_input("Enter your command    : ")
+			cmt = raw_input("Enter you comment     : ")
+			author = raw_input("Enter Author          : ")
+			if cmd not in ('', 'EOC'):
+				icmd.extend((cmd, cmt, author))
+			tag = 'EasterEgg'
+			while tag != '':
+				tag = raw_input("Enter a tag (blank for end) : ")
+				if tag is not '':
+					itags.append(tag)
+			if len(itags) is 0:
+				err("No,  All parts required for E")
+			ref = 'https://lg.lc'
+			while ref != '':
+				ref = raw_input("Enter a reference (blank for end) : ")
+				if ref is not '':
+					irefs.append(ref)
+			if len(irefs) is 0:
+				err("No,  All parts required for E")
+			debug("Command : "+str(icmd))
+			debug("Tags : "+str(itags))
+			debug("References : "+str(irefs))
+			newid = dbInsertCmdS(conn, icmd)
+			dbInsertTags(conn, itags, newid)
+			dbInsertRefs(conn, irefs, newid)
 	else:
 		err("RTFM : rtfh.py -h")
+	exit()
 
 def Dump(conn):
 	cur = conn.cursor()
@@ -421,11 +462,11 @@ def PrintThing(ret_cmd):
 	elif options.printer is 'w':
 		print "= "+str(ret_cmd[2])+" = "
 		print " "+str(ret_cmd[1])
-		print str(ret_cmd[5].replace(',',', '))
+		print str(ret_cmd[5].replace(',', ', '))
 		print str(ret_cmd[6].replace(',', '\n'))
 	elif options.printer is 'P':
 		table_data = [\
-			["Added By " + str(ret_cmd[4]),"Cmd ID : " + str(ret_cmd[0])],
+			["Added By " + str(ret_cmd[4]), "Cmd ID : " + str(ret_cmd[0])],
 			["Command ", str(ret_cmd[1])],
 			["Comment  ", str(ret_cmd[2])],
 			["Tags  ", str(ret_cmd[5]).replace(',', '\n')],
@@ -556,10 +597,10 @@ if __name__ == "__main__":
 		print ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + "No DB, please run rtfm -u"
 	parser = optparse.OptionParser(\
 		usage="Usage: %prog [OPTIONS]",
-		version="%s: v%s (%s) \nDB updates installed (Hash:URL) :\n %s" % (__prog__, __version__, ','.join(__authors__), '\n '.join(map(str,dbsversion))),
+		version="%s: v%s (%s) \nDB updates installed (Hash:URL) :\n %s" % (__prog__, __version__, \
+			','.join(__authors__), '\n '.join(map(str, dbsversion))),
 		description="For when you just cant remember the syntax,  you should just RTFM",
-		epilog="Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d",
-		)
+		epilog="Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d")
 
 	parser.add_option("--delete", action="store", dest="delete",\
 		help="Delete specified ID")
@@ -583,7 +624,7 @@ if __name__ == "__main__":
 		help="Print Types : P(retty) p(astable) w(iki) h(tml)")
 
 	parser.add_option('-i', '--insert', action='store', dest="insert",\
-		help="Insert c(ommand) | t(ags) r(eferances)")
+		help="Insert c(ommand) | t(ags) | r(eferances) | (E)verything")
 
 	parser.add_option('-D', '--dump', action='store', dest="dump",\
 		help="Just Dump infomration about t(ags)|c(commands)|r(eferances)a(ll)")
