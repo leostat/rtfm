@@ -18,6 +18,8 @@ Options:
                         Search the comments feilds
   -r REFER, --reference=REFER
                         Search for the reference [reference]
+  -a AUTHOR, --author=author
+                        Search for an author
   -p PRINTER, --print=PRINTER
                         Print Types : P(retty) p(astable) w(iki) h(tml)
   -i INSERT, --insert=INSERT
@@ -49,6 +51,9 @@ Date Added : 2017-01-30
 ```
 Show us all windows commands with the term psexec
 `./rtfm.py -t windows -c psexec`
+
+Show us all commands which have been added by Innes
+`./rtfm.py -a innes`
 
 Show us all the current tags
 `./rtfm.py -D t`
