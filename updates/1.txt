@@ -1640,8 +1640,8 @@ https://technet.microsoft.com/en-us/library/cc754051(v=ws.11).aspx
 EOR
 net localgroup "Administrators" [user] /add /domain
 Add a user to the local admin group, not as useful any more
-Innes
 @yght
+EOC
 Windows
 user information
 privilege escalation
