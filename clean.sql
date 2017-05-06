@@ -4,6 +4,7 @@ CREATE TABLE TblCommand(
    CmdID INTEGER PRIMARY KEY,
    Cmd BYTE NOT NULL,
    cmnt TEXT,
+   author TEXT, 
    date DATE
 );
 CREATE TABLE TblTagContent(

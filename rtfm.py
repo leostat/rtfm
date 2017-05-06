@@ -115,7 +115,7 @@ def run():
 		iok = 1
 		sys.exit()
 	if not iok:
-		debug("http://www.youtube.com/watch?v = qRFhNZNu_xw")
+		debug("http://www.youtube.com/watch?v=qRFhNZNu_xw")
 		err("RTFM: rtfm -h OR rtfm.py -c ''")
 	else:
 		Search(conn, sqlcmd, sqltpl, sqllst)
@@ -125,7 +125,7 @@ def run():
 ####
 def Search(conn, sqlcmd, sqltpl, sqllst):
 	cur = conn.cursor()
-	sql = "SELECT c.cmdid, c.cmd, c.cmnt, c.date, group_concat(DISTINCT  tc.tag), group_concat(DISTINCT ref) "
+	sql = "SELECT c.cmdid, c.cmd, c.cmnt, c.date, c.author, group_concat(DISTINCT tc.tag), group_concat(DISTINCT ref)"
 	sql += " FROM tblcommand c JOIN tbltagmap tm ON tm.cmdid = c.cmdid JOIN tbltagcontent tc ON "
 	sql += " tc.tagid = tm.tagid JOIN tblrefmap rm ON rm.cmdid = c.cmdid"
 	sql += " JOIN tblrefcontent rc on rc.id = rm.refid"
@@ -144,7 +144,7 @@ def Search(conn, sqlcmd, sqltpl, sqllst):
 
 
 def Updater(conn):
-	ok("This may appear to hang. Its due to my bad SQL,  sorry,  run with debug to get more info")
+	ok("This may appear to hang. Its due to my bad SQL, sorry, run with debug to get more info")
 	icmd = []
 	itags = []
 	irefs = []
@@ -260,8 +260,8 @@ def dbInsertRefs(conn, refs, cmdid):
 def dbInsertCmdS(conn, cmd):
 	cur = conn.cursor()
 	if options.debug:
-		debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"date('now'))")
-	cur.execute("""INSERT INTO tblcommand VALUES (NULL, ?, ?, date("now"));""", cmd)
+		debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"', '"+str(cmd[2])+"', "+"date('now'))")
+	cur.execute("""INSERT INTO tblcommand VALUES (NULL, ?, ?, ?, date("now"));""", cmd)
 	conn.commit()
 	ok("Added Rows :"+str(cur.rowcount))
 	return cur.lastrowid
@@ -270,8 +270,8 @@ def dbInsertCmd(conn, cmds):
 	cur = conn.cursor()
 	if options.debug:
 		for cmd in cmds:
-			debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"date('now'))")
-	cur.executemany('INSERT INTO tblcommand VALUES (NULL, ?, ?, date("now"));', cmds)
+			debug("I: INSERT INTO tblcommand VALUES (NULL, '"+str(cmd[0])+"', '"+str(cmd[1])+"', "+"', '"+str(cmd[2])+"', "+"date('now'))")
+	cur.executemany('INSERT INTO tblcommand VALUES (NULL, ?, ?, ?, date("now"));', cmds)
 	conn.commit()
 	ok("Added Rows :" + str(cur.rowcount))
 
@@ -293,8 +293,9 @@ def Insert(conn):
 		while not (cmd == '' or cmd == 'EOC'):
 			cmd = raw_input("Enter your command    : ")
 			cmt = raw_input("Enter you comment     : ")
+			author = raw_input("Enter Author     : ")
 			if cmd not in ('', 'EOC'):
-				cmds.append((cmd, cmt))
+				cmds.append((cmd, cmt, author))
 		dbInsertCmd(conn, cmds)
 	elif options.insert is 'r':
 		refs = []
@@ -405,6 +406,7 @@ def PrintThing(ret_cmd):
 		print "Comment    : "+str(ret_cmd[2])
 		print "Tags       : "+str(ret_cmd[4])
 		print "Date Added : "+str(ret_cmd[3])
+		print "Added By : "+str(ret_cmd[6])
 		print "References\n__________\n"+str(ret_cmd[5].replace(',', '\n'))
 		print "++++++++++++++++++++++++++++++\n"
 	elif options.printer is 'p':
@@ -419,7 +421,7 @@ def PrintThing(ret_cmd):
 		print str(ret_cmd[5].replace(',', '\n'))
 	elif options.printer is 'P':
 		table_data = [\
-			["Command ID ", str(ret_cmd[0])],
+			["Added By " + str(ret_cmd[6]),"Cmd ID : " + str(ret_cmd[0])],
 			["Command ", str(ret_cmd[1])],
 			["Comment  ", str(ret_cmd[2])],
 			["Tags  ", str(ret_cmd[4]).replace(',', '\n')],
@@ -428,7 +430,7 @@ def PrintThing(ret_cmd):
 			]
 		table = AsciiTable(table_data)
 		max_width = table.column_max_width(1)
-		wrapped_string = '\n'.join(wrap(ret_cmd[1], max_width))+"\n"
+		wrapped_string = '\n'.join(wrap(str(ret_cmd[1]), max_width))+"\n"
 		table.table_data[1][1] = wrapped_string
 		print table.table
 	else:

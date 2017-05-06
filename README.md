@@ -1,7 +1,7 @@
-#  what 
+#  What is it?
 RTFM is a great and useful book, BUT a bit pointless when you have to transcribe it, so this little program will aim to be the spiritual successor to it.
 
-I would recommend picking up a copy of the book from amazon, it is pretty handy to have!
+I would recommend picking up a copy of the book from Amazon, it is pretty handy to have!
 
 # Usage 
 ```
@@ -97,7 +97,8 @@ https://github.com/leostat/rtfm
 # The TODO  list
  * Lots, this is an alpha so far
  * The 'important' functionality is present, but still lots of work to do
-
+ * Changes are happening on the DB, which means it may 'break' from time to time, just do a git pull to fix 
+ 
 ## Fixes:
  * Probabley should use prepared statements : local so dont care
  * Check for dupe tags

