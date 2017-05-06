@@ -91,6 +91,10 @@ def run():
 		sqlcmd.append(" AND c.cmnt LIKE ?")
 		sqltpl.append("%"+options.remark+"%")
 		iok = 1
+	if options.author is not None:
+		sqlcmd.append(" AND c.author LIKE ?")
+		sqltpl.append("%"+options.author+"%")
+		iok = 1
 	if options.refer is not None:
 		for REF in options.refer.split(','):
 			sqllst.append(' group_concat(rc.ref) like ? ')
@@ -404,10 +408,10 @@ def PrintThing(ret_cmd):
 		print "Command ID : "+str(ret_cmd[0])
 		print "Command    : "+str(ret_cmd[1])+'\n'
 		print "Comment    : "+str(ret_cmd[2])
-		print "Tags       : "+str(ret_cmd[4])
+		print "Tags       : "+str(ret_cmd[5])
 		print "Date Added : "+str(ret_cmd[3])
-		print "Added By : "+str(ret_cmd[6])
-		print "References\n__________\n"+str(ret_cmd[5].replace(',', '\n'))
+		print "Added By   : "+str(ret_cmd[4])
+		print "References\n__________\n"+str(ret_cmd[6].replace(',', '\n'))
 		print "++++++++++++++++++++++++++++++\n"
 	elif options.printer is 'p':
 		print "++++++++++++++++++++++++++++++"
@@ -417,16 +421,16 @@ def PrintThing(ret_cmd):
 	elif options.printer is 'w':
 		print "= "+str(ret_cmd[2])+" = "
 		print " "+str(ret_cmd[1])
-		print str(ret_cmd[4].replace(',',', '))
-		print str(ret_cmd[5].replace(',', '\n'))
+		print str(ret_cmd[5].replace(',',', '))
+		print str(ret_cmd[6].replace(',', '\n'))
 	elif options.printer is 'P':
 		table_data = [\
-			["Added By " + str(ret_cmd[6]),"Cmd ID : " + str(ret_cmd[0])],
+			["Added By " + str(ret_cmd[4]),"Cmd ID : " + str(ret_cmd[0])],
 			["Command ", str(ret_cmd[1])],
 			["Comment  ", str(ret_cmd[2])],
-			["Tags  ", str(ret_cmd[4]).replace(',', '\n')],
+			["Tags  ", str(ret_cmd[5]).replace(',', '\n')],
 			["Date added", str(ret_cmd[3])],
-			["References", str(ret_cmd[5]).replace(',', '\n')]\
+			["References", str(ret_cmd[6]).replace(',', '\n')]\
 			]
 		table = AsciiTable(table_data)
 		max_width = table.column_max_width(1)
@@ -571,6 +575,9 @@ if __name__ == "__main__":
 
 	parser.add_option('-r', '--reference', action='store', dest="refer",\
 		help="Search for the reference [reference]")
+
+	parser.add_option('-a', '--author', action='store', dest="author",\
+		help="Search for author")
 
 	parser.add_option('-p', '--print', action='store', dest="printer",\
 		help="Print Types : P(retty) p(astable) w(iki) h(tml)")
