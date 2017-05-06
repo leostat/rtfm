@@ -1,7 +1,6 @@
 rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
 Helpception, search for a command with two tags and a comment
 Innes
-Innes
 EOC
 linux
 EOT
