@@ -1,0 +1,3 @@
+rtfm.py usr/bin/
+clean.sql etc/rtfm/
+snips.db etc/rtfm/

@@ -584,8 +584,11 @@ except:
 	warn("Unable to have pretty output,  Please 'pip install terminaltables' or remove these lines :)")
 
 if __name__ == "__main__":
-	if os.path.dirname(os.path.realpath(sys.argv[0]))+'/snips.db':
+	if os.path.exists(os.path.dirname(os.path.realpath(sys.argv[0]))+'/snips.db'):
 		conn = sqlite3.connect(os.path.dirname(os.path.realpath(sys.argv[0]))+'/snips.db')
+		conn.text_factory = str
+	elif os.path.exists('/etc/rtfm/snips.db'):
+		conn = sqlite3.connect('/etc/rtfm/snips.db')
 		conn.text_factory = str
 	else:
 		err("Cant access the DB,  you're on your own.")

@@ -1,0 +1,16 @@
+Source: rtfm
+Section: python
+Priority: optional
+Maintainer: Alexander Innes, <senni@necurity.co.uk>
+Build-Depends: debhelper (>= 7),
+               python (>= 2.6.6-3~)
+Standards-Version: 3.9.2
+X-Python-Version: >= 2.6
+
+
+Package: rtfm
+Architecture: all
+Section: python
+Depends: python-pysqlite2, ${misc:Depends}, ${python:Depends}
+Description: Simple CheatSheat Esq program
+ A simple Python program which aims to give you a database of helpfull commands, references, cheatsheets and tips in an indexed, easy to search format. You can search using one or more of; The command, Tags, URL references or Comments to get the information you need. It also comes with an Updater, and multiple output formats to make it as handy as possible!
