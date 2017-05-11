@@ -94,6 +94,14 @@ def run():
 		sqlcmd.append(" AND c.author LIKE ?")
 		sqltpl.append("%"+options.author+"%")
 		iok = 1
+	if options.date is not None:
+		if options.date == 'today' or options.date == 'now':
+			sqlcmd.append(" AND c.date = date('now')")
+			iok = 1
+		else:
+			sqlcmd.append(" AND c.date = ?")
+			sqltpl.append(options.date)
+			iok = 1
 	if options.refer is not None:
 		for REF in options.refer.split(','):
 			sqllst.append(' group_concat(rc.ref) like ? ')
@@ -108,7 +116,7 @@ def run():
 		cur = conn.cursor()
 		sql = "DELETE FROM tblcommand WHERE cmdid = ?"
 		debug(sql)
-		cur.execute(sql, options.delete)
+		cur.execute(sql, (options.delete,))
 		ok("Deleted CMD "+str(options.delete))
 		iok = 1
 		conn.commit()
@@ -459,6 +467,15 @@ def PrintThing(ret_cmd):
 		print str(ret_cmd[1])+'\n'
 		print str(ret_cmd[2])
 		print "++++++++++++++++++++++++++++++\n"
+	elif options.printer is 'd':
+		print str(ret_cmd[1])
+		print str(ret_cmd[2])
+		print str(ret_cmd[4])
+		print 'EOC'
+		print str(ret_cmd[5].replace(',', '\n'))
+		print 'EOT'
+		print str(ret_cmd[6].replace(',', '\n'))
+		print 'EOR'
 	elif options.printer is 'w':
 		print "= "+str(ret_cmd[2])+" = "
 		print " "+str(ret_cmd[1])
@@ -623,8 +640,11 @@ if __name__ == "__main__":
 	parser.add_option('-a', '--author', action='store', dest="author",\
 		help="Search for author")
 
+	parser.add_option('-A', '--added-on', action='store', dest="date",\
+		help="Search by date, usefull for when you want to commit back!")
+
 	parser.add_option('-p', '--print', action='store', dest="printer",\
-		help="Print Types : P(retty) p(astable) w(iki) h(tml)")
+		help="Print Types : P(retty) p(astable) w(iki) h(tml) d(ump)")
 
 	parser.add_option('-i', '--insert', action='store', dest="insert",\
 		help="Insert c(ommand) | t(ags) | r(eferances) | (E)verything")
