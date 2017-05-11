@@ -21,7 +21,7 @@ signal(SIGPIPE, SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ = "0.9.6"
+__version__ = "0.9.7"
 __prog__ = "rtfm"
 __authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017"]
 
