@@ -272,9 +272,11 @@ The people that deserve the credits will be in the reference table of the DB. Th
 
 # Thanks
 Thanks in no particular order :) : 
+```
 @VC : Fixing many a bug!
 @Rezkon : Suggesting new features and making the layout more sane
 @David : Being the beta tester and finding all the bugs!
 @Matthew S : Berating me into making the DB so much better and putting up with the n00b db questions
 @ECSC :  Allowing me to publish! Go check them out : https://ecsc.co.uk
 @Fabien : 'Just run FSCK in dry run mode' . . . ;D
+```
