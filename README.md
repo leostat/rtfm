@@ -277,3 +277,4 @@ Thanks in no particular order :) :
 @David : Being the beta tester and finding all the bugs!
 @Matthew S : Berating me into making the DB so much better and putting up with the n00b db questions
 @ECSC :  Allowing me to publish! Go check them out : https://ecsc.co.uk
+@Fabien : 'Just run FSCK in dry run mode' . . . ;D
