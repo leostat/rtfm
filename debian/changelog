@@ -1,3 +1,10 @@
+rtfm (0.98-RC1) Testing; urgency=medium
+
+  * Added A way of fixing typo's in the database
+  * Added program version checking
+  * Couple of code fixes
+
+ -- root <root@localhost.localdomain>  Sun, 13 June 2017 00:46:27 +0100
 rtfm (0.96-RC1) Testing; urgency=medium
 
   * Initial Package

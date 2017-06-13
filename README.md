@@ -128,11 +128,39 @@ https://necurity.co.uk/osprog/2017-02-27-RTFM-Pythonized/index.html
 # Updating your database
 
 RTFM implements a simple text file format to pull in updates to the database, these are shared VIA git, and implement a simple sha check to make sure they have not been corupt during download. The updates called by the command are 'safe' in the form they wont write over your DB, should you git pull, it probabley will overwrite your DB. If you are git cloning, you can move your database to '/etc/rtfm/snips.db' to protect your database file. 
-
 ```
 ./rtfm.py -u
+[WARNING]: No DB, please run rtfm -u
+[OK]: This may appear to hang. Run with debug to get more info
+[OK]: Program version information :
+[OK]: Your up to date :
+0.9.8
+ Added A way of fixing typo's in the database 
+ Added program version checking 
+ Couple of code fixes
+DATE
+1 
++++++++++++++++++++++++++++
+[OK]: Added Rows :1
+[OK]: Added a new tag and a tagmap
+[OK]: Added a new Ref and a refmap
+[OK]: Added a new Ref and a refmap
+[OK]: Added Rows :1
+[OK]: Added tags
+[OK]: Added a new tag and a tagmap
+[OK]: Added a new tag and a tagmap
+[OK]: Added a new Ref and a refmap
+[OK]: Added a new Ref and a refmap
+[OK]: Added Refs
+[OK]: Hopefully added lots of new commands
+[OK]: Parsed Line of update
+[OK]: Hopefully fixed lots of commands
+[OK]: Update complete
+
 	xx: Show update process
 ```
+
+The update process also now drags in errata for the local DB allowing me a centralised way of neatly fixing the typos which have filtered into the DB. These are set through https://raw.githubusercontent.com/leostat/rtfm/master/updates/errata.txt. This allows things to be 'fixed' without needing to remove anything from the database.
 
 # Inserting into the Database
 Like all good cheatsheets it is possible to add your own content to the database. This is managed through the -i segment of the program. When adding commands you must add them with comments, references, and tags. Else at the moment, they will not be returned from the DB. Minor bug really. There are two main methods of adding commands to the database, Either in three steps adding all the commands you wish, Tag these commands up, then insert references. Or in one step, adding all commands, along with their tags and references. Most of the time you will be wanting to call -E:

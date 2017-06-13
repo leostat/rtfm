@@ -21,7 +21,7 @@ signal(SIGPIPE, SIG_DFL)
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ = "0.9.7"
+__version__ = "0.9.8"
 __prog__ = "rtfm"
 __authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017"]
 
@@ -155,12 +155,38 @@ def Search(conn, sqlcmd, sqltpl, sqllst):
 
 
 def Updater(conn):
-	ok("This may appear to hang. Its due to my bad SQL, sorry, run with debug to get more info")
+	ok("This may appear to hang. Run with debug to get more info")
 	icmd = []
 	itags = []
 	irefs = []
+	athing = []
 	cur = conn.cursor()
 	cur.execute("PRAGMA journal_mode = MEMORY")
+
+	# First Check for Updates to the program
+	version_info = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/version.txt'
+	# version_info = 'http://127.0.0.1/version.txt'
+	ok('Program version information :')
+	req = urllib.urlopen(version_info)
+	updates = req.read().splitlines()
+	for line in updates:
+		update = line.split(',')
+		if update[0] == __version__:
+			ok("Your up to date :")
+			print update[0]
+			print update[1].replace('+','\n')
+			print update[2]
+			print update[3]
+			print "+++++++++++++++++++++++++++"
+			break
+		else:
+			print update[0]
+			print update[1].replace('+','\n')
+			print update[2]
+			print update[3]
+			print "+++++++++++++++++++++++++++"
+
+	# Now update the DB
 	uplist = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/updates.txt'
 	req = urllib.urlopen(uplist)
 	updates = req.read().splitlines()
@@ -212,7 +238,68 @@ def Updater(conn):
 			conn.commit()
 		else:
 			debug("XXX Skipping Update : "+update[1])
-		ok("Parsed Line")
+		ok("Parsed Line of update")
+	# This function checks for typo fixes to the DB
+	# XXX Late night hack, probabley a better way of doing this!, seems super innefficent
+	erlist = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/errata.txt'
+	# erlist= 'http://127.0.0.1/errata.txt'
+	req = urllib.urlopen(erlist)
+	updates = req.read().splitlines()
+	debug(str(updates))
+	for line in updates:
+		update = line.split(",")
+		debug("S : SELECT * from tblUpdates where hash like '"+update[1]+"'")
+		cur.execute("SELECT * from tblUpdates where hash like ?", (update[1], ))
+		row = cur.fetchall()
+		if len(row) == 0:
+			download = urllib.urlopen(update[2])
+			downfile = download.read()
+			hash = hashlib.sha1()
+			hash.update(downfile)
+			if update[1] == hash.hexdigest():
+				skipa = skipt = skipr = hack = conts = 0
+				sql = ""
+				for cmdline in downfile.splitlines():
+					if (conts == 1) and (cmdline != "EOU"):
+						conts = 0
+						athing.append(cmdline)
+						continue
+					if (cmdline in ('tblcommand', 'tbltagcontent', 'tblrefcontent')) and skipt == 0:
+						non_prep_table = cmdline
+						skipt = 1
+						continue
+					elif skipt == 0:
+						err("Typo in Errata : Aborting")
+					if (cmdline not in ('EOA', '')) and skipa == 0:
+						non_prep_row = cmdline
+						continue
+					elif skipa == 0:
+						skipa = 1
+						continue
+					if not skipr:
+						athing.append(cmdline)
+						skipr = 1
+						continue
+					if (cmdline != "EOU") and cmdline in ('cmd','cmnt','author','tag','ref'):
+						sql+=" AND "+cmdline+" LIKE ? "
+						conts = 1
+						continue
+					if cmdline == "EOU":
+						text="S : UPDATE '"+non_prep_table+"' SET '"+non_prep_row+"' = '"+athing[0]+"' WHERE 1"+sql
+						debug(text)
+						debug(str(athing))
+						sql_string="UPDATE '"+non_prep_table+"' SET '"+non_prep_row+"' = ? WHERE 1 "+sql
+						cur.execute(sql_string, (athing))
+						athing = []
+						sql = ""
+						hack = skipr = skipa = skipt = conts = 0
+			else:
+				warn("Warning SHA1 mis-match : Ignoring this one for now")
+				continue
+			ok("Hopefully fixed lots of commands")
+			debug("I: INSERT INTO tblupdates values (NULL, "+update[1]+", "+update[2]+", date('now')")
+			cur.execute("INSERT INTO tblupdates values (NULL, ?, ?, date('now'))", (update[1], update[2]))
+			conn.commit()
 	ok("Update complete")
 	exit()
 
@@ -632,7 +719,7 @@ if __name__ == "__main__":
 		help="Specify a command to search (ls)")
 
 	parser.add_option('-R', '--remark', action='store', dest="remark",\
-		help="Search the comments feilds")
+		help="Search the comments field")
 
 	parser.add_option('-r', '--reference', action='store', dest="refer",\
 		help="Search for the reference [reference]")
@@ -641,16 +728,16 @@ if __name__ == "__main__":
 		help="Search for author")
 
 	parser.add_option('-A', '--added-on', action='store', dest="date",\
-		help="Search by date, usefull for when you want to commit back!")
+		help="Search by date, useful for when you want to commit back!")
 
 	parser.add_option('-p', '--print', action='store', dest="printer",\
 		help="Print Types : P(retty) p(astable) w(iki) h(tml) d(ump)")
 
 	parser.add_option('-i', '--insert', action='store', dest="insert",\
-		help="Insert c(ommand) | t(ags) | r(eferances) | (E)verything")
+		help="Insert c(ommand) | t(ags) | r(eferances) | E(verything)")
 
 	parser.add_option('-D', '--dump', action='store', dest="dump",\
-		help="Just Dump infomration about t(ags)|c(commands)|r(eferances)a(ll)")
+		help="Just Dump information about t(ags)|c(commands)|r(eferances)a(ll)")
 
 	parser.add_option('-d', '--debug', action='store_true', dest="debug",\
 		help='Display verbose processing details (default: False)')

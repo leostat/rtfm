@@ -1,0 +1,1 @@
+0.9.8, Added A way of fixing typo's in the database + Added program version checking + Couple of code fixes,13/06/2017,8ca7516b920c11c7875a68a168d9f617203a4e11 
