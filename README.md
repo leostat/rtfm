@@ -3,10 +3,12 @@ RTFM is a great and useful book, BUT a bit pointless when you have to transcribe
 
 I would recommend picking up a copy of the book from Amazon, it is pretty handy to have!
 
-#Quick Start
+# Quick Start
+```
  $ chmod +x rtfm.py
  $ ./rtfm.py -u
  $ ./rtfm.py -c 'rtfm'
+```
 
 # Usage 
 ```
