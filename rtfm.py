@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/env python2.7
 """# Allright I know it should be python3
 ##
 # Inspired by : https://xkcd.com/293/
