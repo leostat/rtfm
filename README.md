@@ -54,6 +54,7 @@ Searching the DB is handled through the following switches: t, c, R, r, a and, A
 
 -c is search for a command. Use this when you know what command you want to look for, but can't quite remember the syntax. For example, if you want to quickly look up the syntax for a common sqlmap command. Useful for jumping straight to collections of common flags or one liners:
 ```
+19:54:root:rtfm: ./rtfm.py -pP -c 'sqlmap' 
 +----------------+--------------------------------------------------------------------------------------------------+
 | Added By @yght | Cmd ID : 162                                                                                     |
 +----------------+--------------------------------------------------------------------------------------------------+
@@ -69,6 +70,7 @@ Searching the DB is handled through the following switches: t, c, R, r, a and, A
 
 -t is search for a tag, tags are groups of similar commands, for example, XSS payloads. Use this when wanting a more generic search such as around flaws or around generic Windows commands:
 ```
+19:54:root:rtfm: ./rtfm.py -pP -t xss
 +----------------+------------------------------------------------------------------------------------+
 | Added By Innes | Cmd ID : 35                                                                        |
 +----------------+------------------------------------------------------------------------------------+
@@ -83,6 +85,7 @@ Searching the DB is handled through the following switches: t, c, R, r, a and, A
 | References     | https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet                     |
 |                | https://excess-xss.com/                                                            |
 +----------------+------------------------------------------------------------------------------------+
+<snip>
 ```
 
 All the Tags known about can be shown through -Dt, Currently a few typos that will be fixed in version 0.9.9:
