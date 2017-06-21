@@ -68,6 +68,7 @@ Searching the DB is handled through the following switches: t, c, R, r, a and, A
 ```
 
 -t is search for a tag, tags are groups of similar commands, for example, XSS payloads. Use this when wanting a more generic search such as around flaws or around generic Windows commands:
+```
 +----------------+------------------------------------------------------------------------------------+
 | Added By Innes | Cmd ID : 35                                                                        |
 +----------------+------------------------------------------------------------------------------------+
@@ -82,14 +83,12 @@ Searching the DB is handled through the following switches: t, c, R, r, a and, A
 | References     | https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet                     |
 |                | https://excess-xss.com/                                                            |
 +----------------+------------------------------------------------------------------------------------+
-
+```
 
 All the Tags known about can be shown through -Dt, Currently a few typos that will be fixed in version 0.9.9:
 ```
  $ rtfm.py -Dt
  | linux |  | bash |  | text manipulation |  | cisco |  | networking |  | loop |  | pivoting |  | files |  | passwords |  | enumeration |  | user information |  | interesting |  | scanning |  | hp |  | brute |  | http |  | web application |  | XSS |  | cookies |  | metasploit |  | certificates |  | stealth |  | smb |  | MitM |  | dns |  | package management |  | reverse shells |  | Windows |  | perl |  | python |  | php |  | ruby |  | sql injection |  | mysql |  | shell |  | mssql |  | Oracle |  | users |  | wireless |  | wifi |  | configuration |  | av evasion |  | powershell |  | memory |  | impacket |  | filesystem |  | IIS |  | process management |  | privilege escalation |  | remote command shell |  | hashes |  | recon |  | cracking |  | nessus |  | subnets |  | packet capture |  | reference |  | web address |  | java |  | solaris |  | forensics |  | ldap |  | Anti Virus |  | GIT |  | interesting  |  | Cloud |  | RDP |  | shells |  | encryption |  | Troll |  | buffer overflow |  | mona |  | interseting |  | brute force |  | Apple |  | encoding |  | ascii |  | web app |  | Cyber Essentials |  | tools |  | code execution |  | jsp | 
-
-
 ```
 
 The next one you will want is -R, this is for searching for a 'remark' (aka comment, didn't want two c flags), this is to search the comments field and is more along the lines of searching for techniques or generic terms such as 'X11' or 'exfil': 
@@ -369,6 +368,7 @@ $ rtfm: ./rtfm.py -i ta
 
 Enter a tag (blank for non) : 
 ```
+
 # Deleting content
 This is simple enough, 'tis just using:
 `rtfm.py --delete 1`
