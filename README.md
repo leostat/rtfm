@@ -381,6 +381,23 @@ Throughout the entire program, I have tried to add 'debug' calls '-d', these sho
 
 
 
+
+# Version 0.9.9 TODO
+ * Central way of adding, removing , tags
+ * Python three compat (See push)
+ * Fix the darn typos in the python program
+
+# Version 1.0.0 TODO
+ * Add a template system
+ * Add a spawn shell system
+
+# Version 2
+ * Coming way in the future
+ * Better text support
+ * nicer updating
+ * Python 3
+
+
 # The TODO  list
  * The 'important' functionality is present, but still lots of work to do
  * Changes are happening on the DB, which means it may 'break' from time to time, just do a git pull to fix 
