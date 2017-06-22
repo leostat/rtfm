@@ -6,14 +6,22 @@
 # Thanks for the Scaffolding Max!
 ##"""
 
+from __future__ import print_function
 import optparse
 import hashlib
 import sys
 import sqlite3
 import os.path
-import urllib
+try:                  # Python 3
+	from urllib.request import urlopen
+except ImportError:   # Python 2
+	from urllib.request import urlopen
 from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE, SIG_DFL)
+try:                  # Python 2
+	raw_input
+except NameError:     # Python 3
+	raw_input = input
 
 #########################################################################
 # RTFM: Just Read the Friggin Manual
@@ -167,28 +175,28 @@ def Updater(conn):
 	version_info = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/version.txt'
 	# version_info = 'http://127.0.0.1/version.txt'
 	ok('Program version information :')
-	req = urllib.urlopen(version_info)
+	req = urlopen(version_info)
 	updates = req.read().splitlines()
 	for line in updates:
 		update = line.split(',')
 		if update[0] == __version__:
 			ok("Your up to date :")
-			print update[0]
-			print update[1].replace('+','\n')
-			print update[2]
-			print update[3]
-			print "+++++++++++++++++++++++++++"
+			print(update[0])
+			print(update[1].replace('+','\n'))
+			print(update[2])
+			print(update[3])
+			print("+++++++++++++++++++++++++++")
 			break
 		else:
-			print update[0]
-			print update[1].replace('+','\n')
-			print update[2]
-			print update[3]
-			print "+++++++++++++++++++++++++++"
+			print(update[0])
+			print(update[1].replace('+','\n'))
+			print(update[2])
+			print(update[3])
+			print("+++++++++++++++++++++++++++")
 
 	# Now update the DB
 	uplist = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/updates.txt'
-	req = urllib.urlopen(uplist)
+	req = urlopen(uplist)
 	updates = req.read().splitlines()
 	for line in updates:
 		update = line.split(",")
@@ -196,7 +204,7 @@ def Updater(conn):
 		cur.execute("SELECT * from tblUpdates where hash like ?", (update[1], ))
 		row = cur.fetchall()
 		if len(row) == 0:
-			download = urllib.urlopen(update[2])
+			download = urlopen(update[2])
 			downfile = download.read()
 			hash = hashlib.sha1()
 			hash.update(downfile)
@@ -243,7 +251,7 @@ def Updater(conn):
 	# XXX Late night hack, probabley a better way of doing this!, seems super innefficent
 	erlist = 'https://raw.githubusercontent.com/leostat/rtfm/master/updates/errata.txt'
 	# erlist= 'http://127.0.0.1/errata.txt'
-	req = urllib.urlopen(erlist)
+	req = urlopen(erlist)
 	updates = req.read().splitlines()
 	debug(str(updates))
 	for line in updates:
@@ -252,7 +260,7 @@ def Updater(conn):
 		cur.execute("SELECT * from tblUpdates where hash like ?", (update[1], ))
 		row = cur.fetchall()
 		if len(row) == 0:
-			download = urllib.urlopen(update[2])
+			download = urlopen(update[2])
 			downfile = download.read()
 			hash = hashlib.sha1()
 			hash.update(downfile)
@@ -445,7 +453,7 @@ def Insert(conn):
 			ok("v These are known tags")
 			options.dump = 't'
 			Dump(conn)
-			print " == == ONE TAG A LINE == == \n"
+			print(" == == ONE TAG A LINE == == \n")
 			while tag != '':
 				tag = raw_input("Enter a tag (blank for none) : ")
 				if tag is not '':
@@ -496,30 +504,30 @@ def Dump(conn):
 		rows = cur.fetchall()
 		for cmd in rows:
 			debug(str(cmd[0]))
-			print cmd[1]
-			print cmd[2]
-			print 'EOC'
+			print(cmd[1])
+			print(cmd[2])
+			print('EOC')
 			tags = AsocTags(cur, cmd)
 			ltags = tags[-1].split("| ")
 			for tag in ltags:
 				if tag != '':
-					print tag
-			print 'EOT'
+					print(tag)
+			print('EOT')
 			refs = AsocRefs(cur, cmd)
 			lrefs = refs[-1].split("| ")
 			for ref in lrefs:
 				if ref != '':
-					print ref
-			print 'EOR'
+					print(ref)
+			print('EOR')
 		ok('Dumped all in update format. Why,  you stealing things?')
 	elif options.dump is 'c':
 		debug("Running Comand : SELECT * FROM Tblcommand")
 		cur.execute("SELECT * FROM Tblcommand")
 		rows = cur.fetchall()
 		for cmd in rows:
-			print cmd[1]
-			print cmd[2]
-			print 'EOC'
+			print(cmd[1])
+			print(cmd[2])
+			print('EOC')
 	elif options.dump is 't':
 		debug("Running Comand : SELECT tag FROM Tbltagcontent")
 		cur.execute("SELECT Tag FROM Tbltagcontent")
@@ -527,47 +535,47 @@ def Dump(conn):
 		for row in rows:
 			sys.stdout.write(str(" | "+row[0])+" | ")
 		sys.stdout.flush()
-		print
+		print()
 	elif options.dump is 'r':
 		debug("Running Comand : SELECT ref FROM Tblrefcontent")
 		cur.execute("SELECT ref FROM Tblrefcontent")
 		rows = cur.fetchall()
 		for row in rows:
-			print row[0]
-		print 'EOR'
+			print(row[0])
+		print('EOR')
 	else:
 		err("RTFM: rtfm -h")
 
 def PrintThing(ret_cmd):
 	if not options.printer:
-		print "++++++++++++++++++++++++++++++"
-		print "Command ID : "+str(ret_cmd[0])
-		print "Command    : "+str(ret_cmd[1])+'\n'
-		print "Comment    : "+str(ret_cmd[2])
-		print "Tags       : "+str(ret_cmd[5])
-		print "Date Added : "+str(ret_cmd[3])
-		print "Added By   : "+str(ret_cmd[4])
-		print "References\n__________\n"+str(ret_cmd[6].replace(',', '\n'))
-		print "++++++++++++++++++++++++++++++\n"
+		print("++++++++++++++++++++++++++++++")
+		print("Command ID : "+str(ret_cmd[0]))
+		print("Command    : "+str(ret_cmd[1])+'\n')
+		print("Comment    : "+str(ret_cmd[2]))
+		print("Tags       : "+str(ret_cmd[5]))
+		print("Date Added : "+str(ret_cmd[3]))
+		print("Added By   : "+str(ret_cmd[4]))
+		print("References\n__________\n"+str(ret_cmd[6].replace(',', '\n')))
+		print("++++++++++++++++++++++++++++++\n")
 	elif options.printer is 'p':
-		print "++++++++++++++++++++++++++++++"
-		print str(ret_cmd[1])+'\n'
-		print str(ret_cmd[2])
-		print "++++++++++++++++++++++++++++++\n"
+		print("++++++++++++++++++++++++++++++")
+		print(str(ret_cmd[1])+'\n')
+		print(str(ret_cmd[2]))
+		print("++++++++++++++++++++++++++++++\n")
 	elif options.printer is 'd':
-		print str(ret_cmd[1])
-		print str(ret_cmd[2])
-		print str(ret_cmd[4])
-		print 'EOC'
-		print str(ret_cmd[5].replace(',', '\n'))
-		print 'EOT'
-		print str(ret_cmd[6].replace(',', '\n'))
-		print 'EOR'
+		print(str(ret_cmd[1]))
+		print(str(ret_cmd[2]))
+		print(str(ret_cmd[4]))
+		print('EOC')
+		print(str(ret_cmd[5].replace(',', '\n')))
+		print('EOT')
+		print(str(ret_cmd[6].replace(',', '\n')))
+		print('EOR')
 	elif options.printer is 'w':
-		print "= "+str(ret_cmd[2])+" = "
-		print " "+str(ret_cmd[1])
-		print str(ret_cmd[5].replace(',', ', '))
-		print str(ret_cmd[6].replace(',', '\n'))
+		print("= "+str(ret_cmd[2])+" = ")
+		print(" "+str(ret_cmd[1]))
+		print(str(ret_cmd[5].replace(',', ', ')))
+		print(str(ret_cmd[6].replace(',', '\n')))
 	elif options.printer is 'P':
 		table_data = [\
 			["Added By " + str(ret_cmd[4]), "Cmd ID : " + str(ret_cmd[0])],
@@ -581,7 +589,7 @@ def PrintThing(ret_cmd):
 		max_width = table.column_max_width(1)
 		wrapped_string = '\n'.join(wrap(str(ret_cmd[1]), max_width))+"\n"
 		table.table_data[1][1] = wrapped_string
-		print table.table
+		print(table.table)
 	else:
 		err("Please seek help")
 
@@ -660,10 +668,10 @@ def AsocRefs(cur, cmd):
 
 def debug(msg, override=False):
 	if options.debug or override:
-		print ANSI["purple"] + ANSI["bold"] + "[DEBUG]: " + ANSI["reset"] + msg
+		print(ANSI["purple"] + ANSI["bold"] + "[DEBUG]: " + ANSI["reset"] + msg)
 
 def ok(msg):
-	print ANSI["green"] + ANSI["bold"] + "[OK]: " + ANSI["reset"] + msg
+	print(ANSI["green"] + ANSI["bold"] + "[OK]: " + ANSI["reset"] + msg)
 
 def warn(msg):
 	msg = ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + msg + "\n"
@@ -701,7 +709,7 @@ if __name__ == "__main__":
 	cur.execute(sql)
 	dbsversion = cur.fetchall()
 	if not dbsversion:
-		print ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + "No DB, please run rtfm -u"
+		print(ANSI["yellow"] + ANSI["bold"] + "[WARNING]: " + ANSI["reset"] + "No DB, please run rtfm -u")
 	parser = optparse.OptionParser(\
 		usage="Usage: %prog [OPTIONS]",
 		version="%s: v%s (%s) \nDB updates installed (Hash:URL) :\n %s" % (__prog__, __version__, \
@@ -754,5 +762,5 @@ if __name__ == "__main__":
 		debug("Options Set: "+str(options))
 		run()
 	except KeyboardInterrupt:
-		print "\n\nCancelled."
+		print("\n\nCancelled.")
 		sys.exit(0)
