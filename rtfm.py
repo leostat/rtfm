@@ -12,8 +12,7 @@ import sys
 import sqlite3
 import os.path
 import urllib
-from signal import signal, SIGPIPE, SIG_DFL
-signal(SIGPIPE, SIG_DFL)
+import signal
 
 #########################################################################
 # RTFM: Just Read the Friggin Manual
@@ -34,7 +33,6 @@ __authors__ = ["See References: They are the real writers! Program by Alex Innes
 ## Pipeline:
 ##  * Swap to more sophisticated SQL,  quite innefficent at the moment
 ##  * Create a HTML page 	      : H
-##  * create a WIKI format 	      : W
 ##  * Template engine(autofill [user] : A user = innes, pass = password, attacker = 1.1.1.1, victim = 2.2.2.2
 ##  * Make code more sane and betterize the layout
 ##
@@ -55,16 +53,30 @@ EXIT_CODES = {
 	"limit"   : 7,
 }
 
-ANSI = {
-	"white" : '\033[37m',
-	"purple" : '\033[95m',
-	"blue" : '\033[94m',
-	"green" : '\033[92m',
-	"yellow" : '\033[93m',
-	"red" : '\033[91m',
-	"bold" : '\033[1m',
-	"reset" : '\033[0m'
-}
+
+if os.name == 'nt':
+	ANSI = {
+	# TODO : make it look nice on windows
+		"white" : '',
+		"purple" : '',
+		"blue" : '',
+		"green" : '',
+		"yellow" : '',
+		"red" : '',
+		"bold" : '',
+		"reset" : ''
+	}
+else:
+	ANSI = {
+		"white" : '\033[37m',
+		"purple" : '\033[95m',
+		"blue" : '\033[94m',
+		"green" : '\033[92m',
+		"yellow" : '\033[93m',
+		"red" : '\033[91m',
+		"bold" : '\033[1m',
+		"reset" : '\033[0m'
+	}
 
 
 #########################################################################
@@ -695,7 +707,16 @@ if __name__ == "__main__":
 		conn = sqlite3.connect('/etc/rtfm/snips.db')
 		conn.text_factory = str
 	else:
-		err("Cant access the DB,  you're on your own.")
+		#try:
+		warn("Cant access the DB, creating a new one in the run path")
+		conn = sqlite3.connect('snips.db')
+		conn.text_factory = str
+		cur = conn.cursor()
+		f = open('clean.sql','r')
+		sql_db = f.read()
+		cur.executescript(sql_db)
+		#except:
+		#	err("Can not access a DB and can not create the file, giving up")
 	cur = conn.cursor()
 	sql = "SELECT hash,URL FROM TblUpdates"
 	cur.execute(sql)
