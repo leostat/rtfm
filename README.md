@@ -52,7 +52,7 @@ Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d
 Its pretty much a simple search program, nothing to fancy, examples include:
 
 # Searching the DB
-Searching the DB is handled through the following switches: e, t, c, R, r, a and, A. When you are just browsing for a command, you will want to use e:
+Searching the DB is handled through the following switches: e, t, c, R, r, a and, A. When you are just browsing for a command, you will want to use e as this looks at the command, comment, and referances all at the same time, useful if you know a bit about something such as x11:
 
 ```
 $ ./rtfm.py -e x11 -pP
