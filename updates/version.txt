@@ -1,2 +1,2 @@
 0.9.8, Added A way of fixing typo's in the database + Added program version checking + Couple of code fixes,13/06/2017,8ca7516b920c11c7875a68a168d9f617203a4e11
-1.0.0 Python3!,24/06/2018,2d98ba0e220228ae45ccf101ce4c06e82e970efa
+1.0.0,Python3!,24/06/2018,2d98ba0e220228ae45ccf101ce4c06e82e970efa
