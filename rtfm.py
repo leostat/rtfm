@@ -19,9 +19,9 @@ import signal
 #########################################################################
 # Copyright: lololol
 #########################################################################
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 __prog__ = "rtfm"
-__authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017"]
+__authors__ = ["See References: They are the real writers! Program by Alex Innes : 2017-2018"]
 
 #########################################################################
 ## Fixes:
@@ -566,6 +566,8 @@ def PrintThing(ret_cmd):
 		print("Added By   : "+str(ret_cmd[4]))
 		print("References\n__________\n"+str(ret_cmd[6].replace(',', '\n')))
 		print("++++++++++++++++++++++++++++++\n")
+	elif options.printer is 'c':
+		print(str(ret_cmd[1]))
 	elif options.printer is 'p':
 		print("++++++++++++++++++++++++++++++")
 		print(str(ret_cmd[1])+'\n')
@@ -712,16 +714,16 @@ if __name__ == "__main__":
 		conn = sqlite3.connect('/etc/rtfm/snips.db')
 		conn.text_factory = str
 	else:
-		#try:
-		warn("Cant access the DB, creating a new one in the run path")
-		conn = sqlite3.connect('snips.db')
-		conn.text_factory = str
-		cur = conn.cursor()
-		f = open('clean.sql','r')
-		sql_db = f.read()
-		cur.executescript(sql_db)
-		#except:
-		#	err("Can not access a DB and can not create the file, giving up")
+		try:
+			warn("Cant access the DB, creating a new one in the run path")
+			conn = sqlite3.connect(os.path.dirname(os.path.realpath(sys.argv[0]))+'/snips.db')
+			conn.text_factory = str
+			cur = conn.cursor()
+			f = open(os.path.dirname(os.path.realpath(sys.argv[0]))+'/clean.sql','r')
+			sql_db = f.read()
+			cur.executescript(sql_db)
+		except:
+			err("Can not access a DB and can not create the file, giving up :'( ")
 	cur = conn.cursor()
 	sql = "SELECT hash,URL FROM TblUpdates"
 	cur.execute(sql)
