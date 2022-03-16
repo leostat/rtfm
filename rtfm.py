@@ -89,29 +89,29 @@ def run():
 	if options.update:
 		Updater(conn)
 		iok = 1
-	if options.insert is not None:
+	if options.insert != None:
 		Insert(conn)
 		iok = 1
-	if options.SA is not None:
+	if options.SA != None:
 		sqlcmd.append(" AND (c.cmd LIKE ? OR c.cmnt like ? or tc.tag LIKE ? OR c.author LIKE ?)")
 		sqltpl.append("%"+options.SA+"%")
 		sqltpl.append("%"+options.SA+"%")
 		sqltpl.append("%"+options.SA+"%")
 		sqltpl.append("%"+options.SA+"%")
 		iok = 1
-	if options.cmd is not None:
+	if options.cmd != None:
 		sqlcmd.append(" AND c.cmd LIKE ?")
 		sqltpl.append("%"+options.cmd+"%")
 		iok = 1
-	if options.remark is not None:
+	if options.remark != None:
 		sqlcmd.append(" AND c.cmnt LIKE ?")
 		sqltpl.append("%"+options.remark+"%")
 		iok = 1
-	if options.author is not None:
+	if options.author != None:
 		sqlcmd.append(" AND c.author LIKE ?")
 		sqltpl.append("%"+options.author+"%")
 		iok = 1
-	if options.date is not None:
+	if options.date != None:
 		if options.date == 'today' or options.date == 'now':
 			sqlcmd.append(" AND c.date = date('now')")
 			iok = 1
@@ -119,17 +119,17 @@ def run():
 			sqlcmd.append(" AND c.date = ?")
 			sqltpl.append(options.date)
 			iok = 1
-	if options.refer is not None:
+	if options.refer != None:
 		for REF in options.refer.split(','):
 			sqllst.append(' group_concat(rc.ref) like ? ')
 			sqltpl.append("%"+REF+"%")
 		iok = 1
-	if options.tag is not None:
+	if options.tag != None:
 		for TAG in options.tag.split(','):
 			sqllst.append(' group_concat(tc.tag) like ? ')
 			sqltpl.append("%"+TAG+"%")
 		iok = 1
-	if options.delete is not None and options.delete.isdigit():
+	if options.delete != None and options.delete.isdigit():
 		cur = conn.cursor()
 		sql = "DELETE FROM tblcommand WHERE cmdid = ?"
 		debug(sql)
@@ -159,7 +159,7 @@ def Search(conn, sqlcmd, sqltpl, sqllst):
 	sql += " JOIN tblrefcontent rc on rc.id = rm.refid"
 	sql += " ".join(sqlcmd)
 	sql += " GROUP BY c.cmdid "
-	if options.refer is not None or options.tag is not None:
+	if options.refer != None or options.tag != None:
 		sql += ' HAVING '
 		sql += 'AND'.join(sqllst)
 	debug("S: "+sql)
@@ -328,13 +328,13 @@ def dbInsertTags(conn, tags, cmdid):
 		count = cur.fetchall()
 		if len(count) > 1:
 			err("More than one tag returned! "+str(count))
-		elif len(count) is 1:
+		elif len(count) == 1:
 			debug("Tag found : "+str(count[0][0]))
 			debug("I: INSERT INTO tbltagmap values ("+str(count[0][0])+", "+str(cmdid)+")")
 			cur.execute("INSERT INTO tbltagmap values (NULL, ?, ?)", (str(count[0][0]), str(cmdid)))
 			conn.commit()
 			ok("Added tags")
-		elif len(count) is 0:
+		elif len(count) == 0:
 			debug("Tag not found in DB")
 			debug("I: INSERT INTO tbltagcontent VALUES (NULL, '"+tag+"')")
 			cur.execute("INSERT INTO tbltagcontent values (NULL, ?)", (tag, ))
@@ -354,13 +354,13 @@ def dbInsertRefs(conn, refs, cmdid):
 		count = cur.fetchall()
 		if len(count) > 1:
 			err("More than one ref returned! "+str(count))
-		elif len(count) is 1:
+		elif len(count) == 1:
 			debug("Ref found : "+str(count[0][0]))
 			debug("I: INSERT INTO tblrefmap values ("+str(count[0][0])+", "+str(cmdid)+")")
 			cur.execute("INSERT INTO tblrefmap values (NULL, ?, ?)", (str(count[0][0]), str(cmdid)))
 			conn.commit()
 			ok("Added Refs")
-		elif len(count) is 0:
+		elif len(count) == 0:
 			debug("ref not found in DB")
 			debug("I: INSERT INTO tblrefcontent VALUES (NULL, '"+ref+"')")
 			cur.execute("INSERT INTO tblrefcontent values (NULL, ?)", (ref, ))
@@ -401,18 +401,18 @@ def dbInsertCmd(conn, cmds):
 
 
 def Insert(conn):
-	if options.insert is 't':
+	if options.insert == 't':
 		tags = []
 		tag = 'EasterEgg'
 		cmdid = input("What CMD are we adding tags too? : ")
 		while tag != '':
 			tag = input("Enter a tag (blank for none) : ")
-			if tag is not '':
+			if tag != '':
 				tags.append(tag)
-		if (tags is []) or (cmdid is '') or (not cmdid.isdigit()):
+		if (tags == []) or (cmdid == '') or (not cmdid.isdigit()):
 			err("No,  Just why  : "+str(cmdid)+" : "+str(tags))
 		dbInsertTags(conn, tags, cmdid)
-	elif options.insert is 'c':
+	elif options.insert == 'c':
 		cmds = []
 		cmd = 'wget http://'
 		while not (cmd == '' or cmd == 'EOC'):
@@ -423,15 +423,15 @@ def Insert(conn):
 				cmds.append((cmd, cmt, author))
 		dbInsertCmd(conn, cmds)
 		exit()
-	elif options.insert is 'r':
+	elif options.insert == 'r':
 		refs = []
 		ref = 'http://necurity.co.uk'
 		cmdid = input("What CmdID are we adding refs to? : ")
 		while ref != '':
 			ref = input("Enter a reference (blank for none) : ")
-			if ref is not '':
+			if ref != '':
 				refs.append(ref)
-		if (refs is []) or (cmdid is '') or (not cmdid.isdigit()):
+		if (refs == []) or (cmdid == '') or (not cmdid.isdigit()):
 			err("No,  Just why  : "+str(cmdid)+" : "+str(refs))
 		dbInsertRefs(conn, refs, cmdid)
 	elif options.insert == "ta":
@@ -465,9 +465,9 @@ def Insert(conn):
 			print(" == == ONE TAG A LINE == == \n")
 			while tag != '':
 				tag = input("Enter a tag (blank for none) : ")
-				if tag is not '':
+				if tag != '':
 					tags.append(tag)
-				if (tags is []) or (cmd is ''):
+				if (tags == []) or (cmd == ''):
 					err("No,  Just why  : "+str(cmd)+" : "+str(tags))
 			dbInsertTags(conn, tags, cmd[0])
 	elif options.insert == 'E':
@@ -484,16 +484,16 @@ def Insert(conn):
 			tag = 'EasterEgg'
 			while tag != '':
 				tag = input("Enter a tag (blank for end) : ")
-				if tag is not '':
+				if tag != '':
 					itags.append(tag)
-			if len(itags) is 0:
+			if len(itags) == 0:
 				err("No,  All parts required for E")
 			ref = 'https://lg.lc'
 			while ref != '':
 				ref = input("Enter a reference (blank for end) : ")
-				if ref is not '':
+				if ref != '':
 					irefs.append(ref)
-			if len(irefs) is 0:
+			if len(irefs) == 0:
 				err("No,  All parts required for E")
 			debug("Command : "+str(icmd))
 			debug("Tags : "+str(itags))
@@ -507,7 +507,7 @@ def Insert(conn):
 
 def Dump(conn):
 	cur = conn.cursor()
-	if options.dump is 'a':
+	if options.dump == 'a':
 		debug("S : SELECT * FROM Tblcommand")
 		cur.execute("SELECT * FROM Tblcommand")
 		rows = cur.fetchall()
@@ -529,7 +529,7 @@ def Dump(conn):
 					print(ref)
 			print('EOR')
 		ok('Dumped all in update format. Why,  you stealing things?')
-	elif options.dump is 'c':
+	elif options.dump == 'c':
 		debug("Running Comand : SELECT * FROM Tblcommand")
 		cur.execute("SELECT * FROM Tblcommand")
 		rows = cur.fetchall()
@@ -537,7 +537,7 @@ def Dump(conn):
 			print(cmd[1])
 			print(cmd[2])
 			print('EOC')
-	elif options.dump is 't':
+	elif options.dump == 't':
 		debug("Running Comand : SELECT tag FROM Tbltagcontent")
 		cur.execute("SELECT Tag FROM Tbltagcontent")
 		rows = cur.fetchall()
@@ -545,7 +545,7 @@ def Dump(conn):
 			sys.stdout.write(str(" | "+row[0])+" | ")
 		sys.stdout.flush()
 		print()
-	elif options.dump is 'r':
+	elif options.dump == 'r':
 		debug("Running Comand : SELECT ref FROM Tblrefcontent")
 		cur.execute("SELECT ref FROM Tblrefcontent")
 		rows = cur.fetchall()
@@ -566,14 +566,14 @@ def PrintThing(ret_cmd):
 		print("Added By   : "+str(ret_cmd[4]))
 		print("References\n__________\n"+str(ret_cmd[6].replace(',', '\n')))
 		print("++++++++++++++++++++++++++++++\n")
-	elif options.printer is 'c':
+	elif options.printer == 'c':
 		print(str(ret_cmd[1]))
-	elif options.printer is 'p':
+	elif options.printer == 'p':
 		print("++++++++++++++++++++++++++++++")
 		print(str(ret_cmd[1])+'\n')
 		print(str(ret_cmd[2]))
 		print("++++++++++++++++++++++++++++++\n")
-	elif options.printer is 'd':
+	elif options.printer == 'd':
 		print(str(ret_cmd[1]))
 		print(str(ret_cmd[2]))
 		print(str(ret_cmd[4]))
@@ -582,12 +582,12 @@ def PrintThing(ret_cmd):
 		print('EOT')
 		print(str(ret_cmd[6].replace(',', '\n')))
 		print('EOR')
-	elif options.printer is 'w':
+	elif options.printer == 'w':
 		print("= "+str(ret_cmd[2])+" = ")
 		print(" "+str(ret_cmd[1]))
 		print(str(ret_cmd[5].replace(',', ', ')))
 		print(str(ret_cmd[6].replace(',', '\n')))
-	elif options.printer is 'P':
+	elif options.printer == 'P':
 		table_data = [\
 			["Added By " + str(ret_cmd[4]), "Cmd ID : " + str(ret_cmd[0])],
 			["Command ", str(ret_cmd[1])],
@@ -613,7 +613,7 @@ def RefMapper(cur, refids):
 		text = cur.fetchall()
 		return text[0][0]
 	elif len(refids) > 1:
-		# TODO : Yeh i know this is bad,  but I will get round making it better at some point
+		# TODO : Yeh i know this == bad,  but I will get round making it better at some point
 		# AKA Yeh deal with it will probabley be here until the end of time
 		sql = "SELECT ref FROM tblrefcontent where id = -1 "
 		for refid in refids:
@@ -635,7 +635,7 @@ def TagMapper(cur, tagids):
 		text = cur.fetchall()
 		return text[0][0]
 	elif len(tagids) > 1:
-		# TODO : Yeh i know this is bad,  but I will get round making it better at some point
+		# TODO : Yeh i know this == bad,  but I will get round making it better at some point
 		# AKA Yeh deal with it will probabley be here until the end of time
 		sql = "SELECT tag FROM tbltagcontent where tagid = -1 "
 		for tagid in tagids:
